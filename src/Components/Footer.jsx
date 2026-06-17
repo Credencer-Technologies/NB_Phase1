@@ -28,10 +28,13 @@ const Footer = () => {
         <div className="footer-links">
           <h3>Categories</h3>
 
-          <a href="/">Beauty</a>
-          <a href="/">Mehndi</a>
-          <a href="/">Tailoring</a>
-          <a href="/">Tutoring</a>
+          <a href="/">Beauty & Wellness</a>
+          <a href="/">Mehandi & Bridal</a>
+          <a href="/">Tailoring & Fashion</a>
+          <a href="/">Education & Tutoring</a>
+          <a href="/">Yoga & Fitness</a>
+          <a href="/">Home Services</a>
+          <a href="/">Arts & Crafts</a>
         </div>
 
       </div>

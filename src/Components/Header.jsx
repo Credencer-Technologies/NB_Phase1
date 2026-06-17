@@ -13,6 +13,8 @@ const Header = () => {
           <li>Explore</li>
           <li>Providers</li>
           <li>About</li>
+          <li>Contact</li>
+          <li>Register/Login</li>
         </ul>
       </nav>
 
