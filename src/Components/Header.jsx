@@ -1,26 +1,37 @@
 import "./Header.css";
+import { FaSearch } from "react-icons/fa";
 
 const Header = () => {
   return (
     <header className="header">
+
       <div className="logo">
-        <span>NAARI</span>BAZAR
+        <span>Naari</span>Bazar
       </div>
 
-      <nav>
-        <ul className="nav-links">
-          <li>Home</li>
-          <li>Explore</li>
-          <li>Providers</li>
-          <li>About</li>
-          <li>Contact</li>
-          <li>Register/Login</li>
-        </ul>
-      </nav>
+      <div className="search-container">
+        <FaSearch className="search-icon" />
 
-      <button className="login-btn">
-        Login
-      </button>
+        <input
+          type="text"
+          placeholder="Search services, providers, categories..."
+        />
+      </div>
+
+      <div className="nav-actions">
+        <button className="login-btn">
+          Login
+        </button>
+
+        <button className="register-btn">
+          Register
+        </button>
+
+        <button className="dashboard-btn">
+          Dashboard
+        </button>
+      </div>
+
     </header>
   );
 };
