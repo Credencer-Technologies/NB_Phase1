@@ -12,12 +12,12 @@ const Footer = () => {
   return (
     <footer className="footer">
       <div className="footer-top">
+
         <div className="footer-brand">
           <h2>NaariBazar</h2>
 
           <p>
-            Empowering Women.
-            Connecting Services.
+            Empowering Women. Connecting Services.
             Across India.
           </p>
 
@@ -38,7 +38,10 @@ const Footer = () => {
               <FaWhatsapp />
             </a>
 
-            <a href="mailto:support@naaribazar.com" aria-label="Email">
+            <a
+              href="mailto:support@naaribazar.com"
+              aria-label="Email"
+            >
               <FaEnvelope />
             </a>
           </div>
@@ -65,6 +68,7 @@ const Footer = () => {
           <a href="/">Home Services</a>
           <a href="/">Arts & Crafts</a>
         </div>
+
       </div>
 
       <div className="footer-bottom">

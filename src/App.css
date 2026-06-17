@@ -1,27 +1,24 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&family=Roboto:wght@400;500&display=swap");
+
 :root {
   --primary: #d63384;
   --primary-dark: #b0256d;
-  --secondary: #fff0f6;
-
-  --text-dark: #2d2d2d;
-  --text-light: #666;
-
   --white: #ffffff;
-  --border: #ececec;
-
-  --shadow: 0 4px 20px rgba(0,0,0,0.08);
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+  --text-dark: #222;
+  --text-light: #666;
 }
 
 body {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   background: #fafafa;
-  color: var(--text-dark);
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
 }
 
 h1,
@@ -30,12 +27,5 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'Poppins', sans-serif;
-}
-
-button,
-input,
-select,
-a {
-  font-family: 'Inter', sans-serif;
+  font-family: "Poppins", sans-serif;
 }
