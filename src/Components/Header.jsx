@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./Header.css";
-import { FaSearch, FaBars, FaTimes } from "react-icons/fa";
+import { FaSearch } from "react-icons/fa";
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
