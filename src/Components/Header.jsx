@@ -1,9 +1,10 @@
 import { useState } from "react";
 import "./Header.css";
-import { FaSearch, FaBars, FaTimes } from "react-icons/fa";
+import { FaSearch } from "react-icons/fa";
+import {useNavigate} from "react-router-dom";
 
 const Header = () => {
-  const [menuOpen, setMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <header className="header">
@@ -19,13 +20,22 @@ const Header = () => {
         />
       </div>
 
-      <div className={`nav-actions ${menuOpen ? "active" : ""}`}>
-        <button className="login-btn">Login</button>
-        <button className="register-btn">Register</button>
-        <button className="dashboard-btn">Dashboard</button>
+      <div className="nav-actions">
+        <button className="login-btn">
+          Login
+        </button>
+<button
+  className="register-btn"
+  onClick={() => navigate("/register")}
+>
+  Register
+</button>
+
+        <button className="dashboard-btn">
+          Dashboard
+        </button>
       </div>
 
-      
     </header>
   );
 };
