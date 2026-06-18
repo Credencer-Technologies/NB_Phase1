@@ -1,9 +1,19 @@
 import { useState } from "react";
 import "./Header.css";
-import { FaSearch, FaBars, FaTimes } from "react-icons/fa";
+import { FaSearch, FaUserCircle } from "react-icons/fa";
 
 const Header = () => {
-  const [menuOpen, setMenuOpen] = useState(false);
+  // Change to true after successful login
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(false);
+
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    setShowDropdown(false);
+
+    // Later you can also do:
+    // localStorage.removeItem("isLoggedIn");
+  };
 
   return (
     <header className="header">
@@ -19,13 +29,31 @@ const Header = () => {
         />
       </div>
 
-      <div className={`nav-actions ${menuOpen ? "active" : ""}`}>
-        <button className="login-btn">Login</button>
-        <button className="register-btn">Register</button>
-        <button className="dashboard-btn">Dashboard</button>
-      </div>
+      <div className="nav-actions">
+        {!isLoggedIn ? (
+          <>
+            <button className="login-btn">Login</button>
+            <button className="register-btn">Register</button>
+          </>
+        ) : (
+          <div
+            className="profile-menu"
+            onMouseEnter={() => setShowDropdown(true)}
+            onMouseLeave={() => setShowDropdown(false)}
+          >
+            <FaUserCircle className="profile-icon" />
 
-      
+            {showDropdown && (
+              <div className="dropdown-menu">
+                <button>Dashboard</button>
+                <button onClick={handleLogout}>
+                  Logout
+                </button>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
     </header>
   );
 };

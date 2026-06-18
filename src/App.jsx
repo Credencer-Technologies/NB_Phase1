@@ -1,17 +1,21 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./Components/Header";
 import Footer from "./Components/Footer";
+import Home from "./Pages/Home";
 import Explore from "./Pages/Explore";
 
 function App() {
   return (
-    <>
+    <BrowserRouter>
       <Header />
-      <Explore />
 
-      {/* Page Content */}
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/explore" element={<Explore />} />
+      </Routes>
 
       <Footer />
-    </>
+    </BrowserRouter>
   );
 }
 
