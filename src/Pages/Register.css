@@ -1,668 +1,368 @@
-
 /* =========================
-   REGISTER PAGE
+ROOT VARIABLES
 ========================= */
 
+:root {
+--color-primary: #6B21A8;
+--color-primary-light: #A855F7;
+
+--color-accent: #DB2777;
+--color-accent-soft: #FCE7F3;
+
+--color-bg: #FAFAFA;
+--color-surface: #FFFFFF;
+
+--color-text-primary: #111827;
+--color-text-secondary: #6B7280;
+
+--color-success: #10B981;
+}
+
+/* =========================
+PAGE
+========================= */
+
+.register-page,
 .user-register-page {
-  min-height: 90vh;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 40px;
-  padding: 30px 50px;
-  position: relative;
-  overflow: hidden;
+min-height: 100vh;
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 40px;
+padding: 40px 60px;
+position: relative;
+overflow: hidden;
 }
 
-/* BACKGROUND */
-
-.user-register-page::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: url("/images/registerbg.jpg") center/cover;
-  filter: blur(4px);
-  transform: scale(1.08);
-  z-index: -2;
+.user-register-page::before,
+.register-page::before {
+content: "";
+position: absolute;
+inset: 0;
+background: url("/images/registerbg.jpg") center/cover;
+filter: blur(4px);
+transform: scale(1.05);
+z-index: -2;
 }
 
-.user-register-page::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(255, 240, 246, 0.55);
-  z-index: -1;
+.user-register-page::after,
+.register-page::after {
+content: "";
+position: absolute;
+inset: 0;
+background: rgba(255,240,246,0.55);
+z-index: -1;
 }
 
-/* LEFT CONTENT */
+/* =========================
+ROLE SWITCH
+========================= */
+
+.role-switch {
+position: absolute;
+top: 20px;
+left: 50%;
+transform: translateX(-50%);
+
+display: flex;
+gap: 10px;
+z-index: 10;
+}
+
+.role-switch button {
+padding: 12px 20px;
+border: none;
+border-radius: 12px;
+cursor: pointer;
+font-weight: 600;
+}
+
+.role-switch .active {
+background: var(--color-primary);
+color: white;
+}
+
+/* =========================
+LEFT CONTENT
+========================= */
 
 .left-content {
-  flex: 1;
-  max-width: 600px;
-  color: #111827;
-  animation: slideLeft 1s ease;
+flex: 1;
+max-width: 550px;
 }
 
 .left-content h1 {
-  font-size: 3.4rem;   /* Hero Heading */
-  font-weight: 700;
-  line-height: 1.15;
-  margin-bottom: 14px;
-  text-transform: uppercase;
-  font-family: "Poppins", sans-serif;
-  color: var(--color-text-primary);
+font-size: 3.2rem;
+line-height: 1.2;
+font-weight: 700;
+text-transform: uppercase;
 }
 
 .left-content h1 span {
-  color: var(--primary);
+color: var(--color-primary);
 }
 
 .left-content p {
-  font-size: 1.1rem;
-  color: #374151;
+margin-top: 15px;
+color: var(--color-text-secondary);
+line-height: 1.7;
 }
 
-/* CARD */
+/* =========================
+CARD
+========================= */
 
 .register-card {
-  width: 100%;
-  max-width: 560px;
+width: 100%;
+max-width: 550px;
 
-  background: rgba(255,255,255,0.2);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
+background: rgba(255,255,255,0.25);
+backdrop-filter: blur(18px);
+-webkit-backdrop-filter: blur(18px);
 
-  border: 1px solid rgba(255,255,255,0.35);
-  border-radius: 24px;
+border: 1px solid rgba(255,255,255,0.35);
+border-radius: 24px;
 
-  padding: 28px;
+padding: 30px;
 
-  box-shadow: 0 8px 32px rgba(31,38,135,.15);
-
-  animation:
-    zoomIn .8s ease,
-    floating 5s ease-in-out infinite;
-}
-
-.user-icon {
-  width: 65px;
-  height: 65px;
-
-  margin: 0 auto 15px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  border-radius: 50%;
-  font-size: 1.8rem;
-
-  background: rgba(214,51,132,.15);
+box-shadow: 0 10px 35px rgba(0,0,0,.12);
 }
 
 .register-card h2 {
-  text-align: center;
-  color: var(--primary);
-  margin-bottom: 8px;
+text-align: center;
+color: var(--color-primary);
+margin-bottom: 20px;
 }
 
-.sub-title {
-  text-align: center;
-  color: #555;
-  margin-bottom: 18px;
-  font-size: 14px;
+.register-card input,
+.register-card select,
+.register-card textarea {
+width: 100%;
+padding: 14px;
+border-radius: 12px;
+border: 1px solid #ddd;
+margin-bottom: 14px;
+outline: none;
+background: rgba(255,255,255,.9);
 }
 
-/* FORM */
-
-.register-card label {
-  display: block;
-  margin-bottom: 8px;
-  font-weight: 600;
+.register-card input:focus,
+.register-card select:focus,
+.register-card textarea:focus {
+border-color: var(--color-primary);
 }
 
-.register-card input {
-  width: 100%;
-  padding: 14px;
-
-  border: 1px solid #ddd;
-  border-radius: 12px;
-
-  background: rgba(255,255,255,.85);
-  outline: none;
-
-  margin-bottom: 14px;
-
-  transition: .3s;
-}
-
-.register-card input:focus {
-  border-color: var(--primary);
-  animation: pulse 1.5s infinite;
-}
-
-.register-card input::placeholder {
-  color: #9ca3af;
-}
-
-/* PHONE */
-
-.phone-box {
-  display: flex;
-  gap: 10px;
-}
-
-.phone-box input {
-  flex: 1;
-}
-
-/* BUTTONS */
+/* =========================
+BUTTONS
+========================= */
 
 .otp-btn,
-.register-btn {
-  height: 52px;
-  border: none;
-  border-radius: 12px;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-  transition: .3s;
+.register-btn,
+.verify-btn {
+height: 52px;
+border-radius: 12px;
+cursor: pointer;
+font-weight: 600;
+transition: .3s;
 }
 
 .otp-btn {
-  min-width: 130px;
+border: 2px solid var(--color-primary);
+background: white;
+color: var(--color-primary);
+}
 
-  background: rgba(255,255,255,.85);
-  border: 1px solid #ddd;
-
-  color: var(--primary);
-  font-weight: 600;
+.otp-btn:hover {
+background: var(--color-primary);
+color: white;
 }
 
 .register-btn {
-  width: 100%;
-  margin-top: 10px;
-
-  background: linear-gradient(
-    135deg,
-    var(--primary),
-    var(--primary-dark)
-  );
-
-  color: #fff;
-  font-weight: 600;
+width: 100%;
+border: none;
+color: white;
+background: linear-gradient(
+135deg,
+var(--color-primary),
+var(--color-primary-light)
+);
 }
 
-.otp-btn:hover {
-  background: var(--primary);
-  color: white;
+.verify-btn {
+width: 100%;
+border: none;
+color: white;
+background: var(--color-success);
 }
 
 .register-btn:hover,
-.otp-btn:hover {
-  transform: translateY(-2px);
+.verify-btn:hover {
+transform: translateY(-2px);
 }
 
-.otp-btn::before,
-.register-btn::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -120%;
-
-  width: 50%;
-  height: 100%;
-
-  background: rgba(255,255,255,.35);
-  transform: skewX(-25deg);
+.register-btn:disabled {
+background: #d1d5db;
+color: #6b7280;
+cursor: not-allowed;
 }
-
-.otp-btn:hover::before,
-.register-btn:hover::before {
-  animation: shine .8s ease;
-}
-
-/* LOGIN */
-
-.login-link {
-  text-align: center;
-  margin-top: 15px;
-}
-
-.login-link a {
-  color: var(--primary);
-  text-decoration: none;
-  font-weight: 600;
-}
-
-.login-link a:hover {
-  text-decoration: underline;
-}
-
-/* ANIMATIONS */
-
-@keyframes slideLeft {
-  from {
-    opacity: 0;
-    transform: translateX(-60px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes zoomIn {
-  from {
-    opacity: 0;
-    transform: scale(.9);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-@keyframes floating {
-  0%,100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-}
-
-@keyframes pulse {
-  0% {
-    box-shadow: 0 0 0 0 rgba(214,51,132,.4);
-  }
-  70% {
-    box-shadow: 0 0 0 10px rgba(214,51,132,0);
-  }
-  100% {
-    box-shadow: 0 0 0 0 rgba(214,51,132,0);
-  }
-}
-
-@keyframes shine {
-  100% {
-    left: 150%;
-  }
-}
-
-/* RESPONSIVE */
-
-@media (max-width: 992px) {
-
-  .user-register-page {
-    flex-direction: column;
-    text-align: center;
-    padding: 30px 20px;
-  }
-
-  .left-content h1 {
-    font-size: 2.8rem;
-  }
-
-  .register-card {
-    max-width: 100%;
-  }
-}
-
-@media (max-width: 576px) {
-
-  .left-content h1 {
-    font-size: 60px;
-  }
-
- .left-content p {
-  font-size: 30px;   /* Body text size (15–16px system) */
-  font-weight: 400;
-  line-height: 1.6;
-
-  color: var(--color-text-secondary);
-
-  max-width: 480px;
-}
-  .register-card {
-    padding: 22px;
-  }
-
-  .phone-box {
-    flex-direction: column;
-  }
-
-  .otp-btn {
-    width: 100%;
-  }
-}
-
-
 
 /* =========================
-   PROVIDER REGISTRATION
+PROVIDER LAYOUT
 ========================= */
 
+.provider-layout {
+width: 100%;
+max-width: 1300px;
+
+display: flex;
+gap: 30px;
+align-items: stretch;
+}
+
 .provider-guide {
-  flex: 1;
-  max-width: 420px;
-  padding: 30px;
+width: 340px;
 
-  background: rgba(255,255,255,0.65);
-  backdrop-filter: blur(12px);
+background: rgba(255,255,255,0.7);
+backdrop-filter: blur(14px);
 
-  border-radius: 24px;
+border-radius: 24px;
+padding: 30px;
 
-  box-shadow: 0 8px 24px rgba(0,0,0,.08);
+box-shadow: 0 8px 25px rgba(0,0,0,.1);
 }
 
 .provider-guide h2 {
-  font-family: "Poppins", sans-serif;
-  font-size: 32px;
-  font-weight: 600;
-  color: var(--color-text-primary);
-  margin-bottom: 12px;
+color: var(--color-primary);
+margin-bottom: 10px;
 }
 
 .provider-guide p {
-  font-family: "Inter", sans-serif;
-  font-size: 16px;
-  color: var(--color-text-secondary);
-  line-height: 1.6;
-  margin-bottom: 30px;
+color: var(--color-text-secondary);
+margin-bottom: 25px;
 }
 
-/* STEP LIST */
+/* =========================
+STEPS
+========================= */
 
 .step-list {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
+display: flex;
+flex-direction: column;
+gap: 18px;
 }
 
 .step-item {
-  display: flex;
-  align-items: center;
-  gap: 14px;
+display: flex;
+align-items: center;
+gap: 14px;
 }
 
 .step-item span {
-  width: 42px;
-  height: 42px;
+width: 42px;
+height: 42px;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+display: flex;
+align-items: center;
+justify-content: center;
 
-  border-radius: 50%;
-
-  font-family: "Poppins";
-  font-weight: 600;
-  font-size: 15px;
+border-radius: 50%;
+font-weight: 600;
 }
-
-.step-item p {
-  margin: 0;
-  font-family: "Poppins";
-  font-size: 16px;
-  font-weight: 500;
-}
-
-/* COMPLETED */
 
 .step-item.complete span {
-  background: var(--color-success);
-  color: white;
+background: var(--color-success);
+color: white;
 }
 
 .step-item.complete p {
-  color: var(--color-success);
+color: var(--color-success);
 }
 
-/* ACTIVE */
-
 .step-item.active span {
-  background: var(--color-primary);
-  color: white;
+background: linear-gradient(
+135deg,
+var(--color-primary),
+var(--color-primary-light)
+);
+color: white;
 }
 
 .step-item.active p {
-  color: var(--color-primary);
-  font-weight: 600;
+color: var(--color-primary);
+font-weight: 600;
 }
-
-/* PENDING */
 
 .step-item.pending span {
-  background: white;
-  border: 2px solid #E5E7EB;
-  color: var(--color-text-secondary);
-}
-
-.step-item.pending p {
-  color: var(--color-text-secondary);
+background: white;
+border: 2px solid #ddd;
 }
 
 /* =========================
-   PROVIDER CARD
-========================= */
-
-.provider-card {
-  max-width: 700px;
-}
-
-/* =========================
-   PROGRESS BAR
-========================= */
-
-.progress-header {
-  margin-bottom: 25px;
-}
-
-.progress-header p {
-  font-family: "Poppins";
-  font-size: 15px;
-  font-weight: 600;
-  color: var(--color-primary);
-  margin-bottom: 10px;
-}
-
-.progress-bar {
-  width: 100%;
-  height: 10px;
-
-  background: #E5E7EB;
-  border-radius: 50px;
-
-  overflow: hidden;
-}
-
-.progress-fill {
-  height: 100%;
-
-  background: linear-gradient(
-    90deg,
-    var(--color-primary),
-    var(--color-primary-light)
-  );
-
-  border-radius: 50px;
-
-  transition: 0.4s ease;
-}
-
-/* =========================
-   SELECT + TEXTAREA
-========================= */
-
-.register-card select,
-.register-card textarea {
-  width: 100%;
-
-  padding: 14px;
-
-  border: 1px solid #ddd;
-  border-radius: 12px;
-
-  background: rgba(255,255,255,.85);
-
-  outline: none;
-
-  margin-bottom: 14px;
-
-  font-family: "Inter";
-  font-size: 15px;
-}
-
-.register-card textarea {
-  resize: vertical;
-}
-
-.register-card select:focus,
-.register-card textarea:focus {
-  border-color: var(--color-primary);
-}
-
-/* =========================
-   BIO COUNTER
-========================= */
-
-.register-card small {
-  display: block;
-  margin-bottom: 16px;
-
-  font-size: 13px;
-  color: var(--color-text-secondary);
-}
-
-/* =========================
-   FILE PREVIEW
-========================= */
-
-.preview-image {
-  width: 100%;
-  max-height: 250px;
-
-  object-fit: contain;
-
-  border-radius: 12px;
-
-  margin-top: 10px;
-  margin-bottom: 15px;
-
-  border: 1px solid #ddd;
-}
-
-/* =========================
-   NAVIGATION BUTTONS
+NAV BUTTONS
 ========================= */
 
 .navigation-buttons {
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-  margin-top: 25px;
+display: flex;
+gap: 12px;
+margin-top: 20px;
 }
 
 .navigation-buttons .otp-btn,
 .navigation-buttons .register-btn {
-  flex: 1;
+flex: 1;
+width: auto;
 }
 
 /* =========================
-   SUMMARY
+LOGIN LINK
 ========================= */
 
-.summary-box {
-  background: var(--color-accent-soft);
-
-  padding: 18px;
-  border-radius: 16px;
-
-  margin-bottom: 20px;
+.login-link {
+text-align: center;
+margin-top: 15px;
 }
 
-.summary-box p {
-  margin-bottom: 10px;
-
-  font-family: "Inter";
-  font-size: 15px;
-
-  color: var(--color-text-primary);
-}
-
-.summary-box p:last-child {
-  margin-bottom: 0;
+.login-link a {
+color: var(--color-primary);
+text-decoration: none;
+font-weight: 600;
 }
 
 /* =========================
-   SUCCESS MESSAGE
-========================= */
-
-.success-message {
-  padding: 20px;
-
-  border-radius: 16px;
-
-  background: rgba(5,150,105,.08);
-
-  border: 1px solid rgba(5,150,105,.15);
-
-  color: var(--color-success);
-
-  text-align: center;
-
-  line-height: 1.7;
-
-  margin-bottom: 20px;
-
-  font-family: "Inter";
-  font-size: 15px;
-}
-
-/* =========================
-   RESEND OTP
-========================= */
-
-.resend-link {
-  color: var(--color-primary);
-  font-size: 14px;
-  cursor: pointer;
-  margin-top: 10px;
-}
-
-.resend-link:hover {
-  text-decoration: underline;
-}
-
-/* =========================
-   RESPONSIVE
+RESPONSIVE
 ========================= */
 
 @media (max-width: 992px) {
 
-  .provider-guide {
-    max-width: 100%;
-    width: 100%;
-  }
+.provider-layout,
+.user-register-page {
+flex-direction: column;
+}
 
-  .provider-card {
-    max-width: 100%;
-  }
+.provider-guide {
+width: 100%;
+}
+
+.left-content {
+text-align: center;
+}
+
+.left-content h1 {
+font-size: 2.5rem;
+}
 }
 
 @media (max-width: 768px) {
 
-  .step-item span {
-    width: 36px;
-    height: 36px;
-  }
+.navigation-buttons {
+flex-direction: column;
+}
 
-  .provider-guide h2 {
-    font-size: 24px;
-  }
+.left-content h1 {
+font-size: 2rem;
+}
 
-  .navigation-buttons {
-    flex-direction: column;
-  }
+.role-switch {
+flex-direction: column;
+}
 }

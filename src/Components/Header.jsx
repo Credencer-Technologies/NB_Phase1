@@ -1,10 +1,21 @@
 import { useState } from "react";
 import "./Header.css";
-import { FaSearch } from "react-icons/fa";
-import {useNavigate} from "react-router-dom";
+import { FaSearch, FaUserCircle } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const navigate = useNavigate();
+  // Change to true after successful login
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(false);
+
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    setShowDropdown(false);
+
+    // Later you can also do:
+    // localStorage.removeItem("isLoggedIn");
+  };
 
   return (
     <header className="header">
@@ -21,21 +32,36 @@ const Header = () => {
       </div>
 
       <div className="nav-actions">
-        <button className="login-btn">
-          Login
-        </button>
-<button
-  className="register-btn"
-  onClick={() => navigate("/register")}
+        {!isLoggedIn ? (
+          <>
+        <button
+  className="login-btn"
+  onClick={() => navigate("/login")}
 >
-  Register
+  Login
 </button>
 
-        <button className="dashboard-btn">
-          Dashboard
-        </button>
-      </div>
+            <button className="register-btn">Register</button>
+          </>
+        ) : (
+          <div
+            className="profile-menu"
+            onMouseEnter={() => setShowDropdown(true)}
+            onMouseLeave={() => setShowDropdown(false)}
+          >
+            <FaUserCircle className="profile-icon" />
 
+            {showDropdown && (
+              <div className="dropdown-menu">
+                <button>Dashboard</button>
+                <button onClick={handleLogout}>
+                  Logout
+                </button>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
     </header>
   );
 };

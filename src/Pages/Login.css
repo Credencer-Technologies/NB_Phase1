@@ -1,0 +1,263 @@
+/* Core Page Layout with Reference Blur Background */
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  position: relative;
+  overflow: hidden; /* Prevents scaled background from causing scrollbars */
+}
+
+/* Inherited blurred background structure from your reference design */
+/* LOGIN BACKGROUND */
+
+.login-page::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url("/images/login-bg.jpg") center center/cover no-repeat;
+  filter: blur(4px);
+  transform: scale(1.08);
+  z-index: -2;
+}
+
+/* REGISTER CHOICE BACKGROUND */
+
+.login-page.register-mode::before {
+  background: url("/images/register-bg.jpg") center center/cover no-repeat;
+}
+
+.login-page::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0.25);
+  z-index: -1;
+  background: url("/images/register-bg.jpg") center center/cover no-repeat;
+
+  
+}
+
+/* Right Placement Section */
+.login-right {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding-right: 100px;
+  z-index: 2;
+}
+
+/* Glassmorphism Form Card */
+.login-card {
+  width: 380px;
+
+  background: rgba(255,255,255,0.20);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+
+  border: 1px solid rgba(255,255,255,0.35);
+  border-radius: 24px;
+
+  padding: 30px;
+
+  box-shadow: 0 10px 35px rgba(0,0,0,.15);
+
+  transition: all .3s ease;
+}
+
+.login-card:hover {
+  transform: translateY(-3px);
+}
+.login-card h2 {
+  text-align: center;
+  font-size: 30px;
+  font-weight: 700;
+  color: #6B21A8;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  text-align: center;
+  color: #6B7280;
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+/* Typography & Interactive Element Defaults */
+.otp-btn,
+.login-btn,
+.register-option {
+  width: 100%;
+  height: 54px;
+
+  margin-top: 12px;
+
+  border-radius: 14px;
+  border: 2px solid #E9D5FF;
+
+  background: rgba(255,255,255,0.9);
+
+  color: #6B21A8;
+  font-weight: 600;
+}
+
+.register-option:hover {
+  background: #6B21A8;
+  color: white;
+  border-color: #6B21A8;
+}
+
+.login-card label {
+  display: block;
+  margin-bottom: 8px;
+  margin-top: 18px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  color: #111827;
+}
+
+/* Input Fields */
+.login-card input,
+.otp-input {
+  width: 100%;
+  box-sizing: border-box;
+  height: 48px;
+  background: #FFFFFF;
+  border: 1px solid #E5E7EB;
+  border-radius: 12px;
+  padding: 0 16px;
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  color: #111827;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.login-card input::placeholder,
+.otp-input::placeholder {
+  color: #9CA3AF;
+}
+
+.login-card input:focus,
+.otp-input:focus {
+  border-color: #A855F7;
+  box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.15);
+}
+
+/* Send OTP Button Setup */
+.otp-btn {
+  width: 100%;
+  height: 48px;
+  margin-top: 16px;
+  background: #FCE7F3;
+  color: #DB2777;
+  border: 1px solid rgba(219, 39, 119, 0.15);
+  border-radius: 12px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.otp-btn:hover {
+  background: #FBCFE8;
+  transform: translateY(-1px);
+}
+
+/* Verify & Login Button Setup */
+.login-btn {
+  width: 100%;
+  height: 52px;
+  margin-top: 20px;
+  background: #6B21A8;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 12px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  box-shadow: 0 6px 18px rgba(107, 33, 168, 0.25);
+}
+
+.login-btn:hover {
+  background: #A855F7;
+  transform: translateY(-2px);
+}
+
+/* Bottom Nav Links */
+.register-link {
+  text-align: center;
+  margin-top: 22px;
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  color: #6B7280;
+}
+
+.register-link span {
+  color: #6B21A8;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.register-link span:hover {
+  color: #A855F7;
+}
+
+/* Option Buttons inside Registration toggle block */
+.register-popup {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.register-option {
+  width: 100%;
+  height: 50px;
+  margin-top: 10px;
+
+  border: 1px solid rgba(107, 33, 168, 0.15);
+  border-radius: 12px;
+
+  background: var(--color-surface);
+  color: var(--color-text-primary);
+
+  font-family: "Poppins", sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.register-option:hover {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-surface);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(107, 33, 168, 0.25);
+}
+.back-login-btn {
+  width: 100%;
+  height: 50px;
+  margin-top: 12px;
+
+  background: transparent;
+  border: 1px solid #6B21A8;
+  border-radius: 12px;
+
+  color: #6B21A8;
+  font-family: "Poppins", sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.back-login-btn:hover {
+  background: #6B21A8;
+  color: white;
+}

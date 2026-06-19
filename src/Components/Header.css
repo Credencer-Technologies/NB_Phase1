@@ -188,3 +188,45 @@
     width: 100%;
   }
 }
+<<<<<<< HEAD
+=======
+.profile-menu {
+  position: relative;
+}
+
+.profile-icon {
+  font-size: 34px;
+  color: #d63384;
+  cursor: pointer;
+}
+
+.profile-icon:hover {
+  color: #b0256d;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 45px;
+  right: 0;
+  width: 170px;
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+}
+
+.dropdown-menu button {
+  width: 100%;
+  padding: 12px 15px;
+  border: none;
+  background: white;
+  cursor: pointer;
+  text-align: left;
+  font-size: 15px;
+}
+
+.dropdown-menu button:hover {
+  background: #f5f5f5;
+}
+>>>>>>> f94f07f00242892af8e14531dded9d5347f9f484
