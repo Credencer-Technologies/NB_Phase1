@@ -32,6 +32,12 @@ const Header = () => {
           </div>
         </Link>
       </div>
+      <nav className="nav-links">
+        <Link to="/">Home</Link>
+        <Link to="/explore">Explore</Link>
+        <Link to="/about">About</Link>
+        <Link to="/contact">Contact Us</Link>
+      </nav>
 
       {/* Search */}
       <div className="search-container">

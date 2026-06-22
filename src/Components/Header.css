@@ -3,15 +3,12 @@
 .header {
   width: 100%;
   height: 80px;
-  padding: 0 5%;
-  background: #ffffff;
-
-  display: flex;
+  padding: 0 50px;
+  background: #fff;
+  display: grid;
+  grid-template-columns: auto 1fr auto auto;
   align-items: center;
-  justify-content: space-between;
-
-  box-sizing: border-box;
-
+  gap: 40px;
   position: sticky;
   top: 0;
   z-index: 1000;
@@ -22,27 +19,22 @@
 /* ================= LOGO ================= */
 
 .logo {
-  white-space: nowrap;
+  flex: 0 0 auto;
 }
 
 .logo a {
   display: flex;
   align-items: center;
   gap: 12px;
-
   text-decoration: none;
   cursor: pointer;
-
-  transition: all 0.3s ease;
 }
 
 .logo img {
   width: 55px;
   height: 55px;
   border-radius: 50%;
-
   object-fit: cover;
-
   transition: all 0.3s ease;
 }
 
@@ -50,7 +42,6 @@
   font-size: 2rem;
   font-weight: 700;
   color: #5e2ca5;
-
   transition: all 0.3s ease;
 }
 
@@ -58,52 +49,36 @@
   color: #d63384;
 }
 
-<<<<<<< HEAD
-/* Logo Hover Effects */
-
 .logo a:hover img {
-  transform: scale(1.08) rotate(3deg);
+  transform: scale(1.08);
   box-shadow: 0 6px 15px rgba(214, 51, 132, 0.25);
 }
 
 .logo a:hover .logo-text {
-  transform: translateY(-2px);
   color: #7b2cbf;
-}
-
-.logo a:hover .logo-text span {
-  color: #ff4d8d;
-}
-
-.logo a:active {
-  transform: scale(0.98);
 }
 
 /* ================= SEARCH ================= */
 
-=======
->>>>>>> 56220394ce3c640e650d24c4886b1cb72a7de0c7
 .search-container {
-  width: 40%;
+  flex: 1;
+  width: 350px;
+  margin: 0 50px;
   position: relative;
 }
 
 .search-container input {
   width: 100%;
   height: 48px;
-
-  padding-left: 45px;
-  padding-right: 20px;
+  padding: 0 20px 0 45px;
 
   border: 1px solid #e5e5e5;
   border-radius: 30px;
 
   outline: none;
-
   font-size: 15px;
 
   transition: all 0.3s ease;
-  box-sizing: border-box;
 }
 
 .search-container input:focus {
@@ -115,49 +90,58 @@
   position: absolute;
   left: 18px;
   top: 50%;
-
   transform: translateY(-50%);
-
   color: #888;
-  font-size: 15px;
 }
 
-<<<<<<< HEAD
-/* ================= NAV ACTIONS ================= */
+/* ================= ACTIONS ================= */
 
-=======
->>>>>>> 56220394ce3c640e650d24c4886b1cb72a7de0c7
 .nav-actions {
   display: flex;
   align-items: center;
-  gap: 12px;
+}
+.nav-links {
+  display: flex;
   align-items: center;
+  gap: 35px;
+  white-space: nowrap;
 }
 
-<<<<<<< HEAD
-/* ================= LOGIN BUTTON ================= */
-=======
-.login-btn,
-.register-btn,
-.dashboard-btn {
-  border: none;
-  padding: 10px 20px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-family: "Inter", sans-serif;
+.nav-links a {
+  text-decoration: none;
+  color: #333;
+  font-size: 16px;
   font-weight: 600;
-
-  transition: 0.3s;
+  transition: all 0.3s ease;
+  position: relative;
 }
->>>>>>> 56220394ce3c640e650d24c4886b1cb72a7de0c7
 
-/* LOGIN */
+.nav-links a:hover {
+  color: #d63384;
+}
+
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -5px;
+  width: 0;
+  height: 2px;
+  background: #d63384;
+  transition: 0.3s ease;
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+/* ================= LOGIN BUTTON ================= */
+
 .login-btn {
+  min-width: 110px;
+  height: 46px;
+
   border: none;
-
-  padding: 10px 24px;
-
-  border-radius: 10px;
+  border-radius: 12px;
 
   background: linear-gradient(
     135deg,
@@ -170,133 +154,20 @@
   font-weight: 600;
 
   cursor: pointer;
-
   transition: all 0.3s ease;
 }
 
 .login-btn:hover {
   transform: translateY(-2px);
-
-  box-shadow: 0 8px 18px rgba(
-    123,
-    44,
-    191,
-    0.25
-  );
+  box-shadow: 0 8px 18px rgba(123, 44, 191, 0.25);
 }
 
-<<<<<<< HEAD
 .login-btn:active {
-=======
-.login-btn:hover {
-  background: #d63384;
-  color: #fff;
-}
-
-/* REGISTER */
-.register-btn {
-  background: #d63384;
-  color: #fff;
-  border: 1px solid #d63384;
-}
-
-.register-btn:hover {
-  background: #c2186a;
-  transform: translateY(-2px);
-}
-
-.register-btn:hover {
-  background: #b0256d;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 10px rgba(214, 51, 132, 0.3);
-}
-
-/* DASHBOARD */
-.dashboard-btn {
-  background: #f5f5f5;
-  color: #333;
-}
-
-.dashboard-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-}
-.login-btn:active,
-.register-btn:active,
-.dashboard-btn:active {
->>>>>>> 56220394ce3c640e650d24c4886b1cb72a7de0c7
   transform: scale(0.97);
 }
 
 /* ================= PROFILE ================= */
 
-<<<<<<< HEAD
-=======
-/* =================== Tablet =================== */
-
-@media (max-width: 992px) {
-
-  .search-container {
-    max-width: 350px;
-  }
-
-  .login-btn,
-  .register-btn,
-  .dashboard-btn {
-    padding: 8px 12px;
-    font-size: 14px;
-  }
-}
-
-/* =================== Mobile =================== */
-
-@media (max-width: 768px) {
-
-  .header {
-    height: auto;
-    padding: 15px;
-    flex-wrap: wrap;
-  }
-
-  .search-container {
-    order: 3;
-    width: 100%;
-    max-width: 100%;
-  }
-
-  .menu-icon {
-    display: block;
-  }
-
-  .nav-actions {
-    display: none;
-    position: absolute;
-    top: 75px;
-    right: 15px;
-    width: 220px;
-
-    background: white;
-    flex-direction: column;
-    padding: 15px;
-
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, .15);
-    z-index: 1000;
-  }
-
-  .nav-actions.active {
-    display: flex;
-  }
-
-  .login-btn,
-  .register-btn,
-  .dashboard-btn {
-    width: 100%;
-  }
-}
-<<<<<<< HEAD
-=======
->>>>>>> 56220394ce3c640e650d24c4886b1cb72a7de0c7
 .profile-menu {
   position: relative;
 }
@@ -305,8 +176,6 @@
   font-size: 34px;
   color: #d63384;
   cursor: pointer;
-
-  transition: 0.3s ease;
 }
 
 .profile-icon:hover {
@@ -317,72 +186,42 @@
 
 .dropdown-menu {
   position: absolute;
-
   top: 45px;
   right: 0;
 
   width: 180px;
-
   background: white;
 
   border-radius: 12px;
-
   overflow: hidden;
 
-  box-shadow: 0 5px 15px rgba(
-    0,
-    0,
-    0,
-    0.15
-  );
-
-  z-index: 1000;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
 }
 
 .dropdown-menu button {
   width: 100%;
-
   padding: 12px 15px;
 
   border: none;
   background: white;
 
   text-align: left;
-
   cursor: pointer;
-
-  font-size: 15px;
-
-  transition: 0.2s ease;
 }
 
 .dropdown-menu button:hover {
   background: #f5f5f5;
 }
-<<<<<<< HEAD
-
-/* ================= MENU ICON ================= */
-
-.menu-icon {
-  display: none;
-  font-size: 24px;
-  cursor: pointer;
-}
 
 /* ================= TABLET ================= */
 
 @media (max-width: 992px) {
-  .search-container {
-    max-width: 350px;
-  }
-
   .logo-text {
     font-size: 1.6rem;
   }
 
-  .login-btn {
-    padding: 8px 16px;
-    font-size: 14px;
+  .search-container {
+    max-width: 350px;
   }
 }
 
@@ -390,68 +229,28 @@
 
 @media (max-width: 768px) {
   .header {
+    flex-wrap: wrap;
     height: auto;
     padding: 15px;
-
-    flex-wrap: wrap;
   }
 
   .search-container {
     width: 100%;
     max-width: 100%;
-
+    margin: 15px 0 0;
     order: 3;
   }
 
-  .logo-text {
-    font-size: 1.4rem;
-  }
-
   .logo img {
-    width: 45px;
-    height: 45px;
+    width: 50px;
+    height: 50px;
   }
 
-  .menu-icon {
-    display: block;
-  }
-
-  .nav-actions {
-    display: none;
-
-    position: absolute;
-
-    top: 75px;
-    right: 15px;
-
-    width: 220px;
-
-    background: white;
-
-    flex-direction: column;
-
-    padding: 15px;
-
-    border-radius: 12px;
-
-    box-shadow: 0 5px 15px rgba(
-      0,
-      0,
-      0,
-      0.15
-    );
-
-    z-index: 1000;
-  }
-
-  .nav-actions.active {
-    display: flex;
+  .logo-text {
+    font-size: 1.8rem;
   }
 
   .login-btn {
-    width: 100%;
+    min-width: 90px;
   }
 }
-=======
->>>>>>> f94f07f00242892af8e14531dded9d5347f9f484
->>>>>>> 56220394ce3c640e650d24c4886b1cb72a7de0c7

@@ -1,5 +1,5 @@
 import Hero from "../Components/Hero";
-import Categories from "../Components/Categories";
+import BrowseCategories from "../Components/BrowseCategories";
 import FeaturedProviders from "../Components/FeaturedProviders";
 import HowItWorks from "../Components/HowItWorks";
 
@@ -8,7 +8,7 @@ const Home = () => {
     <>
       <Hero />
 
-      <Categories />
+      <BrowseCategories />
 
       <FeaturedProviders />
 

@@ -1,0 +1,87 @@
+.browse-categories {
+  padding: 70px 5%;
+  background: #fff;
+}
+
+.browse-categories h2 {
+  text-align: center;
+  font-size: 2.5rem;
+  color: #5e2ca5;
+  margin-bottom: 40px;
+}
+
+.category-row {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.category-row::-webkit-scrollbar {
+  display: none;
+}
+
+.category-card {
+  min-width: 260px;
+  height: 180px;
+  position: relative;
+  border-radius: 18px;
+  overflow: hidden;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: 0.3s ease;
+}
+
+.category-card:hover {
+  transform: translateY(-8px);
+}
+
+.category-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.category-content {
+  position: absolute;
+  inset: 0;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+
+  padding: 16px;
+
+  background: linear-gradient(
+    to top,
+    rgba(0,0,0,0.75),
+    rgba(0,0,0,0.1)
+  );
+}
+
+.category-content h3 {
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  width: 70%;
+  margin: 0;
+}
+
+.arrow-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+
+  background: white;
+  color: #d63384;
+
+  font-size: 18px;
+  font-weight: bold;
+
+  cursor: pointer;
+}
+
+.category-card:hover .arrow-btn {
+  transform: scale(1.1);
+}
