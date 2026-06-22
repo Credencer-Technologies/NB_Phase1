@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import "./Header.css";
 import { FaSearch, FaUserCircle } from "react-icons/fa";
 
 const Header = () => {
+  const navigate = useNavigate();
   // Change to true after successful login
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
@@ -18,7 +20,15 @@ const Header = () => {
   return (
     <header className="header">
       <div className="logo">
-        <span>Naari</span>Bazar
+        <Link to="/">
+          <img
+            src="/image/Logo.jpeg"
+            alt="Logo"
+          />
+          <div className="logo-text">
+            <span>NarriBazar</span>
+          </div>
+        </Link>
       </div>
 
       <div className="search-container">
@@ -31,10 +41,12 @@ const Header = () => {
 
       <div className="nav-actions">
         {!isLoggedIn ? (
-          <>
-            <button className="login-btn">Login</button>
-            <button className="register-btn">Register</button>
-          </>
+          <button
+            className="login-btn"
+            onClick={() => navigate("/login")}
+          >
+            Login
+          </button>
         ) : (
           <div
             className="profile-menu"

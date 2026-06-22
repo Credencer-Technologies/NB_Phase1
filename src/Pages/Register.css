@@ -1,0 +1,368 @@
+/* =========================
+ROOT VARIABLES
+========================= */
+
+:root {
+--color-primary: #6B21A8;
+--color-primary-light: #A855F7;
+
+--color-accent: #DB2777;
+--color-accent-soft: #FCE7F3;
+
+--color-bg: #FAFAFA;
+--color-surface: #FFFFFF;
+
+--color-text-primary: #111827;
+--color-text-secondary: #6B7280;
+
+--color-success: #10B981;
+}
+
+/* =========================
+PAGE
+========================= */
+
+.register-page,
+.user-register-page {
+min-height: 100vh;
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 40px;
+padding: 40px 60px;
+position: relative;
+overflow: hidden;
+}
+
+.user-register-page::before,
+.register-page::before {
+content: "";
+position: absolute;
+inset: 0;
+background: url("/images/registerbg.jpg") center/cover;
+filter: blur(4px);
+transform: scale(1.05);
+z-index: -2;
+}
+
+.user-register-page::after,
+.register-page::after {
+content: "";
+position: absolute;
+inset: 0;
+background: rgba(255,240,246,0.55);
+z-index: -1;
+}
+
+/* =========================
+ROLE SWITCH
+========================= */
+
+.role-switch {
+position: absolute;
+top: 20px;
+left: 50%;
+transform: translateX(-50%);
+
+display: flex;
+gap: 10px;
+z-index: 10;
+}
+
+.role-switch button {
+padding: 12px 20px;
+border: none;
+border-radius: 12px;
+cursor: pointer;
+font-weight: 600;
+}
+
+.role-switch .active {
+background: var(--color-primary);
+color: white;
+}
+
+/* =========================
+LEFT CONTENT
+========================= */
+
+.left-content {
+flex: 1;
+max-width: 550px;
+}
+
+.left-content h1 {
+font-size: 3.2rem;
+line-height: 1.2;
+font-weight: 700;
+text-transform: uppercase;
+}
+
+.left-content h1 span {
+color: var(--color-primary);
+}
+
+.left-content p {
+margin-top: 15px;
+color: var(--color-text-secondary);
+line-height: 1.7;
+}
+
+/* =========================
+CARD
+========================= */
+
+.register-card {
+width: 100%;
+max-width: 550px;
+
+background: rgba(255,255,255,0.25);
+backdrop-filter: blur(18px);
+-webkit-backdrop-filter: blur(18px);
+
+border: 1px solid rgba(255,255,255,0.35);
+border-radius: 24px;
+
+padding: 30px;
+
+box-shadow: 0 10px 35px rgba(0,0,0,.12);
+}
+
+.register-card h2 {
+text-align: center;
+color: var(--color-primary);
+margin-bottom: 20px;
+}
+
+.register-card input,
+.register-card select,
+.register-card textarea {
+width: 100%;
+padding: 14px;
+border-radius: 12px;
+border: 1px solid #ddd;
+margin-bottom: 14px;
+outline: none;
+background: rgba(255,255,255,.9);
+}
+
+.register-card input:focus,
+.register-card select:focus,
+.register-card textarea:focus {
+border-color: var(--color-primary);
+}
+
+/* =========================
+BUTTONS
+========================= */
+
+.otp-btn,
+.register-btn,
+.verify-btn {
+height: 52px;
+border-radius: 12px;
+cursor: pointer;
+font-weight: 600;
+transition: .3s;
+}
+
+.otp-btn {
+border: 2px solid var(--color-primary);
+background: white;
+color: var(--color-primary);
+}
+
+.otp-btn:hover {
+background: var(--color-primary);
+color: white;
+}
+
+.register-btn {
+width: 100%;
+border: none;
+color: white;
+background: linear-gradient(
+135deg,
+var(--color-primary),
+var(--color-primary-light)
+);
+}
+
+.verify-btn {
+width: 100%;
+border: none;
+color: white;
+background: var(--color-success);
+}
+
+.register-btn:hover,
+.verify-btn:hover {
+transform: translateY(-2px);
+}
+
+.register-btn:disabled {
+background: #d1d5db;
+color: #6b7280;
+cursor: not-allowed;
+}
+
+/* =========================
+PROVIDER LAYOUT
+========================= */
+
+.provider-layout {
+width: 100%;
+max-width: 1300px;
+
+display: flex;
+gap: 30px;
+align-items: stretch;
+}
+
+.provider-guide {
+width: 340px;
+
+background: rgba(255,255,255,0.7);
+backdrop-filter: blur(14px);
+
+border-radius: 24px;
+padding: 30px;
+
+box-shadow: 0 8px 25px rgba(0,0,0,.1);
+}
+
+.provider-guide h2 {
+color: var(--color-primary);
+margin-bottom: 10px;
+}
+
+.provider-guide p {
+color: var(--color-text-secondary);
+margin-bottom: 25px;
+}
+
+/* =========================
+STEPS
+========================= */
+
+.step-list {
+display: flex;
+flex-direction: column;
+gap: 18px;
+}
+
+.step-item {
+display: flex;
+align-items: center;
+gap: 14px;
+}
+
+.step-item span {
+width: 42px;
+height: 42px;
+
+display: flex;
+align-items: center;
+justify-content: center;
+
+border-radius: 50%;
+font-weight: 600;
+}
+
+.step-item.complete span {
+background: var(--color-success);
+color: white;
+}
+
+.step-item.complete p {
+color: var(--color-success);
+}
+
+.step-item.active span {
+background: linear-gradient(
+135deg,
+var(--color-primary),
+var(--color-primary-light)
+);
+color: white;
+}
+
+.step-item.active p {
+color: var(--color-primary);
+font-weight: 600;
+}
+
+.step-item.pending span {
+background: white;
+border: 2px solid #ddd;
+}
+
+/* =========================
+NAV BUTTONS
+========================= */
+
+.navigation-buttons {
+display: flex;
+gap: 12px;
+margin-top: 20px;
+}
+
+.navigation-buttons .otp-btn,
+.navigation-buttons .register-btn {
+flex: 1;
+width: auto;
+}
+
+/* =========================
+LOGIN LINK
+========================= */
+
+.login-link {
+text-align: center;
+margin-top: 15px;
+}
+
+.login-link a {
+color: var(--color-primary);
+text-decoration: none;
+font-weight: 600;
+}
+
+/* =========================
+RESPONSIVE
+========================= */
+
+@media (max-width: 992px) {
+
+.provider-layout,
+.user-register-page {
+flex-direction: column;
+}
+
+.provider-guide {
+width: 100%;
+}
+
+.left-content {
+text-align: center;
+}
+
+.left-content h1 {
+font-size: 2.5rem;
+}
+}
+
+@media (max-width: 768px) {
+
+.navigation-buttons {
+flex-direction: column;
+}
+
+.left-content h1 {
+font-size: 2rem;
+}
+
+.role-switch {
+flex-direction: column;
+}
+}
