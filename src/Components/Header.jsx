@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Header.css";
 import { FaSearch, FaUserCircle } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -41,12 +42,25 @@ const Header = () => {
 
       <div className="nav-actions">
         {!isLoggedIn ? (
+<<<<<<< HEAD
           <button
             className="login-btn"
             onClick={() => navigate("/login")}
           >
             Login
           </button>
+=======
+          <>
+        <button
+  className="login-btn"
+  onClick={() => navigate("/login")}
+>
+  Login
+</button>
+
+            <button className="register-btn">Register</button>
+          </>
+>>>>>>> 56220394ce3c640e650d24c4886b1cb72a7de0c7
         ) : (
           <div
             className="profile-menu"
