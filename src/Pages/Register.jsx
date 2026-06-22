@@ -19,6 +19,7 @@ const [role] = useState(
     phone: "",
     otp: "",
   });
+  const [otpVerified, setOtpVerified] = useState(false);
 
   const [providerData, setProviderData] = useState({
     full_name: "",
@@ -250,21 +251,58 @@ const [role] = useState(
             )}
 
             {step === 2 && (
-              <>
-                <h2>OTP Verification</h2>
+  <>
+    <h2>OTP Verification</h2>
 
-                <input
-                  placeholder="Enter OTP"
-                  value={providerData.otp_code}
-                  onChange={(e) =>
-                    setProviderData({
-                      ...providerData,
-                      otp_code: e.target.value,
-                    })
-                  }
-                />
-              </>
-            )}
+    <p className="otp-info">
+      Enter the OTP sent to your phone number.
+    </p>
+
+    <input
+      type="text"
+      maxLength={6}
+      placeholder="Enter 6-digit OTP"
+      value={providerData.otp_code}
+      onChange={(e) =>
+        setProviderData({
+          ...providerData,
+          otp_code: e.target.value,
+        })
+      }
+      className="otp-input"
+    />
+
+    <button
+  className="register-btn"
+  onClick={() => {
+    if (providerData.otp_code === "123456") {
+      alert("OTP Verified Successfully!");
+      setOtpVerified(true);
+    } else {
+      alert("Invalid OTP. Use 123456");
+      setOtpVerified(false);
+    }
+  }}
+>
+  Verify OTP
+</button>
+
+    <button
+      className="resend-btn"
+      onClick={() => {
+        setProviderData({
+          ...providerData,
+          otp_code: "",
+        });
+        alert("OTP Sent Again!");
+      }}
+    >
+      Resend OTP
+    </button>
+    
+    
+  </>
+)}
 
             {step === 3 && (
               <>
@@ -272,10 +310,13 @@ const [role] = useState(
 
                 <select>
                   <option>Select Category</option>
-                  <option>Beauty & Salon</option>
-                  <option>Photography</option>
-                  <option>Tailoring</option>
-                  <option>Mehendi Artist</option>
+                  <option>Beauty & Wellness</option>
+                  <option>Mehendi & Bridal</option>
+                  <option>Tailoring & Fashion</option>
+                  <option>Food & Catering Artist</option>
+                  <option>Education & Tutoring</option>
+                  <option>Yoga  Fitness </option>
+                
                 </select>
 
                 <textarea placeholder="Service Description" />
@@ -285,7 +326,7 @@ const [role] = useState(
 
             {step === 4 && (
               <>
-                <h2>Identity Verification</h2>
+                  <h2>Identity Verification</h2>
 
                 <select>
                   <option>Select ID Type</option>
@@ -304,9 +345,12 @@ const [role] = useState(
 
                 <p>Registration submitted successfully 🎉</p>
 
-                <button className="register-btn">
-                  Go To Login
-                </button>
+                <button
+  className="register-btn"
+  onClick={() => navigate("/login")}
+>
+  Go To Login
+</button>
               </>
             )}
 
@@ -323,12 +367,12 @@ const [role] = useState(
                 )}
 
                 <button
-                  className="register-btn"
-                  onClick={() => setStep(step + 1)}
-                >
-                  Next
-                </button>
-
+  className="register-btn"
+  disabled={step === 2 && !otpVerified}
+  onClick={() => setStep(step + 1)}
+>
+  Next
+</button>
               </div>
             )}
 

@@ -366,3 +366,61 @@ font-size: 2rem;
 flex-direction: column;
 }
 }
+
+/* =========================
+Step 2 otp verification button
+========================= */
+
+
+.otp-info {
+  text-align: center;
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.otp-input {
+  width: 100%;
+  padding: 14px;
+  border: 1px solid #dcdcdc;
+  border-radius: 10px;
+  font-size: 20px;
+  text-align: center;
+  letter-spacing: 10px;
+  margin-bottom: 20px;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.otp-input:focus {
+  border-color: #8a2be2;
+  box-shadow: 0 0 5px rgba(138, 43, 226, 0.2);
+}
+
+.timer-text {
+  text-align: center;
+  color: #777;
+  font-size: 14px;
+  margin-top: 15px;
+}
+
+.resend-btn {
+  background: none;
+  border: none;
+  color: #8a2be2;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  display: block;
+  margin: 15px auto 0;
+  text-decoration: underline;
+}
+
+.resend-btn:hover {
+  color: #6f1db1;
+}
+.register-btn:disabled {
+  background: #cccccc;
+  cursor: not-allowed;
+}
