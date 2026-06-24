@@ -26,6 +26,7 @@ const providers = [
 id:1,
 name:"Priya Das",
 category:"Beauty & Wellness",
+icon:"💄",
 city:"Hyderabad",
 rating:4.9,
 completed:186,
@@ -35,6 +36,7 @@ image:provider1
 id:2,
 name:"Nashra Mehendi Artist",
 category:"Mehndi & Bridal",
+icon:"🌿",
 city:"Bengaluru",
 rating:4.8,
 completed:140,
@@ -44,6 +46,7 @@ image:provider2
 id:3,
 name:"Sharma Tailoring",
 category:"Tailoring & Fashion",
+icon:"✂️",
 city:"Bengaluru",
 rating:4.7,
 completed:210,
@@ -53,6 +56,7 @@ image:provider3
 id:4,
 name:"Lakshmi caterers",
 category:"Food & Catering",
+icon:"🍽️",
 city:"Hyderabad",
 rating:5,
 completed:310,
@@ -62,6 +66,7 @@ image:provider4
 id:5,
 name:"BrainSpark Academy",
 category:"Education & Tutoring",
+icon:"📚",
 city:"Karimnagar",
 rating:4.6,
 completed:120,
@@ -71,6 +76,7 @@ image:provider5
 id:6,
 name:"Yoga By Kavya",
 category:"Yoga & Fitness",
+icon:"🧘",
 city:"Hyderabad",
 rating:4.9,
 completed:165,
@@ -80,6 +86,7 @@ image:provider6
 id:7,
 name:"Home Care Services",
 category:"Home Services",
+icon:"🏠",
 city:"Nizamabad",
 rating:4.8,
 completed:240,
@@ -89,6 +96,7 @@ image:provider7
 id:8,
 name:"Creative Arts Hub",
 category:"Arts & Crafts",
+icon:"🎨",
 city:"hyderabad",
 rating:4.7,
 completed:98,
@@ -98,6 +106,7 @@ image:provider8
   id:9,
   name:"Ananya Beauty Studio",
   category:"Beauty & Wellness",
+  icon:"💄",
   city:"Mumbai",
   rating:4.8,
   completed:150,
@@ -107,6 +116,7 @@ image:provider8
   id:10,
  name:"Bridal Makeovers",
  category:"Beauty & Wellness",
+ icon:"💄",
  city:"hyderabad",
  rating:5.0,
  completed:210,
@@ -116,6 +126,7 @@ image:provider8
   id:11,
   name:"Homely Foods",
   category:"Food & Catering",
+  icon:"🍽️",
   city:"Bengaluru",
   rating:4.0,
   completed:280,
@@ -147,69 +158,126 @@ return categoryMatch && cityMatch;
 return (
 <div className="explore">
 
+{/* FILTER BAR FIRST */}
+
+<div className="filter-wrapper">
+  <div className="filter-bar">
+
+    <select
+      value={category}
+      onChange={(e)=>setCategory(e.target.value)}
+    >
+      <option value="">All Categories</option>
+      <option>Beauty & Wellness</option>
+      <option>Mehndi & Bridal</option>
+      <option>Tailoring & Fashion</option>
+      <option>Food & Catering</option>
+      <option>Education & Tutoring</option>
+      <option>Yoga & Fitness</option>
+      <option>Home Services</option>
+      <option>Arts & Crafts</option>
+      <option>Others</option>
+    </select>
+
+    <input
+      type="text"
+      placeholder="Search city..."
+      value={city}
+      onChange={(e)=>setCity(e.target.value)}
+    />
+
+    <button>
+      <FaSearch />
+      Search
+    </button>
+
+  </div>
+</div>
+
+
 <div className="hero">
   <h1>
-Find the Perfect Service for Every Need
+Every Service Tells a Story of Empowerment
 </h1>
 
 <p>
-From beauty and fashion to education and catering,
-discover trusted women professionals ready to help.
+Connecting talented women professionals with customers who value quality, trust, and excellence.
 </p>
 </div>
 
 
-<div className="explore-stats">
+{/* IMPACT SECTION */}
 
-  <div className="stat-card">
-    <h2>✨ 500+</h2>
-    <p>Women Entrepreneurs</p>
+<section className="impact-section">
+
+  <div className="impact-tag">
+    <span></span>
+    OUR IMPACT
+    <span></span>
   </div>
 
-  <div className="stat-card">
-    <h2>✨ 20+</h2>
-    <p>Categories</p>
+  <h2 className="impact-main-title">
+    Our Impact
+  </h2>
+
+  <p className="impact-description">
+    Every connection on NaariBazar creates more than just a transaction —
+    it creates confidence, independence, and a stronger community.
+  </p>
+
+  <div className="impact-grid">
+
+    <div className="impact-card pink">
+      <div className="impact-icon">🚀</div>
+      <h3>500+</h3>
+      <p>WOMEN ENTREPRENEURS</p>
+      <div className="impact-line"></div>
+    </div>
+
+    <div className="impact-card orange">
+      <div className="impact-icon">👜</div>
+      <h3>120+</h3>
+      <p>BUSINESS LISTINGS</p>
+      <div className="impact-line"></div>
+    </div>
+
+    <div className="impact-card purple">
+      <div className="impact-icon">🏪</div>
+      <h3>15+</h3>
+      <p>CATEGORIES</p>
+      <div className="impact-line"></div>
+    </div>
+
+    <div className="impact-card green">
+      <div className="impact-icon">👥</div>
+      <h3>10K+</h3>
+      <p>HAPPY CUSTOMERS</p>
+      <div className="impact-line"></div>
+    </div>
+
+    <div className="impact-card blue">
+      <div className="impact-icon">🏅</div>
+      <h3>98%</h3>
+      <p>SATISFACTION RATE</p>
+      <div className="impact-line"></div>
+    </div>
+
   </div>
 
-  <div className="stat-card">
-    <h2>✨ 10k+</h2>
-    <p>Customers Served</p>
+  <div className="impact-footer">
+
+    <p className="impact-quote">
+      We’re building a thriving ecosystem where women grow,
+      businesses flourish, and communities prosper together.
+    </p>
+
+    <p className="impact-heart">
+      ❤️ Proudly creating impact, together.
+    </p>
+
   </div>
 
-</div>
-
-<div className="filter-bar">
-
-<select
-value={category}
-onChange={(e)=>setCategory(e.target.value)}
->
-<option value="">All Categories</option>
-<option>Beauty & Wellness</option>
-<option>Mehndi & Bridal</option>
-<option>Tailoring & Fashion</option>
-<option>Food & Catering</option>
-<option>Education & Tutoring</option>
-<option>Yoga & Fitness</option>
-<option>Home Services</option>
-<option>Arts & Crafts</option>
-<option>Others</option>
-
-</select>
-
-<input
-type="text"
-placeholder="Search city..."
-value={city}
-onChange={(e)=>setCity(e.target.value)}
-/>
-
-<button>
-<FaSearch />
-Search
-</button>
-
-</div>
+</section>
 
 <div className="providers-grid">
 
@@ -223,115 +291,78 @@ Try a different category or city.
 ) : (
 
 filteredProviders.map((provider)=>(
-<div
-className="provider-card"
-key={provider.id}
->
+  <div className="provider-card" key={provider.id}>
+  <div className="provider-card-inner">
 
-<div className="image-box">
-  {provider.rating >= 5.0 && (
-  <span className="featured-badge">
-    ⭐ Featured
-  </span>
-  
-)}
+    {/* FRONT */}
 
-<img
-src={provider.image}
-alt={provider.name}
-/>
+    <div className="provider-front">
 
-<div className="overlay"></div>
+      <div className="cloud-image">
+        <img
+          src={provider.image}
+          alt={provider.name}
+        />
+      </div>
 
+      <div className="provider-info">
+
+        <div className="service-icon">
+  {provider.icon}
 </div>
 
-<div className="card-body">
+        <h3>{provider.name}</h3>
 
-<h3>{provider.name}</h3>
+        <span className="category-tag">
+          {provider.category}
+        </span>
 
-<span className="category-tag">
-{provider.category}
-</span>
+      </div>
 
-<p className="city">
-<FaMapMarkerAlt />
-{provider.city}
-</p>
+    </div>
 
-<div className="rating">
+    {/* BACK */}
 
-<FaStar />
+    <div className="provider-back">
 
-<span>{provider.rating}</span>
-{provider.rating >= 4.8 && (
-<span className="verified-badge">
-✔ Verified
-</span>
-)}
+      <h3>{provider.name}</h3>
 
-</div>
+      <p>
+        <FaMapMarkerAlt />
+        {provider.city}
+      </p>
 
-<div className="completed">
-{provider.completed} Services Completed
-</div>
+      <div className="provider-rating">
+        ⭐ {provider.rating}
+      </div>
 
+      <div className="completed-badge">
+        {provider.completed} Services Completed
+      </div>
 
-<button
-className="view-btn"
-onClick={() =>
-alert(`${provider.name} Profile Page Coming Soon`)
-}
->
-View Profile
-</button>
+      {provider.rating >= 4.8 && (
+        <span className="verified-badge">
+          ✔ Verified Provider
+        </span>
+      )}
 
-</div>
+      <button
+        className="view-btn"
+        onClick={() =>
+          alert(`${provider.name} Profile Page Coming Soon`)
+        }
+      >
+        View Profile
+      </button>
 
-</div>
+    </div>
+
+  </div>
+</div> 
 ))
 )}
 
 </div>
-{/* WHY CHOOSE NAARIBAZAR */}
-
-<section className="why-section">
-
-  <h2>
-    🌿 Why Choose NaariBazar? 🌿
-  </h2>
-
-  <div className="why-grid">
-
-    <div className="why-card">
-      <div className="why-icon">🛡️</div>
-      <h3>Verified Providers</h3>
-      <p>
-        Every provider undergoes profile verification
-        before appearing on the platform.
-      </p>
-    </div>
-
-    <div className="why-card">
-      <div className="why-icon">⭐</div>
-      <h3>Trusted Reviews</h3>
-      <p>
-        See genuine customer ratings and reviews
-        before making a choice.
-      </p>
-    </div>
-
-    <div className="why-card">
-      <div className="why-icon">📍</div>
-      <h3>Local Discovery</h3>
-      <p>
-        Find trusted women entrepreneurs
-        near your city.
-      </p>
-    </div>
-
-  </div>
-
-</section>
 
 <section className="testimonial-section">
 
@@ -346,14 +377,10 @@ View Profile
     <div className="testimonial-card">
       <div className="stars">★★★★★</div>
 
-      <span className="quote-left">❝</span>
-
       <p>
         Found an amazing bridal artist within minutes.
         The process was smooth and trustworthy.
       </p>
-
-      <span className="quote-right">❞</span>
 
       <div className="customer-info">
         <img src={customer1} alt="Ayesha Khan" />
@@ -367,16 +394,10 @@ View Profile
 
     <div className="testimonial-card">
       <div className="stars">★★★★★</div>
-
-      <span className="quote-left">❝ </span>
-
       <p>
          Excellent tailoring service.
         The quality exceeded my expectations.
       </p>
-
-      <span className="quote-right">❞</span>
-
       <div className="customer-info">
         <img src={customer2} alt="Sneha Reddy" />
 
@@ -389,16 +410,10 @@ View Profile
 
     <div className="testimonial-card">
       <div className="stars">★★★★★</div>
-
-      <span className="quote-left">❝</span>
-
       <p>
         NaariBazar helped me discover local women-led businesses
         I never knew existed.
       </p>
-
-      <span className="quote-right">❞</span>
-
       <div className="customer-info">
         <img src={customer3} alt="Kavya Sharma" />
 

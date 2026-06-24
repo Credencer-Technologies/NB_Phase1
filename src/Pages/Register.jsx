@@ -3,17 +3,21 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import "./Register.css";
 
 function Register() {
+
+  const [showConfirmPopup, setShowConfirmPopup] =
+    useState(false);
+
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
 
-const [role] = useState(
-  searchParams.get("role") === "provider"
-    ? "provider"
-    : "user"
-);
+  const [role] = useState(
+    searchParams.get("role") === "provider"
+      ? "provider"
+      : "user"
+  );
+
   const [otpSent, setOtpSent] = useState(false);
   const [step, setStep] = useState(1);
-
   const [userData, setUserData] = useState({
     full_name: "",
     phone: "",
@@ -339,21 +343,138 @@ const [role] = useState(
               </>
             )}
 
-            {step === 5 && (
-              <>
-                <h2>Confirmation</h2>
+          {step === 5 && (
+  <div className="confirmation-screen">
 
-                <p>Registration submitted successfully 🎉</p>
+    <div className="confirmation-top">
+      <div
+        className="back-arrow"
+        onClick={() => setStep(4)}
+      >
+        ←
+      </div>
+    </div>
 
-                <button
-  className="register-btn"
-  onClick={() => navigate("/login")}
->
-  Go To Login
-</button>
-              </>
-            )}
+    <h2>Registration Submitted Successfully</h2>
 
+    <p className="confirmation-message">
+      Thank you for registering as a Service Provider on
+      NaariBazar.
+    </p>
+
+    <div className="summary-card">
+
+      <h3>Registration Summary</h3>
+
+      {providerData.full_name && (
+        <div className="summary-item">
+          {providerData.full_name}
+        </div>
+      )}
+
+      {providerData.phone && (
+        <div className="summary-item">
+          {providerData.phone}
+        </div>
+      )}
+
+      {providerData.city && (
+        <div className="summary-item">
+          {providerData.city}
+        </div>
+      )}
+
+      {providerData.category && (
+        <div className="summary-item">
+          {providerData.category}
+        </div>
+      )}
+
+      <div className="summary-item">
+        ID Verification Uploaded
+      </div>
+
+    </div>
+
+    <div className="approval-box">
+
+      <h4>Profile Review In Progress</h4>
+
+      <p>
+        Your registration has been submitted successfully.
+        Our team will review and approve your profile
+        within 24 to 48 hours.
+      </p>
+
+      <p>
+        You will receive an SMS notification once your
+        profile is approved.
+      </p>
+
+    </div>
+
+    <div className="confirmation-buttons">
+
+      <button
+        className="edit-btn"
+        onClick={() => setStep(4)}
+      >
+        Edit Information
+      </button>
+
+      <button
+        className="register-btn"
+        onClick={() => setShowConfirmPopup(true)}
+      >
+        Confirm & Continue
+      </button>
+
+    </div>
+
+    {showConfirmPopup && (
+      <div className="popup-overlay">
+
+        <div className="confirm-popup">
+
+          <h3>Are you sure?</h3>
+
+          <p>
+            Are you sure you want to submit your
+            registration?
+          </p>
+
+          <div className="popup-buttons">
+
+            <button
+              className="popup-cancel"
+              onClick={() =>
+                setShowConfirmPopup(false)
+              }
+            >
+              Cancel
+            </button>
+
+            <button
+              className="popup-confirm"
+              onClick={() => {
+                alert(
+                  "Registration Submitted Successfully 🎉"
+                );
+                navigate("/login");
+              }}
+            >
+              Yes, Submit
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+    )}
+
+  </div>
+)}
             {step < 5 && (
               <div className="navigation-buttons">
 

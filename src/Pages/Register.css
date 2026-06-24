@@ -1,155 +1,206 @@
-/* =========================
-ROOT VARIABLES
-========================= */
-
 :root {
---color-primary: #6B21A8;
---color-primary-light: #A855F7;
-
---color-accent: #DB2777;
---color-accent-soft: #FCE7F3;
-
---color-bg: #FAFAFA;
---color-surface: #FFFFFF;
-
---color-text-primary: #111827;
---color-text-secondary: #6B7280;
-
---color-success: #10B981;
+  --color-primary: #6B21A8;
+  --color-primary-light: #A855F7;
+  --color-accent: #DB2777;
+  --color-bg: #FAFAFA;
+  --color-surface: #FFFFFF;
+  --color-text-primary: #111827;
+  --color-text-secondary: #6B7280;
+  --color-success: #10B981;
 }
 
 /* =========================
-PAGE
+MAIN CONTAINER
 ========================= */
 
-.register-page,
+.register-container {
+  min-height: 100vh;
+  width: 100%;
+  background: url("/images/backdrop.jpg") center/cover no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+}
+
+/* =========================
+USER REGISTER PAGE
+========================= */
+
 .user-register-page {
-min-height: 100vh;
-display: flex;
-align-items: center;
-justify-content: center;
-gap: 40px;
-padding: 40px 60px;
-position: relative;
-overflow: hidden;
+  display: flex;
+  gap: 40px;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
 }
-
-.user-register-page::before,
-.register-page::before {
-content: "";
-position: absolute;
-inset: 0;
-background: url("/images/registerbg.jpg") center/cover;
-filter: blur(4px);
-transform: scale(1.05);
-z-index: -2;
-}
-
-.user-register-page::after,
-.register-page::after {
-content: "";
-position: absolute;
-inset: 0;
-background: rgba(255,240,246,0.55);
-z-index: -1;
-}
-
-/* =========================
-ROLE SWITCH
-========================= */
-
-.role-switch {
-position: absolute;
-top: 20px;
-left: 50%;
-transform: translateX(-50%);
-
-display: flex;
-gap: 10px;
-z-index: 10;
-}
-
-.role-switch button {
-padding: 12px 20px;
-border: none;
-border-radius: 12px;
-cursor: pointer;
-font-weight: 600;
-}
-
-.role-switch .active {
-background: var(--color-primary);
-color: white;
-}
-
-/* =========================
-LEFT CONTENT
-========================= */
 
 .left-content {
-flex: 1;
-max-width: 550px;
+  max-width: 500px;
+  color: white;
 }
 
 .left-content h1 {
-font-size: 3.2rem;
-line-height: 1.2;
-font-weight: 700;
-text-transform: uppercase;
+  font-size: 3rem;
+  margin-bottom: 20px;
 }
 
-.left-content h1 span {
-color: var(--color-primary);
+.left-content span {
+  color: #ffd6f5;
 }
 
 .left-content p {
-margin-top: 15px;
-color: var(--color-text-secondary);
-line-height: 1.7;
+  font-size: 1.1rem;
 }
 
 /* =========================
-CARD
+PROVIDER LAYOUT
+========================= */
+
+.provider-layout {
+  width: 100%;
+  max-width: 1400px;
+  display: flex;
+  gap: 30px;
+  align-items: stretch;
+}
+
+/* =========================
+STEPPER CARD
+========================= */
+
+.provider-guide {
+  flex: 1;
+
+  background: rgba(255,255,255,0.18);
+  backdrop-filter: blur(18px);
+
+  border-radius: 24px;
+  padding: 30px;
+
+  border: 1px solid rgba(255,255,255,0.2);
+
+  box-shadow: 0 10px 35px rgba(0,0,0,0.15);
+}
+
+.provider-guide h2 {
+  color: white;
+  margin-bottom: 10px;
+}
+
+.provider-guide p {
+  color: rgba(255,255,255,0.8);
+  margin-bottom: 25px;
+}
+
+/* =========================
+STEP LIST
+========================= */
+
+.step-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.step-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.step-item span {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-weight: 600;
+}
+
+.step-item.active span {
+  background: linear-gradient(
+    135deg,
+    var(--color-primary),
+    var(--color-primary-light)
+  );
+
+  color: white;
+}
+
+.step-item.complete span {
+  background: var(--color-success);
+  color: white;
+}
+
+.step-item p {
+  margin: 0;
+  color: white;
+}
+
+/* =========================
+FORM CARD
 ========================= */
 
 .register-card {
-width: 100%;
-max-width: 550px;
+  flex: 1.4;
 
-background: rgba(255,255,255,0.25);
-backdrop-filter: blur(18px);
--webkit-backdrop-filter: blur(18px);
+  max-width: 750px;
+  min-height: 600px;
 
-border: 1px solid rgba(255,255,255,0.35);
-border-radius: 24px;
+  background: rgba(255,255,255,0.18);
 
-padding: 30px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
 
-box-shadow: 0 10px 35px rgba(0,0,0,.12);
+  border-radius: 24px;
+
+  border: 1px solid rgba(255,255,255,0.25);
+
+  padding: 35px;
+
+  box-shadow: 0 10px 35px rgba(0,0,0,0.15);
+
+  overflow-y: auto;
 }
+
+/* =========================
+HEADINGS
+========================= */
 
 .register-card h2 {
-text-align: center;
-color: var(--color-primary);
-margin-bottom: 20px;
+  text-align: center;
+  margin-bottom: 25px;
+  color: white;
 }
+
+/* =========================
+INPUTS
+========================= */
 
 .register-card input,
 .register-card select,
 .register-card textarea {
-width: 100%;
-padding: 14px;
-border-radius: 12px;
-border: 1px solid #ddd;
-margin-bottom: 14px;
-outline: none;
-background: rgba(255,255,255,.9);
+
+  width: 100%;
+  padding: 14px;
+
+  margin-bottom: 15px;
+
+  border-radius: 12px;
+  border: none;
+
+  background: rgba(255,255,255,0.9);
+
+  outline: none;
 }
 
-.register-card input:focus,
-.register-card select:focus,
-.register-card textarea:focus {
-border-color: var(--color-primary);
+.register-card textarea {
+  min-height: 120px;
+  resize: none;
 }
 
 /* =========================
@@ -158,269 +209,229 @@ BUTTONS
 
 .otp-btn,
 .register-btn,
-.verify-btn {
-height: 52px;
-border-radius: 12px;
-cursor: pointer;
-font-weight: 600;
-transition: .3s;
+.edit-btn,
+.resend-btn {
+
+  height: 52px;
+  border: none;
+
+  border-radius: 12px;
+
+  cursor: pointer;
+  font-weight: 600;
+
+  transition: .3s;
 }
 
 .otp-btn {
-border: 2px solid var(--color-primary);
-background: white;
-color: var(--color-primary);
-}
-
-.otp-btn:hover {
-background: var(--color-primary);
-color: white;
+  background: white;
+  color: var(--color-primary);
+  border: 2px solid var(--color-primary);
 }
 
 .register-btn {
-width: 100%;
-border: none;
-color: white;
-background: linear-gradient(
-135deg,
-var(--color-primary),
-var(--color-primary-light)
-);
+  background: linear-gradient(
+    135deg,
+    var(--color-primary),
+    var(--color-primary-light)
+  );
+
+  color: white;
 }
 
-.verify-btn {
-width: 100%;
-border: none;
-color: white;
-background: var(--color-success);
+.edit-btn {
+  background: #e5e7eb;
 }
 
+.resend-btn {
+  background: #f3f4f6;
+}
+
+.otp-btn:hover,
 .register-btn:hover,
-.verify-btn:hover {
-transform: translateY(-2px);
-}
-
-.register-btn:disabled {
-background: #d1d5db;
-color: #6b7280;
-cursor: not-allowed;
+.edit-btn:hover,
+.resend-btn:hover {
+  transform: translateY(-2px);
 }
 
 /* =========================
-PROVIDER LAYOUT
-========================= */
-
-.provider-layout {
-width: 100%;
-max-width: 1300px;
-
-display: flex;
-gap: 30px;
-align-items: stretch;
-}
-
-.provider-guide {
-width: 340px;
-
-background: rgba(255,255,255,0.7);
-backdrop-filter: blur(14px);
-
-border-radius: 24px;
-padding: 30px;
-
-box-shadow: 0 8px 25px rgba(0,0,0,.1);
-}
-
-.provider-guide h2 {
-color: var(--color-primary);
-margin-bottom: 10px;
-}
-
-.provider-guide p {
-color: var(--color-text-secondary);
-margin-bottom: 25px;
-}
-
-/* =========================
-STEPS
-========================= */
-
-.step-list {
-display: flex;
-flex-direction: column;
-gap: 18px;
-}
-
-.step-item {
-display: flex;
-align-items: center;
-gap: 14px;
-}
-
-.step-item span {
-width: 42px;
-height: 42px;
-
-display: flex;
-align-items: center;
-justify-content: center;
-
-border-radius: 50%;
-font-weight: 600;
-}
-
-.step-item.complete span {
-background: var(--color-success);
-color: white;
-}
-
-.step-item.complete p {
-color: var(--color-success);
-}
-
-.step-item.active span {
-background: linear-gradient(
-135deg,
-var(--color-primary),
-var(--color-primary-light)
-);
-color: white;
-}
-
-.step-item.active p {
-color: var(--color-primary);
-font-weight: 600;
-}
-
-.step-item.pending span {
-background: white;
-border: 2px solid #ddd;
-}
-
-/* =========================
-NAV BUTTONS
+NAVIGATION BUTTONS
 ========================= */
 
 .navigation-buttons {
-display: flex;
-gap: 12px;
-margin-top: 20px;
+  display: flex;
+  gap: 15px;
+  margin-top: 25px;
 }
 
-.navigation-buttons .otp-btn,
-.navigation-buttons .register-btn {
-flex: 1;
-width: auto;
+.navigation-buttons button {
+  flex: 1;
 }
 
 /* =========================
-LOGIN LINK
+CONFIRMATION PAGE
 ========================= */
 
-.login-link {
-text-align: center;
-margin-top: 15px;
+.confirmation-screen {
+  text-align: center;
+  color: white;
 }
 
-.login-link a {
-color: var(--color-primary);
-text-decoration: none;
-font-weight: 600;
+.back-arrow{
+  width:50px;
+  height:50px;
+  display:flex;
+ 
+}
+
+.success-icon {
+  font-size: 50px;
+  margin-bottom: 15px;
+}
+
+.summary-card {
+  margin-top: 20px;
+
+  padding: 20px;
+
+  border-radius: 16px;
+
+  background: rgba(255,255,255,0.15);
+}
+
+.summary-card h3 {
+  margin-bottom: 15px;
+}
+
+.summary-card p {
+  margin: 10px 0;
+}
+
+.approval-box {
+  margin-top: 20px;
+  
+  padding: 20px;
+
+  border-radius: 16px;
+
+  background: rgba(255,255,255,0.1);
+}
+
+.confirmation-buttons {
+  margin-top: 25px;
+
+  display: flex;
+  gap: 15px;
+  justify-content: center;
 }
 
 /* =========================
 RESPONSIVE
 ========================= */
 
-@media (max-width: 992px) {
+@media(max-width:992px){
 
-.provider-layout,
-.user-register-page {
-flex-direction: column;
+  .provider-layout,
+  .user-register-page{
+    flex-direction: column;
+  }
+
+  .provider-guide,
+  .register-card{
+    width:100%;
+    max-width:800px;
+  }
 }
 
-.provider-guide {
-width: 100%;
+@media(max-width:768px){
+
+  .register-container{
+    padding:20px;
+  }
+
+  .left-content h1{
+    font-size:2rem;
+  }
+
+  .confirmation-buttons{
+    flex-direction:column;
+  }
 }
-
-.left-content {
-text-align: center;
-}
-
-.left-content h1 {
-font-size: 2.5rem;
-}
-}
-
-@media (max-width: 768px) {
-
-.navigation-buttons {
-flex-direction: column;
-}
-
-.left-content h1 {
-font-size: 2rem;
-}
-
-.role-switch {
-flex-direction: column;
-}
-}
-
-/* =========================
-Step 2 otp verification button
-========================= */
-
-
-.otp-info {
-  text-align: center;
-  color: #666;
-  font-size: 14px;
+.back-arrow {
+  font-size: 42px;
+  color: white;
+  cursor: pointer;
+  width: fit-content;
   margin-bottom: 20px;
-  line-height: 1.5;
 }
 
-.otp-input {
-  width: 100%;
-  padding: 14px;
-  border: 1px solid #dcdcdc;
-  border-radius: 10px;
-  font-size: 20px;
-  text-align: center;
-  letter-spacing: 10px;
-  margin-bottom: 20px;
-  outline: none;
-  box-sizing: border-box;
+.confirmation-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 25px;
 }
 
-.otp-input:focus {
-  border-color: #8a2be2;
-  box-shadow: 0 0 5px rgba(138, 43, 226, 0.2);
-}
-
-.timer-text {
-  text-align: center;
-  color: #777;
-  font-size: 14px;
-  margin-top: 15px;
-}
-
-.resend-btn {
-  background: none;
+.edit-btn {
+  height: 52px;
+  padding: 0 30px;
   border: none;
-  color: #8a2be2;
-  font-size: 14px;
+  border-radius: 12px;
+  background: #DB2777;
+  color: white;
   font-weight: 600;
   cursor: pointer;
-  display: block;
-  margin: 15px auto 0;
-  text-decoration: underline;
 }
 
-.resend-btn:hover {
-  color: #6f1db1;
+.popup-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.45);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
 }
-.register-btn:disabled {
-  background: #cccccc;
-  cursor: not-allowed;
+
+.confirm-popup {
+  width: 420px;
+  background: white;
+  border-radius: 20px;
+  padding: 30px;
+  text-align: center;
 }
+
+.confirm-popup h3 {
+  color: #DB2777;
+  margin-bottom: 10px;
+}
+
+.confirm-popup p {
+  margin-bottom: 20px;
+}
+
+.popup-buttons {
+  display: flex;
+  gap: 15px;
+}
+
+.popup-cancel,
+.popup-confirm {
+  flex: 1;
+  height: 50px;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.popup-cancel {
+  background: white;
+  border: 2px solid #DB2777;
+  color: #DB2777;
+}
+
+.popup-confirm {
+  background: #DB2777;
+  color: white;
+  border: none;
+ color: #ffffff }

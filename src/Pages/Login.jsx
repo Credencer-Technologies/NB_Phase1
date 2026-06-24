@@ -10,78 +10,167 @@ function Login() {
 
   const navigate = useNavigate();
 
-  const validPhone = "9876543210";
+  const validPhone = "1234567890";
   const validOtp = "123456";
 
   const handleLogin = () => {
     if (phone === validPhone && otp === validOtp) {
+      alert("Login Successful");
       navigate("/explore");
     } else {
-      alert("Invalid phone or OTP ❌");
+      alert("Invalid Phone Number or OTP");
+    }
+  };
+
+  const handleSendOtp = () => {
+    if (phone === validPhone) {
+      alert("OTP Sent Successfully\nUse OTP: 123456");
+    } else {
+      alert("Use Demo Number: 1234567890");
     }
   };
 
   return (
     <div className="login-page">
-      <div className="login-right">
+      <div className="login-form-card">
+
+        <div className="login-avatar">
+          <img
+            src="/images/logo2.png"
+            alt="NaariBazar"
+          />
+        </div>
 
         {!showRegisterCard ? (
-          <div className="login-card">
+          <>
+            <div className="login-header">
+              <h2>Welcome Back</h2>
 
-            <h2>Welcome</h2>
+              <p>
+                Access your NaariBazar account and continue
+                exploring services and opportunities.
+              </p>
+            </div>
 
-            <input
-              placeholder="Phone Number"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-            />
+            <div className="field-label">
+              Mobile Number
+            </div>
 
-            <input
-              placeholder="OTP"
-              value={otp}
-              onChange={(e) => setOtp(e.target.value)}
-            />
+            <div className="input-box">
+              <i className="fas fa-phone"></i>
 
-            <button className="login-btn" onClick={handleLogin}>
-              Verify & Explore
+              <input
+                type="tel"
+                placeholder="Enter Mobile Number"
+                value={phone}
+                onChange={(e) =>
+                  setPhone(e.target.value)
+                }
+              />
+            </div>
+
+            <button
+              className="otp-btn"
+              onClick={handleSendOtp}
+            >
+              Send OTP
             </button>
 
-            <p>
-              New to NaariBazar?{" "}
-              <span onClick={() => setShowRegisterCard(true)}>
+            <div className="input-box">
+              <i className="fas fa-lock"></i>
+
+              <input
+                type="text"
+                placeholder="Enter OTP"
+                value={otp}
+                onChange={(e) =>
+                  setOtp(e.target.value)
+                }
+              />
+            </div>
+
+            <div className="login-options">
+              <label>
+                <input type="checkbox" />
+                Remember Me
+              </label>
+            </div>
+
+            <button
+              className="main-btn"
+              onClick={handleLogin}
+            >
+              Verify & Login
+            </button>
+
+            <div className="divider">
+              <span>OR</span>
+            </div>
+
+            <p className="switch-link">
+              New to NaariBazar?
+
+              <span
+                onClick={() =>
+                  setShowRegisterCard(true)
+                }
+              >
                 Register Now
               </span>
             </p>
-
-          </div>
+          </>
         ) : (
-          <div className="login-card">
+          <>
+            <div className="login-header">
+              <h2>Create Account</h2>
 
-            <h2>Register</h2>
-            <p>Choose registration type</p>
+              <p>
+                Select how you want to join
+                NaariBazar
+              </p>
+            </div>
 
-            <button
-              className="register-option"
-              onClick={() => navigate("/register?role=user")}
-            >
-              User Registration
-            </button>
+            <div className="register-options">
 
-            <button
-              className="register-option"
-              onClick={() => navigate("/register?role=provider")}
-            >
-              Service Provider Registration
-            </button>
+              <div
+                className="register-option-card"
+                onClick={() =>
+                  navigate("/register?role=user")
+                }
+              >
+                <i className="fas fa-user"></i>
 
-            <button
-  className="back-login-btn"
-  onClick={() => setShowRegisterCard(false)}
->
-  Back to Login
-</button>
+                <h4>User Registration</h4>
 
-          </div>
+              </div>
+
+              <div
+                className="register-option-card"
+                onClick={() =>
+                  navigate("/register?role=provider")
+                }
+              >
+                <i className="fas fa-briefcase"></i>
+
+                <h4>Service Provider</h4>
+
+                
+              </div>
+
+            </div>
+
+            <p className="switch-link">
+              Already have an account?
+
+              <span
+                onClick={() =>
+                  setShowRegisterCard(false)
+                }
+              >
+                Login Here
+              </span>
+            </p>
+          </>
         )}
 
       </div>
