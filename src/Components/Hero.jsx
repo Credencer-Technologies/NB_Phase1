@@ -1,51 +1,65 @@
 import "./Hero.css";
+import { useMagnetic } from "../hooks/useMagnetic";
+import ScrollRevealText from "../Components/ScrollRevealText";
+import { useNavigate } from "react-router-dom";
 
 const Hero = () => {
+  const primary = useMagnetic();
+  const secondary = useMagnetic();
+  const navigate = useNavigate();
+
   return (
     <section className="hero">
-      <div className="hero-left">
-        <h1>
-          Find Trusted Women Service Providers Near You
+      {/* BACKGROUND VIDEO */}
+      <video autoPlay muted loop playsInline className="hero-video">
+        <source src="/video/hero.mp4" type="video/mp4" />
+      </video>
+
+      {/* Dark Overlay */}
+      <div className="overlay"></div>
+
+      {/* HERO CONTENT */}
+      <div className="hero-content">
+
+        <span className="hero-tagline">
+          ✨ Curated • Trusted • Premium
+        </span>
+
+        <h1 className="hero-title">
+          <ScrollRevealText text="Find Exceptional Local Professionals" />
         </h1>
 
-        <p>
-          Discover verified women entrepreneurs and skilled professionals
-          across beauty, fashion, catering, education, fitness, and more.
+        <p className="hero-description">
+          <ScrollRevealText text="Connect with trusted beauty, wellness, fashion, and lifestyle experts who transform everyday moments into extraordinary experiences." />
         </p>
 
-        <div className="hero-search">
-          <input
-            type="text"
-            placeholder="Search Service"
-          />
+        <div className="hero-actions">
 
-          <input
-            type="text"
-            placeholder="Enter City"
-          />
-
-          <button>Search</button>
-        </div>
-
-        <div className="hero-buttons">
-          <button className="explore-btn">
+          <button
+            ref={primary.ref}
+            onMouseMove={primary.handleMove}
+            onMouseLeave={primary.handleLeave}
+            className="btn-glass primary"
+            onClick={() => navigate("/explore")}
+          >
             Explore Services
           </button>
 
-          <button className="provider-btn">
-            Become a Provider
+          <button
+            ref={secondary.ref}
+            onMouseMove={secondary.handleMove}
+            onMouseLeave={secondary.handleLeave}
+            className="btn-glass secondary"
+            onClick={() => navigate("/register")}
+          >
+            Join as a Provider
           </button>
-        </div>
-      </div>
 
-      <div className="hero-right">
-        <img
-          src="/images/hero-banner.png"
-          alt="Women entrepreneurs"
-        />
+        </div>
+
       </div>
     </section>
   );
 };
 
-export default Hero;
+export default Hero

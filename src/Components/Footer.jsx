@@ -1,81 +1,217 @@
 import "./Footer.css";
+import logo from "../assets/Logo.jpeg";
+import { Link } from "react-router-dom";
 
 import {
   FaInstagram,
-  FaFacebookF,
   FaLinkedinIn,
+  FaFacebookF,
   FaWhatsapp,
-  FaEnvelope,
+  FaPhoneAlt,
+  FaMapMarkerAlt,
 } from "react-icons/fa";
 
-const Footer = () => {
+import { MdEmail } from "react-icons/md";
+
+function Footer() {
   return (
     <footer className="footer">
-      <div className="footer-top">
+      <div className="footer-container">
+
+        {/* ================= BRAND ================= */}
 
         <div className="footer-brand">
-          <h2>NaariBazar</h2>
 
-          <p>
-            Empowering Women. Connecting Services.
-            Across India.
+          <div className="footer-logo">
+            <img src={logo} alt="NariBazar Logo" />
+
+            <div className="footer-logo-content">
+              <h2 className="footer-logo-text">
+                <span className="nari">Nari</span>
+                <span className="bazar">Bazar</span>
+              </h2>
+
+              <p className="footer-tagline">
+                Empowering Women Entrepreneurs
+              </p>
+            </div>
+          </div>
+
+          <p className="footer-description">
+            NariBazar is a trusted women-centric marketplace connecting skilled
+            women entrepreneurs and professionals with customers across India.
+            Discover services, grow businesses, and empower communities through
+            one digital platform.
           </p>
 
-          <div className="social-icons">
-            <a href="#" aria-label="Instagram">
-              <FaInstagram />
-            </a>
-
-            <a href="#" aria-label="Facebook">
-              <FaFacebookF />
-            </a>
-
-            <a href="#" aria-label="LinkedIn">
-              <FaLinkedinIn />
-            </a>
-
-            <a href="#" aria-label="WhatsApp">
-              <FaWhatsapp />
-            </a>
-
-            <a
-              href="mailto:support@naaribazar.com"
-              aria-label="Email"
-            >
-              <FaEnvelope />
-            </a>
-          </div>
         </div>
 
-        <div className="footer-links">
+        {/* ================= QUICK LINKS ================= */}
+
+        <div className="footer-column">
+
           <h3>Quick Links</h3>
 
-          <a href="/">Home</a>
-          <a href="/explore">Explore</a>
-          <a href="/register">Register</a>
-          <a href="/login">Login</a>
+          <Link to="/">Home</Link>
+
+          <Link to="/explore">Explore</Link>
+
+          <Link to="/about">About</Link>
+
+          <Link to="/contact">Contact</Link>
+
         </div>
 
-        <div className="footer-links">
-          <h3>Categories</h3>
+        {/* ================= BROWSE CATEGORIES ================= */}
 
-          <a href="/">Beauty & Wellness</a>
-          <a href="/">Mehandi & Bridal</a>
-          <a href="/">Tailoring & Fashion</a>
-          <a href="/">Food & Catering</a>
-          <a href="/">Education & Tutoring</a>
-          <a href="/">Yoga & Fitness</a>
-          <a href="/">Home Services</a>
-          <a href="/">Arts & Crafts</a>
+        <div className="footer-column">
+
+          <h3>Browse Categories</h3>
+
+          <Link to="/explore?category=beauty-wellness">
+            Beauty & Wellness
+          </Link>
+
+          <Link to="/explore?category=mehndi-bridal">
+            Mehndi & Bridal
+          </Link>
+
+          <Link to="/explore?category=tailoring-fashion">
+            Tailoring & Fashion
+          </Link>
+
+          <Link to="/explore?category=food-catering">
+            Food & Catering
+          </Link>
+
+          <Link to="/explore?category=education">
+            Education & Tutoring
+          </Link>
+
+          <Link to="/explore?category=yoga-fitness">
+            Yoga & Fitness
+          </Link>
+
+          <Link to="/explore?category=home-services">
+            Home Services
+          </Link>
+
+          <Link to="/explore?category=arts-crafts">
+            Arts & Crafts
+          </Link>
+
+        </div>
+
+        {/* ================= CONTACT ================= */}
+
+        <div className="footer-column">
+
+          <h3>Contact</h3>
+
+          <div className="footer-contact">
+
+            <div className="contact-row">
+              <FaPhoneAlt />
+              <span>+91 9490594867</span>
+            </div>
+
+            <div className="contact-row">
+              <MdEmail />
+              <span>info@naribazar.in</span>
+            </div>
+
+            <div className="contact-row">
+              <FaMapMarkerAlt />
+              <span>
+                Gachibowli,
+                <br />
+                Hyderabad,
+                Telangana
+              </span>
+            </div>
+
+          </div>
+
         </div>
 
       </div>
+
+      {/* ================= DIVIDER ================= */}
+
+      <div className="footer-divider"></div>
+
+      {/* ================= BOTTOM ================= */}
 
       <div className="footer-bottom">
-        © 2026 NaariBazar. All Rights Reserved.
+
+        <p>
+          © 2026 Nari Bazar. All rights reserved. Developed by{" "}
+          <a
+            href="https://credencer.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="developer-link"
+          >
+            Credencer Technologies
+          </a>
+        </p>
+
+        <div className="footer-socials">
+
+          <a
+            href="https://maps.google.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <FaMapMarkerAlt />
+          </a>
+
+          <a href="tel:+919490594867">
+            <FaPhoneAlt />
+          </a>
+
+          <a href="mailto:info@naribazar.in">
+            <MdEmail />
+          </a>
+
+          <a
+            href="https://wa.me/919490594867"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <FaWhatsapp />
+          </a>
+
+          <a
+            href="https://instagram.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <FaInstagram />
+          </a>
+
+          <a
+            href="https://linkedin.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <FaLinkedinIn />
+          </a>
+
+          <a
+            href="https://facebook.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <FaFacebookF />
+          </a>
+
+        </div>
+
       </div>
+
     </footer>
   );
-};
+}
 
 export default Footer;

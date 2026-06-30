@@ -1,0 +1,64 @@
+.home-page {
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+  background: #ffffff;
+}
+
+.home-page::before {
+  display: none;
+}
+
+.home-page > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Luxury ambient glow */
+
+.home-page::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+
+  background:
+    radial-gradient(
+      600px circle at 15% 20%,
+      rgba(255, 182, 193, 0.06),
+      transparent 60%
+    ),
+    radial-gradient(
+      700px circle at 85% 80%,
+      rgba(186, 104, 200, 0.05),
+      transparent 60%
+    );
+
+  animation: luxuryFloat 15s ease-in-out infinite alternate;
+}
+
+.home-page > * {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes luxuryFloat {
+  0% {
+    transform: translate(0, 0);
+  }
+
+  100% {
+    transform: translate(15px, -15px);
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (max-width: 768px) {
+  .home-page::before {
+    opacity: 0.7;
+  }
+}

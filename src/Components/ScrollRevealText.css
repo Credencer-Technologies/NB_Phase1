@@ -1,0 +1,26 @@
+/* container */
+.reveal-text {
+  display: inline-block;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+/* each word */
+.word {
+  display: inline-block;
+
+  opacity: 0;
+  transform: translateY(20px) scale(0.98);
+
+  filter: blur(4px);
+
+  transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* when visible */
+.word.show {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+
+  filter: blur(0);
+}

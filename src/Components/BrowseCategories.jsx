@@ -1,65 +1,48 @@
 import { useNavigate } from "react-router-dom";
 import "./BrowseCategories.css";
 
-const categories = [
-  {
-    title: "Beauty & Wellness",
-    image: "/images/categories/beauty.jpg",
-    path: "/explore/beauty",
-  },
-  {
-    title: "Mehndi & Bridal",
-    image: "/images/categories/mehndi.jpg",
-    path: "/explore/mehndi",
-  },
-  {
-    title: "Tailoring & Fashion",
-    image: "/images/categories/fashion.jpg",
-    path: "/explore/fashion",
-  },
-  {
-    title: "Food & Catering",
-    image: "/images/categories/catering.jpg",
-    path: "/explore/catering",
-  },
-  {
-    title: "Education & Tutoring",
-    image: "/images/categories/tutor.jpg",
-    path: "/explore/education",
-  },
-  {
-    title: "Yoga & Fitness",
-    image: "/images/categories/yoga.jpg",
-    path: "/explore/yoga",
-  },
+const baseCategories = [
+  { title: "Beauty & Wellness", image: "/image/Beauty.png", path: "/explore/beauty" },
+  { title: "Mehandi & Bridal", image: "/image/Mehandi.png", path: "/explore/mehndi" },
+  { title: "Tailoring & Fashion", image: "/image/Tailoring.png", path: "/explore/fashion" },
+  { title: "Food & Catering", image: "/image/Cooking.png", path: "/explore/catering" },
+  { title: "Education & Tutoring", image: "/image/Teaching.png", path: "/explore/education" },
+  { title: "Yoga & Fitness", image: "/image/Yoga.png", path: "/explore/yoga" },
 ];
 
 export default function BrowseCategories() {
   const navigate = useNavigate();
 
-  return (
-    <section className="browse-categories">
-      <h2>Browse Categories</h2>
+  // duplicate for infinite loop effect
+  const categories = [...baseCategories, ...baseCategories];
 
-      <div className="category-row">
+  return (
+    <section className="browse-categories micro-section glass">
+
+      <div className="browse-header">
+        <span className="section-tag">EXPLORE</span>
+        <h2>Browse Categories</h2>
+        <p>Discover premium services</p>
+      </div>
+
+      <div className="auto-scroll-track">
+
         {categories.map((item, index) => (
           <div
             key={index}
-            className="category-card"
+            className="category-card micro-card"
             onClick={() => navigate(item.path)}
           >
             <img src={item.image} alt={item.title} />
 
             <div className="category-content">
               <h3>{item.title}</h3>
-
-              <button className="arrow-btn">
-                →
-              </button>
             </div>
           </div>
         ))}
+
       </div>
+
     </section>
   );
 }

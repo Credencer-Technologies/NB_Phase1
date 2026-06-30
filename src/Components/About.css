@@ -1,0 +1,149 @@
+/* ===========================
+   ABOUT SECTION
+=========================== */
+
+.about-section {
+  width: 100%;
+  padding: 100px 8%;
+  background: linear-gradient(180deg, #ffffff 0%, #fff8fc 100%);
+}
+
+.about-container {
+  max-width: 1300px;
+  margin: auto;
+
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 70px;
+  align-items: center;
+}
+
+/* ===========================
+   LEFT CONTENT
+=========================== */
+
+.about-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.about-title {
+  font-size: 42px;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 14px;
+}
+
+.about-title span {
+  color: #ff2e88;
+}
+
+.about-heading {
+  font-size: 24px;
+  font-weight: 600;
+  color: #444;
+  margin-bottom: 30px;
+  line-height: 1.5;
+}
+
+.about-content p {
+  font-size: 16px;
+  color: #555;
+  line-height: 1.9;
+  margin-bottom: 18px;
+}
+
+.about-highlight {
+  margin-top: 15px;
+  padding: 18px 22px;
+  border-left: 5px solid #ff2e88;
+  background: #ffffff;
+  border-radius: 12px;
+  font-size: 17px;
+  font-weight: 600;
+  color: #111827;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+/* ===========================
+   RIGHT CARDS
+=========================== */
+
+.about-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.card {
+  background: #ffffff;
+  padding: 28px;
+  border-radius: 20px;
+  border: 1px solid #ffe0ed;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+  transition: all 0.35s ease;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  border-color: #ff2e88;
+  box-shadow: 0 18px 40px rgba(255, 46, 136, 0.18);
+}
+
+.card h3 {
+  font-size: 22px;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 12px;
+}
+
+.card p {
+  font-size: 15px;
+  color: #6b7280;
+  line-height: 1.8;
+}
+
+/* ===========================
+   RESPONSIVE
+=========================== */
+
+@media (max-width: 992px) {
+  .about-container {
+    grid-template-columns: 1fr;
+    gap: 50px;
+  }
+
+  .about-title {
+    font-size: 36px;
+  }
+
+  .about-heading {
+    font-size: 22px;
+  }
+}
+
+@media (max-width: 768px) {
+  .about-section {
+    padding: 80px 6%;
+  }
+
+  .about-title {
+    font-size: 30px;
+  }
+
+  .about-heading {
+    font-size: 20px;
+  }
+
+  .about-content p {
+    font-size: 15px;
+  }
+
+  .card {
+    padding: 22px;
+  }
+
+  .card h3 {
+    font-size: 20px;
+  }
+}

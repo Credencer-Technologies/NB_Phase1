@@ -1,0 +1,1493 @@
+/* ==========================================================================
+   NaariBazar Provider Dashboard Absolute Master Layout Framework Styles
+   ========================================================================== */
+/* ==========================================================================
+   📐 GLOBAL STRUCTURE RESPONSIVE OVERRIDE CANVAS FRAMEWORK
+   ========================================================================== */
+
+.dashboard-wrapper {
+  width: 90% !important;        /* Forces layout body to occupy exactly 90% space */
+  max-width: 100vw !important;  /* Overrides narrow constraints to fit screen boundaries */
+  margin: 40px auto !important; /* Centers the content grid container frame safely */
+  padding: 0 !important;        /* Clears internal padding offsets conflict */
+  box-sizing: border-box !important;
+  /* 5% spacing is naturally distributed to both sides (100% - 90% = 10% / 2 = 5%) */
+}
+
+/* Base adjustment rules to maintain double-column grids across ultra-wide monitors */
+.dashboard-layout-grid {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 32px !important; /* Spacious center channel separator */
+  align-items: start !important;
+}
+
+@media (max-width: 900px) {
+  .dashboard-wrapper {
+    width: 92% !important; /* Slight adjustments for tablets viewports */
+  }
+  .dashboard-layout-grid {
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+  }
+}
+
+.dashboard-wrapper h1 {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 32px;
+  color: #111827;
+  margin-bottom: 24px;
+}
+
+/* --- Section 1: Top Analytics Banner Row Strip --- */
+.dashboard-top-management-grid {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 32px;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+@media (max-width: 900px) {
+  .dashboard-top-management-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+
+.stats-summary-inline-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 140px;
+}
+
+.stat-box {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.stat-box h3 {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 24px;
+  color: #111827;
+  margin: 0;
+  line-height: 1.1;
+}
+
+.stat-box .caption {
+  font-family: 'Roboto', sans-serif;
+  font-size: 11px;
+  color: #6b7280;
+  margin-top: 2px;
+  text-transform: capitalize;
+}
+
+.status-card {
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+}
+
+.status-card h3 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: #111827;
+  margin: 0 0 8px 0;
+}
+
+.status-verified {
+  font-family: 'Roboto', sans-serif;
+  font-size: 13.5px;
+  color: #059669;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* --- Section 2: Split Grid Workspace Layout Rows --- */
+.dashboard-layout-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+@media (max-width: 768px) {
+  .dashboard-layout-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.left-column-stack, .right-column {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.dashboard-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.01);
+}
+
+/* --- Section Title and Row Actions Layout Elements --- */
+.section-title-action-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #f3f4f6;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+.section-title-action-row h2 {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 20px;
+  color: #111827;
+}
+
+.btn-small-action {
+  padding: 6px 14px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  background: white;
+  border: 1px solid #6021a8;
+  color: #6021a8;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-small-action:hover {
+  background: #6021a8;
+  color: #ffffff;
+}
+
+.profile-details-display-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.detail-display-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+}
+
+.detail-display-row strong { 
+  color: #111827; 
+  font-weight: 500; 
+  min-width: 110px; 
+}
+
+.text-success-bold { color: #059669; font-weight: 600; }
+.text-danger-bold { color: #dc2626; font-weight: 600; }
+
+/* --- Interactive Operational Store Availability Calendar --- */
+.calendar-card-inline-section h2 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: #111827;
+  margin: 0 0 4px 0;
+}
+
+.calendar-header-strip {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.calendar-weekdays-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  margin-top: 16px;
+  margin-bottom: 8px;
+}
+
+.weekday-label {
+  font-family: 'Poppins', sans-serif;
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.calendar-days-matrix-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+}
+
+.calendar-day {
+  aspect-ratio: 1.3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: #111827;
+  transition: all 0.15s ease-in-out;
+}
+
+.empty-cell { background: transparent; }
+.actionable-day { cursor: pointer; }
+.day-available { background-color: #f3f4f6; }
+.day-available:hover { background-color: #e5e7eb; }
+.day-busy { background-color: #ffe4e6; color: #db2777; }
+
+.legend-box {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  margin-right: 4px;
+}
+.label-avail { background-color: #f3f4f6; }
+.label-busy { background-color: #ffe4e6; }
+
+/* --- Services & Offers Accordion Blocks --- */
+.services-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+.services-section-header h2 {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 20px;
+  color: #111827;
+}
+
+.service-category-parent-card-block .service-parent-header-bar-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.offers-badge-counter-pill {
+  font-size: 11px;
+  background-color: #f3e8ff;
+  color: #6021a8;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-weight: 500;
+}
+
+/* --- Unified Sleek Buttons Framework inside Service Group Row --- */
+.parent-actions-group-links-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-service-action-edit {
+  padding: 6px 14px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  background: #ffffff;
+  border: 1px solid #6021a8;
+  color: #6021a8;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-service-action-edit:hover {
+  background: #6021a8;
+  color: #ffffff;
+  box-shadow: 0 2px 4px rgba(96, 33, 168, 0.1);
+}
+
+.btn-service-action-delete {
+  padding: 6px 14px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  background: #ffffff;
+  border: 1px solid #fca5a5;
+  color: #dc2626;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-service-action-delete:hover {
+  background: #fff5f5;
+  border-color: #dc2626;
+}
+
+/* --- Nested Sub-Offers Data Tables --- */
+.nested-sub-offers-table-wrapper {
+  background-color: #ffffff;
+  border-radius: 6px;
+  border: 1px solid #e5e7eb;
+  overflow: hidden;
+}
+
+.dashboard-nested-offers-data-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.dashboard-nested-offers-data-table th {
+  background-color: #f9fafb;
+  font-family: 'Poppins', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  color: #6b7280;
+  padding: 8px 12px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.dashboard-nested-offers-data-table td {
+  padding: 10px 12px;
+  font-size: 13.5px;
+  border-bottom: 1px solid #f3f4f6;
+  color: #111827;
+}
+
+/* --- Portfolio Images Grid Asset Blocks --- */
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.portfolio-thumb img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid #e5e7eb;
+}
+
+/* --- Portfolio Form Link Handlers --- */
+.btn-portfolio-add {
+  background-color: #6021a8;
+  color: #ffffff;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s ease-in-out;
+}
+
+.btn-portfolio-add:hover {
+  background-color: #4c1d95;
+}
+
+.btn-portfolio-remove-round {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  background-color: #dc2626;
+  color: #ffffff;
+  border: none;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  font-size: 9px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+  transition: transform 0.1s ease;
+}
+
+.btn-portfolio-remove-round:hover {
+  transform: scale(1.1);
+  background-color: #b91c1c;
+}
+
+/* --- Customer Enquiries Inbox Matrix Rows --- */
+.enquiry-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.enquiry-row-item {
+  background-color: #f9fafb;
+  border: 1px solid #e5e7eb;
+  padding: 16px;
+  border-radius: 8px;
+}
+
+.enquiry-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  color: #111827;
+  margin-bottom: 8px;
+}
+
+.phone-caption-tracker { color: #6b7280; font-size: 13px; }
+.enquiry-msg { font-family: 'Roboto', sans-serif; font-size: 13.5px; color: #374151; line-height: 1.5; margin: 0 0 12px 0; }
+.enquiry-actions { display: flex; justify-content: space-between; align-items: center; }
+
+/* --- Global Standard Controls Engine Base --- */
+.btn-primary {
+  background-color: #6021a8;
+  color: #ffffff;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 6px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.btn-small {
+  padding: 6px 12px;
+  font-size: 12px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  color: #374151;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.btn-small:hover { background-color: #f3f4f6; }
+
+.badge-warning { background-color: #fef3c7; color: #d97706; padding: 4px 10px; border-radius: 4px; font-family: 'Poppins', sans-serif; font-size: 12px; font-weight: 500; }
+.badge-success { background-color: #d1fae5; color: #059669; padding: 4px 10px; border-radius: 4px; font-family: 'Poppins', sans-serif; font-size: 12px; font-weight: 500; }
+.caption { font-family: 'Roboto', sans-serif; font-size: 12px; color: #6b7280; }
+
+/* ==========================================================================
+   ⚙️ UPGRADED INTERACTIVE SYSTEM MODALS & ACCORDION SYSTEM POPUPS OVERRIDES
+   ========================================================================== */
+
+/* --- Fixed Backdrop Layer Configuration --- */
+.modal-overlay {
+  position: fixed; 
+  top: 0; 
+  left: 0; 
+  width: 100vw; 
+  height: 100vh;
+  background-color: rgba(17, 24, 39, 0.45); 
+  display: flex; 
+  justify-content: center; 
+  align-items: flex-start; /* Aligns container to top to support 5% viewport gap bounds */
+  z-index: 1000;
+  overflow-y: auto; /* Gracefully handles lower laptop viewport screen scale lines */
+  padding: 5vh 0; /* Leave exactly 5% space cushion at the top and bottom of the popup view overlay */
+  box-sizing: border-box;
+}
+
+/* --- Unified Master Dialog Container Base --- */
+.modal-container {
+  position: relative;
+  background-color: #ffffff; 
+  border-radius: 12px;
+  width: 100%; 
+  max-width: 480px; 
+  padding: 28px; 
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  box-sizing: border-box;
+  animation: modalSlideFadeIn 0.2s ease-out;
+}
+
+.multi-offer-modal { 
+  max-width: 580px; 
+}
+
+@keyframes modalSlideFadeIn {
+  from { transform: translateY(12px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* --- ✕ Top Right Close Cross Button Design Token --- */
+.btn-modal-close-x {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 32px;
+  height: 32px;
+  background-color: #f3f4f6;
+  border: 1px solid #e5e7eb;
+  color: #4b5563;
+  border-radius: 50%;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease-in-out;
+  z-index: 10;
+  padding: 0;
+}
+
+.btn-modal-close-x:hover {
+  background-color: #e5e7eb;
+  color: #111827;
+  transform: rotate(90deg);
+}
+
+/* --- Form Fields & Grid Element Layouts --- */
+.modal-container h3 {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 20px;
+  color: #111827;
+  margin: 0 0 16px 0;
+  padding-right: 36px; /* Safeguards clear area bound spacing next to the close X button */
+}
+
+label { 
+  display: block; 
+  font-family: 'Poppins', sans-serif; 
+  font-weight: 500; 
+  font-size: 13px; 
+  margin-top: 14px; 
+  margin-bottom: 6px; 
+  color: #374151; 
+}
+
+input[type="text"], 
+input[type="number"], 
+textarea, 
+select { 
+  width: 100%; 
+  padding: 11px 14px; 
+  border: 1px solid #d1d5db; 
+  border-radius: 6px; 
+  font-family: 'Roboto', sans-serif; 
+  font-size: 14px; 
+  outline: none; 
+  box-sizing: border-box; 
+  background-color: #ffffff;
+  color: #111827;
+  transition: border-color 0.15s ease;
+}
+
+input:focus, 
+textarea:focus, 
+select:focus { 
+  border-color: #6021a8; 
+  box-shadow: 0 0 0 3px rgba(96, 33, 168, 0.06);
+}
+
+.offers-fields-scroll-area { 
+  max-height: 280px; 
+  overflow-y: auto; 
+  padding-right: 6px; 
+  margin: 16px 0;
+  border-top: 1px dashed #e5e7eb;
+  border-bottom: 1px dashed #e5e7eb;
+  padding-top: 8px;
+}
+
+.offer-inputs-row-box { 
+  background-color: #f9fafb; 
+  border: 1px solid #e5e7eb; 
+  padding: 14px; 
+  border-radius: 8px; 
+  margin-bottom: 14px; 
+}
+
+.btn-add-more-offers {
+  width: 100%; 
+  background: #ffffff; 
+  border: 1px dashed #6021a8; 
+  color: #6021a8;
+  padding: 11px; 
+  border-radius: 6px; 
+  font-family: 'Poppins', sans-serif; 
+  font-weight: 500; 
+  font-size: 13px; 
+  cursor: pointer; 
+  margin-bottom: 24px; 
+  transition: background 0.15s ease;
+}
+
+.btn-add-more-offers:hover {
+  background-color: #faf5ff;
+}
+
+.modal-actions-wrapper { 
+  display: flex; 
+  gap: 12px; 
+  justify-content: flex-end; 
+  margin-top: 12px;
+}
+
+.btn-small-cancel { 
+  padding: 10px 20px; 
+  border-radius: 6px; 
+  border: 1px solid #d1d5db; 
+  background: #ffffff; 
+  cursor: pointer; 
+  font-family: 'Poppins', sans-serif; 
+  font-size: 13.5px;
+  font-weight: 500;
+  color: #4b5563;
+  transition: background 0.15s ease;
+}
+
+.btn-small-cancel:hover {
+  background-color: #f9fafb;
+}
+
+/* --- Section 3: Footing Center Logout Panel Controls Row --- */
+.dashboard-logout-footer-row {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  margin-top: 48px;
+  padding-top: 24px;
+  border-top: 2px solid #f3f4f6;
+}
+
+@media (max-width: 480px) {
+  .dashboard-logout-footer-row { 
+    flex-direction: column; 
+    width: 100%; 
+  }
+  .btn-system-logout, 
+  .btn-system-delete-footer { 
+    width: 100%; 
+  }
+}
+
+.btn-system-logout {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  background-color: #1e293b;
+  color: #ffffff;
+  border: none;
+  padding: 12px 36px;
+  border-radius: 6px;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: background 0.15s ease-in-out;
+}
+
+.btn-system-logout:hover { 
+  background-color: #334155; 
+}
+
+.btn-system-delete-footer {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  background-color: #ffffff;
+  border: 1px solid #fca5a5;
+  color: #dc2626;
+  padding: 11px 36px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease-in-out;
+}
+
+.btn-system-delete-footer:hover { 
+  background-color: #fff5f5; 
+}
+
+/* ==========================================================================
+   ⏮️ REVERSION TO BASELINE LAYOUT & DELETE ROW CONTROLS PATCH
+   ========================================================================== */
+
+/* --- Restore full-width stack blocks behavior --- */
+.modal-split-fields-grid {
+  display: block !important;
+}
+
+.modal-split-fields-grid > div {
+  width: 100% !important;
+  margin-bottom: 12px !important;
+}
+
+.modal-inline-portfolio-add-row {
+  display: flex !important;
+  gap: 8px !important;
+  width: 100% !important;
+  align-items: center !important;
+}
+
+.flex-fill-input {
+  flex: 1 !important;
+}
+
+/* --- ❌ Polished Delete Row Button Styling --- */
+.offer-row-header-strip {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  margin-bottom: 12px !important;
+  padding-bottom: 6px !important;
+  border-bottom: 1px dashed #e5e7eb !important;
+}
+
+.offer-row-header-strip h4 {
+  margin: 0 !important;
+  font-family: 'Poppins', sans-serif;
+  font-size: 13.5px !important;
+  font-weight: 600 !important;
+  color: #374151 !important;
+}
+
+.remove-row-btn {
+  background: #fff5f5 !important;
+  border: 1px solid #fee2e2 !important;
+  color: #dc2626 !important;
+  font-family: 'Poppins', sans-serif;
+  font-size: 11.5px !important;
+  font-weight: 500 !important;
+  padding: 4px 10px !important;
+  border-radius: 4px !important;
+  cursor: pointer;
+  transition: all 0.15s ease-in-out !important;
+  text-decoration: none !important;
+}
+
+.remove-row-btn:hover {
+  background: #fee2e2 !important;
+  border-color: #fca5a5 !important;
+  color: #b91c1c !important;
+  box-shadow: 0 1px 2px rgba(220, 38, 38, 0.05);
+}
+
+/* --- Clean Input Separators inside Rows --- */
+.price-inputs-split-row {
+  display: block !important;
+}
+
+.price-inputs-split-row > div {
+  width: 100% !important;
+  margin-bottom: 10px !important;
+}
+
+/* ==========================================================================
+   📷 POLISHED MEDIA SNAPSHOTS & COVER IMAGES DESIGN MATRIX
+   ========================================================================== */
+
+/* --- 1. Inline Main Dashboard Accordion Cards Mini-Covers --- */
+.service-group-mini-cover {
+  width: 48px !important;
+  height: 48px !important;
+  border-radius: 8px !important;
+  object-fit: cover !important; /* Crops image cleanly without squishing it */
+  object-position: center !important;
+  border: 1px solid #e5e7eb !important;
+  background-color: #f3f4f6;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+/* Fallback default folder emoji design placeholder box */
+.folder-icon-emoji {
+  font-size: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  background-color: #faf5ff;
+  border: 1px dashed #d8b4fe;
+  border-radius: 8px;
+}
+
+/* --- 2. Main Dashboard Accordion Card Portfolio Grids --- */
+.photo-grid-accordion {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)) !important;
+  gap: 10px !important;
+  margin: 8px 0 16px 0 !important;
+}
+
+.photo-grid-accordion .portfolio-thumb {
+  aspect-ratio: 1 / 1 !important; /* Forces a perfect uniform square shape */
+  overflow: hidden !important;
+  border-radius: 6px !important;
+  border: 1px solid #e5e7eb !important;
+  background-color: #f9fafb;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease;
+}
+
+.photo-grid-accordion .portfolio-thumb:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  border-color: #c084fc;
+}
+
+.photo-grid-accordion .portfolio-thumb img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  transition: transform 0.3s ease;
+}
+
+.photo-grid-accordion .portfolio-thumb:hover img {
+  transform: scale(1.05); /* Soft, beautiful micro-zoom effect */
+}
+
+/* --- 3. View Details Modal Read-Only Preview Sheet Cover --- */
+.modal-profile-image-preview {
+  width: 64px !important;
+  height: 64px !important;
+  border-radius: 10px !important;
+  object-fit: cover !important;
+  object-position: center !important;
+  border: 1px solid #e5e7eb !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.03);
+}
+
+.modal-profile-placeholder-box {
+  width: 64px !important;
+  height: 64px !important;
+  border-radius: 10px !important;
+  background-color: #f3f4f6;
+  border: 1px solid #e5e7eb;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 24px !important;
+}
+
+/* --- 4. Read-Only Modal Content Portfolio Grid --- */
+.photo-grid-modal-preview {
+  display: grid !important;
+  grid-template-columns: repeat(4, 1fr) !important;
+  gap: 8px !important;
+  margin: 6px 0 18px 0 !important;
+}
+
+.photo-grid-modal-preview .portfolio-thumb {
+  aspect-ratio: 1 / 1 !important;
+  overflow: hidden !important;
+  border-radius: 6px !important;
+  border: 1px solid #e5e7eb !important;
+}
+
+.photo-grid-modal-preview .portfolio-thumb img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+}
+
+/* --- 5. Form Creation Popup (Modal 2) Mini Thumbnail Queue Scroller --- */
+.modal-portfolio-preview-scroller-box {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: wrap !important;
+  gap: 10px !important;
+  background-color: #f9fafb !important;
+  padding: 12px !important;
+  border: 1px dashed #d1d5db !important;
+  border-radius: 8px !important;
+  margin-bottom: 16px !important;
+  max-height: 110px !important;
+  overflow-y: auto !important;
+}
+
+.portfolio-preview-thumb-wrapper {
+  position: relative !important;
+  width: 52px !important;
+  height: 52px !important;
+  border-radius: 6px !important;
+  border: 1px solid #e5e7eb !important;
+  background-color: #ffffff;
+}
+
+.mini-thumb-image-asset {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  border-radius: 5px !important;
+}
+
+/* ==========================================================================
+   🧹 SERVICES & OFFERS PANEL VISUAL SPACING CLEANUP
+   ========================================================================== */
+
+/* --- 1. Main Section Headers --- */
+.services-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 16px !important;
+  margin-bottom: 28px !important;
+  border-bottom: 2px solid #f3f4f6;
+}
+
+/* --- 2. Isolated Parent Cards Spacing --- */
+.service-category-parent-card-block {
+  border: 1px solid #e5e7eb !important; 
+  border-radius: 12px !important; /* Softer rounded corners */
+  padding: 24px !important; /* Increased internal breathing space cushion */
+  background-color: #ffffff !important; 
+  margin-bottom: 28px !important; /* Generous gap between service category tracks */
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.01), 0 2px 4px -1px rgba(0, 0, 0, 0.006) !important;
+}
+
+/* --- 3. Header Row Aligned Cleanly --- */
+.service-parent-header-bar-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px !important; /* Separate from description bio below */
+}
+
+.parent-title-group-text h3 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 18px !important; /* Slightly larger headline text token */
+  font-weight: 600;
+  margin: 0 0 4px 0 !important;
+  color: #111827;
+}
+
+/* --- 4. Description Bio Lines Breather --- */
+.flex-column-start {
+  margin: 18px 0 !important; /* Clear bounds top and bottom */
+}
+
+.field-group-desc-label {
+  display: block;
+  font-size: 12px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  color: #6b7280 !important;
+  font-weight: 600 !important;
+  margin-bottom: 8px !important;
+}
+
+.service-desc-text-p {
+  padding: 14px 16px !important; /* Spacious text bounding */
+  font-size: 14px !important;
+  line-height: 1.6 !important; /* Increased reading height line ratio */
+  color: #4b5563 !important;
+  background-color: #f9fafb !important;
+  border-radius: 8px !important;
+}
+
+/* --- 5. Media Gallery Space --- */
+.portfolio-row-view-container {
+  margin: 20px 0 24px 0 !important;
+}
+
+.photo-grid-accordion {
+  gap: 12px !important;
+  margin-top: 10px !important;
+}
+
+/* --- 6. Pricing Structure Table Separation --- */
+.nested-sub-offers-table-wrapper {
+  margin-top: 20px !important;
+  border-radius: 8px !important;
+  border: 1px solid #e5e7eb !important;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.005);
+}
+
+.dashboard-nested-offers-data-table th {
+  padding: 12px 16px !important; /* Better cell breathing room */
+  font-size: 12.5px !important;
+  letter-spacing: 0.2px;
+}
+
+.dashboard-nested-offers-data-table td {
+  padding: 14px 16px !important; /* Comfortable inline values separation */
+  font-size: 14px !important;
+}
+
+/* --- 7. Modal Form Fields Spacing Fixes --- */
+.modal-container label {
+  margin-top: 18px !important; /* Avoid labels crowding previous fields */
+  margin-bottom: 8px !important;
+}
+
+.modal-textarea-fixed-height {
+  min-height: 90px !important;
+  line-height: 1.5 !important;
+}
+
+.offer-inputs-row-box {
+  padding: 20px !important; /* Breathing space inside dynamic sub-form containers */
+  margin-bottom: 20px !important;
+  border-radius: 10px !important;
+}
+
+/* ==========================================================================
+   🧹 STORE AVAILABILITY CALENDAR VISUAL SPACING CLEANUP
+   ========================================================================== */
+
+/* --- 1. Main Inline Card Container Padding --- */
+.calendar-card-inline-section {
+  padding: 24px !important; /* Matches personal details internal breathe margins */
+  margin-bottom: 28px !important; /* Generous vertical gap down elements stack */
+  border-radius: 12px !important;
+}
+
+/* --- 2. Title and Status Legends Row Breather --- */
+.calendar-header-strip {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #f3f4f6; /* Soft visual separation line token */
+  padding-bottom: 14px !important;
+  margin-bottom: 12px !important;
+}
+
+/* --- 3. Subtitle Description Text Line-Height --- */
+.calendar-card-inline-section .caption {
+  display: block;
+  font-size: 13px !important;
+  line-height: 1.5 !important; /* Prevents cramped paragraph wrapping */
+  color: #6b7280 !important;
+  margin-top: 6px !important;
+  margin-bottom: 20px !important; /* Defines clear bounds down grid layer */
+}
+
+/* --- 4. Weekdays Grid Label Row Separation --- */
+.calendar-weekdays-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  margin-bottom: 14px !important; /* Spacious step above days matrix squares */
+  background-color: #f9fafb; /* Soft backplate strip for headers look */
+  padding: 8px 0;
+  border-radius: 6px;
+}
+
+.weekday-label strong {
+  font-family: 'Poppins', sans-serif;
+  font-size: 12.5px !important;
+  font-weight: 600 !important;
+  color: #4b5563 !important;
+}
+
+/* --- 5. Days Matrix Cells Proportions Fix --- */
+.calendar-days-matrix-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10px !important; /* Roomy gap channels grid matrix layout */
+}
+
+.calendar-day.actionable-day {
+  aspect-ratio: 1.2 / 1 !important; /* Perfect spacious box sizing bounds ratio */
+  border-radius: 6px !important;
+  font-size: 13.5px !important;
+  font-weight: 500 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+}
+
+/* --- 6. Inline Legend Pill Markers Space --- */
+.calendar-header-strip div div {
+  padding: 4px 8px;
+  background-color: #f9fafb;
+  border-radius: 4px;
+  border: 1px solid #e5e7eb;
+}
+
+.calendar-header-strip .legend-box {
+  width: 14px !important;
+  height: 14px !important;
+  border-radius: 4px !important;
+  margin-right: 6px !important;
+}
+
+/* ==========================================================================
+   🔄 ACCOUNT AVAILABILITY CHECKBOX TOGGLE SWITCH LAYOUT
+   ========================================================================== */
+
+.modal-checkbox-toggle-wrapper {
+  margin-top: 20px !important;
+  margin-bottom: 8px !important;
+  padding: 12px 14px !important;
+  background-color: #faf5ff !important; /* Soft purple backplate highlight tint */
+  border: 1px dashed #d8b4fe !important;
+  border-radius: 8px !important;
+  display: flex !important;
+}
+
+.checkbox-switch-container-label {
+  display: flex !important;
+  align-items: center !important;
+  cursor: pointer !important;
+  margin: 0 !important; /* Overrides default block label margins */
+  width: 100% !important;
+}
+
+/* Custom interactive square marker layout look system */
+.custom-styled-toggle-box-indicator {
+  width: 18px !important;
+  height: 18px !important;
+  border: 2px solid #6021a8 !important;
+  border-radius: 4px !important;
+  display: inline-block !important;
+  margin-right: 12px !important;
+  position: relative !important;
+  background-color: #ffffff !important;
+  transition: all 0.15s ease-in-out !important;
+  flex-shrink: 0;
+}
+
+/* Draws custom inner confirmation indicator mark upon activation hook state */
+.native-hidden-checkbox:checked + .custom-styled-toggle-box-indicator {
+  background-color: #6021a8 !important;
+}
+
+.native-hidden-checkbox:checked + .custom-styled-toggle-box-indicator::after {
+  content: "✓" !important;
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-translate(-50%, -50%)) scale(1) !important;
+  color: #ffffff !important;
+  font-size: 11px !important;
+  font-weight: bold !important;
+}
+
+.checkbox-toggle-text-descriptor {
+  font-family: 'Poppins', sans-serif;
+  font-size: 13.5px !important;
+  font-weight: 500 !important;
+  color: #4b1d83 !important;
+  line-height: 1.4 !important;
+}
+
+/* Hides browser default basic raw input boxes */
+.native-hidden-checkbox {
+  position: absolute !important;
+  opacity: 0 !important;
+  width: 0 !important;
+  height: 0 !important;
+  margin: 0 !important;
+}
+
+
+/* --- Active Status Reflection Badges Framework Tokens --- */
+.badge-service-online {
+  font-family: 'Poppins', sans-serif;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  color: #059669 !important;
+  background-color: #d1fae5;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.badge-service-offline {
+  font-family: 'Poppins', sans-serif;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  color: #dc2626 !important;
+  background-color: #fee2e2;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+/* ==========================================================================
+   💎 PREMIUM GLASSMORPHISM TOP ANALYTICS & BRANDING BAR
+   ========================================================================== */
+
+/* Main Banner Wrapper Alignment Grid */
+.dashboard-top-management-grid {
+  display: grid !important;
+  grid-template-columns: 280px 1fr !important;
+  gap: 24px !important;
+  align-items: stretch !important;
+  margin-top: 20px !important;
+  margin-bottom: 40px !important;
+}
+
+@media (max-width: 900px) {
+  .dashboard-top-management-grid {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+  }
+}
+
+/* --- Left Side Metrics Row Strip Stack --- */
+.stats-summary-inline-grid {
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  gap: 16px !important;
+  background: linear-gradient(135deg, #ffffff 0%, #fcfaff 100%) !important;
+  border: 1px solid #e9e3ff !important;
+  padding: 20px 24px !important;
+  border-radius: 16px !important;
+  box-shadow: 0 10px 25px -5px rgba(96, 33, 168, 0.04), 0 4px 12px -2px rgba(0, 0, 0, 0.01) !important;
+}
+
+/* Isolated Metrics Number Card Content */
+.stat-box {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  text-align: center !important;
+  flex: 1 !important;
+  position: relative;
+}
+
+/* Fine visual separator lines between numeric text streams */
+.stat-box:not(:last-child)::after {
+  content: "" !important;
+  position: absolute !important;
+  right: -8px !important;
+  top: 15% !important;
+  height: 70% !important;
+  width: 1px !important;
+  background-color: #e5e7eb !important;
+}
+
+.stat-box h3 {
+  font-family: 'Poppins', sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 26px !important;
+  color: #1e1b4b !important; /* Premium Indigo Dark */
+  margin: 0 !important;
+  line-height: 1 !important;
+  letter-spacing: -0.5px !important;
+}
+
+/* Star rating golden gradient text override */
+.stat-box h3:has(span), 
+.stat-box:contains("⭐") h3 {
+  color: #d97706 !important;
+}
+
+.stat-box .caption {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 11px !important;
+  font-weight: 500 !important;
+  color: #6b7280 !important;
+  margin-top: 6px !important;
+  margin-bottom: 0 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+}
+
+/* --- Right Side Profile Verification Admin Card --- */
+.status-card {
+  background: #ffffff !important;
+  border: 1px solid #e5e7eb !important;
+  border-radius: 16px !important;
+  padding: 24px 28px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.01), 0 2px 4px -1px rgba(0, 0, 0, 0.006) !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+/* Decorative glassmorphic top lighting bar accent */
+.status-card::before {
+  content: "" !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 4px !important;
+  background: linear-gradient(90deg, #10b981 0%, #34d399 100%) !important; /* Energetic Green */
+}
+
+.status-card h3 {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  color: #1f2937 !important;
+  margin: 0 0 6px 0 !important;
+  letter-spacing: -0.2px !important;
+}
+
+/* Verified Success Badge Element Layout Row */
+.status-verified {
+  font-family: 'Roboto', sans-serif !important;
+  font-size: 14px !important;
+  font-weight: 400 !important;
+  color: #065f46 !important; /* Deep forest reading tone */
+  margin: 0 !important;
+  line-height: 1.5 !important;
+  background-color: #ecfdf5 !important; /* Ultra-soft background shield tint */
+  padding: 8px 14px !important;
+  border-radius: 8px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  border: 1px solid #a7f3d0 !important;
+  width: fit-content !important;
+}
+
+/* ==========================================================================
+   📅 UPGRADED CALENDAR INTERACTIVE TRAVERSAL & COLOR STATES MATRIX
+   ========================================================================== */
+
+/* Navigation Header Frame controls setup */
+.calendar-month-traversal-control-panel {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background-color: #f3f4f6;
+  padding: 4px 14px;
+  border-radius: 20px;
+  border: 1px solid #e5e7eb;
+  margin-top: 8px;
+}
+
+.calendar-active-month-heading-label {
+  font-family: 'Poppins', sans-serif;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #1e293b;
+  min-width: 120px;
+  text-align: center;
+}
+
+.btn-calendar-nav-arrow {
+  background: transparent;
+  border: none;
+  color: #6021a8;
+  font-size: 11px;
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 50%;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-calendar-nav-arrow:hover {
+  background-color: #e8daff;
+  color: #4c1d95;
+  transform: scale(1.15);
+}
+
+/* Legend controls layout wrapping */
+.calendar-legends-wrapper-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.legend-item {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  background-color: #ffffff;
+  padding: 4px 10px;
+  border-radius: 6px;
+  border: 1px solid #f3f4f6;
+}
+
+/* --- Dynamic Matrix Cells Color Transitions Systems --- */
+.calendar-day.actionable-day {
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  border: 1px solid transparent !important;
+}
+
+/* 🟢 Available Day: Sophisticated emerald green palette configuration theme */
+.day-available-green {
+  background-color: #ecfdf5 !important;
+  color: #065f46 !important;
+}
+
+.day-available-green:hover {
+  background-color: #10b981 !important;
+  color: #ffffff !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
+  border-color: #34d399 !important;
+}
+
+/* 🔴 Unavailable Day: Sleek crimson red palette state configuration */
+.day-busy-red {
+  background-color: #fef2f2 !important;
+  color: #991b1b !important;
+}
+
+.day-busy-red:hover {
+  background-color: #ef4444 !important;
+  color: #ffffff !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2);
+  border-color: #f87171 !important;
+}
+
+/* ⚪ Past Read-Only Lockout Day: Neutral flat inactive gray block layer layout */
+.day-past-completed {
+  background-color: #e5e7eb !important;
+  color: #9ca3af !important;
+  cursor: not-allowed !important;
+  opacity: 0.7;
+}
+
+/* Legend box color definitions track updates */
+.label-completed { background-color: #e5e7eb; border: 1px solid #d1d5db; }
+.label-avail-green { background-color: #ecfdf5; border: 1px solid #a7f3d0; }
+.label-busy-red { background-color: #fef2f2; border: 1px solid #fca5a5; }
+
+/* ✕ DISMISSIVE SECONDARY BUTTON STYLE - CLOSE VIEW */
+.btn-disabled-secondary {
+  background-color: #f3f4f6;
+  color: #4b5563;
+  border: 1px solid #d1d5db;
+  padding: 10px 20px;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease-in-out;
+}
+
+/* Hover State */
+.btn-disabled-secondary:hover {
+  background-color: #e5e7eb;
+  color: #1f2937;
+  border-color: #9ca3af;
+}
+
+/* Active Pressed State */
+.btn-disabled-secondary:active {
+  background-color: #d1d5db;
+  transform: scale(0.98);
+}
+
+/* Focus Outline Layout Rule */
+.btn-disabled-secondary:focus {
+  outline: 2px solid #9ca3af;
+  outline-offset: 2px;
+}
+

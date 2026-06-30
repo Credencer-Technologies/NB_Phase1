@@ -1,0 +1,234 @@
+/* ==========================================
+   PREMIUM INTRO SCREEN
+========================================== */
+
+.intro-overlay {
+  position: fixed;
+  inset: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 99999;
+
+  overflow: hidden;
+
+  background:
+    radial-gradient(circle at top left,
+      rgba(91, 31, 174, 0.08),
+      transparent 35%),
+    radial-gradient(circle at top right,
+      rgba(233, 30, 121, 0.10),
+      transparent 35%),
+    radial-gradient(circle at bottom left,
+      rgba(91, 31, 174, 0.08),
+      transparent 35%),
+    radial-gradient(circle at bottom right,
+      rgba(233, 30, 121, 0.10),
+      transparent 35%),
+    linear-gradient(
+      135deg,
+      #ffffff 0%,
+      #fff8fc 50%,
+      #faf5ff 100%
+    );
+
+  animation: fadeOut .8s ease 1.6s forwards;
+}
+
+/* Decorative Glow */
+
+.intro-overlay::before,
+.intro-overlay::after {
+  content: "";
+
+  position: absolute;
+
+  width: 450px;
+  height: 450px;
+
+  border-radius: 50%;
+
+  filter: blur(100px);
+
+  z-index: 0;
+}
+
+.intro-overlay::before {
+  top: -180px;
+  right: -150px;
+  background: rgba(233, 30, 121, 0.12);
+}
+
+.intro-overlay::after {
+  bottom: -180px;
+  left: -150px;
+  background: rgba(91, 31, 174, 0.12);
+}
+
+/* ==========================================
+   FADE OUT
+========================================== */
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+/* ==========================================
+   CONTENT
+========================================== */
+
+.intro-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+}
+
+/* ==========================================
+   LOGO
+========================================== */
+
+.logo-text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-family: "Poppins", sans-serif;
+  font-size: 3rem;
+  font-weight: 800;
+
+  letter-spacing: -0.8px;
+
+  animation: floatIn .9s ease;
+}
+
+.nari {
+  color: #5B1FAE;
+}
+
+.bazar {
+  color: #E91E79;
+}
+
+/* Premium Glow */
+
+.nari,
+.bazar {
+  text-shadow:
+    0 2px 8px rgba(255,255,255,.45),
+    0 0 14px rgba(0,0,0,.06);
+}
+
+/* ==========================================
+   LOGO ANIMATION
+========================================== */
+
+@keyframes floatIn {
+
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+    filter: blur(6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+
+}
+
+/* ==========================================
+   LOADING BAR
+========================================== */
+
+.loading-bar {
+
+  width: 240px;
+  height: 5px;
+
+  margin: 30px auto 0;
+
+  background: rgba(91, 31, 174, .12);
+
+  border-radius: 999px;
+
+  overflow: hidden;
+
+  backdrop-filter: blur(10px);
+
+  box-shadow:
+    inset 0 1px 3px rgba(255,255,255,.5),
+    0 8px 20px rgba(91,31,174,.06);
+}
+
+.bar {
+
+  width: 35%;
+  height: 100%;
+
+  border-radius: inherit;
+
+  background: linear-gradient(
+    90deg,
+    #5B1FAE,
+    #7D3AED,
+    #C026D3,
+    #E91E79
+  );
+
+  box-shadow:
+    0 0 14px rgba(91,31,174,.30),
+    0 0 22px rgba(233,30,121,.30);
+
+  animation: loading 1.6s ease-in-out forwards;
+}
+
+/* ==========================================
+   LOADING ANIMATION
+========================================== */
+
+@keyframes loading {
+
+  0% {
+    transform: translateX(-140%);
+  }
+
+  100% {
+    transform: translateX(340%);
+  }
+
+}
+
+/* ==========================================
+   RESPONSIVE
+========================================== */
+
+@media (max-width:768px) {
+
+  .logo-text {
+    font-size: 2.5rem;
+  }
+
+  .loading-bar {
+    width: 200px;
+  }
+
+}
+
+@media (max-width:480px) {
+
+  .logo-text {
+    font-size: 2rem;
+  }
+
+  .loading-bar {
+    width: 170px;
+  }
+
+}
