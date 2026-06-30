@@ -30,11 +30,10 @@ const Hero = () => {
         </h1>
 
         <p className="hero-description">
-          <ScrollRevealText text="Connect with trusted beauty, wellness, fashion, and lifestyle experts who transform everyday moments into extraordinary experiences." />
+          Connect with trusted beauty, wellness, fashion, and lifestyle experts who transform everyday moments into extraordinary experiences.
         </p>
 
         <div className="hero-actions">
-
           <button
             ref={primary.ref}
             onMouseMove={primary.handleMove}
@@ -54,7 +53,6 @@ const Hero = () => {
           >
             Join as a Provider
           </button>
-
         </div>
 
       </div>
@@ -62,4 +60,4 @@ const Hero = () => {
   );
 };
 
-export default Hero
+export default Hero;

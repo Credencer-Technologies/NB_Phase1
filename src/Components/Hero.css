@@ -1,7 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+
 /* ==========================================
    HERO SECTION
 ========================================== */
-
 .hero {
   position: relative;
   width: 100%;
@@ -16,284 +17,162 @@
 }
 
 /* ==========================================
-   VIDEO
+   VIDEO & OVERLAY
 ========================================== */
-
 .hero-video {
   position: absolute;
   inset: 0;
-
   width: 100%;
   height: 100%;
-
   object-fit: cover;
-
-  filter: brightness(1.08) contrast(1.08) saturate(1.15);
-
+  filter: brightness(0.8) contrast(1.02);
   z-index: 0;
 }
-
-/* ==========================================
-   LIGHT OVERLAY
-========================================== */
 
 .overlay {
   position: absolute;
   inset: 0;
   z-index: 1;
-
   background: linear-gradient(
-    rgba(0, 0, 0, 0.18),
-    rgba(0, 0, 0, 0.28)
+    rgba(0, 0, 0, 0.25),
+    rgba(0, 0, 0, 0.4)
   );
 }
 
 /* ==========================================
-   CONTENT
+   CONTENT & TYPOGRAPHY
 ========================================== */
-
 .hero-content {
   position: relative;
   z-index: 2;
-
-  width: min(92%, 900px);
-
+  width: min(92%, 1000px);
   text-align: center;
-
   color: #fff;
-
   padding: 0;
 }
 
-/* ==========================================
-   TAGLINE
-========================================== */
-
 .hero-tagline {
   display: inline-block;
-
-  margin-bottom: 22px;
-
+  margin-bottom: 24px;
+  font-family: 'Montserrat', sans-serif;
   font-size: 0.9rem;
-
   font-weight: 600;
-
-  letter-spacing: 5px;
-
+  letter-spacing: 4px;
   text-transform: uppercase;
-
-  color: rgba(255, 255, 255, 0.95);
-
-  text-shadow: 0 3px 12px rgba(0, 0, 0, 0.4);
+  color: #ffffff;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
 }
-
-/* ==========================================
-   TITLE
-========================================== */
 
 .hero-title {
-  margin: 0 0 24px;
-
-  font-size: clamp(3.2rem, 7vw, 5.8rem);
-
-  font-weight: 800;
-
-  line-height: 1.05;
-
-  letter-spacing: -2px;
-
-  text-shadow: 0 6px 25px rgba(0, 0, 0, 0.35);
+  margin: 0 0 28px;
+  font-family: 'Playfair Display', serif; /* Elegant Serif font style from the image */
+  font-size: clamp(2.8rem, 6.5vw, 5.2rem);
+  font-weight: 600; /* Bold yet sophisticated weight */
+  line-height: 1.2;
+  letter-spacing: -0.5px;
+  
+  /* Matches the soft lavender tone in the image */
+  color: #d1c4ff;
+  text-shadow: 0 4px 20px rgba(209, 196, 255, 0.2), 0 4px 12px rgba(0, 0, 0, 0.5);
 }
 
-/* Premium Gradient */
-
-.hero-content h1,
-.hero-content h1 span {
-
-  background: linear-gradient(
-    135deg,
-    #ff0f7b,
-    #ff4fa5,
-    #ff74b8,
-    #ff95cb
-  );
-
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+/* Forces ScrollRevealText child elements to inherit the Playfair font & colors */
+.hero-title *,
+.hero-title span {
+  font-family: 'Playfair Display', serif !important;
+  color: #d1c4ff !important;
+  -webkit-text-fill-color: #d1c4ff !important;
+  background: none !important;
+  background-clip: unset !important;
 }
-
-/* ==========================================
-   DESCRIPTION
-========================================== */
 
 .hero-description {
-
-  max-width: 720px;
-
-  margin: 0 auto 45px;
-
-  font-size: 1.2rem;
-
-  line-height: 1.8;
-
-  color: rgba(255, 255, 255, 0.95);
-
-  text-shadow: 0 3px 14px rgba(0, 0, 0, 0.35);
+  max-width: 780px;
+  margin: 0 auto 48px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: clamp(1rem, 1.8vw, 1.15rem);
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.9);
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  font-weight: 400;
 }
 
 /* ==========================================
-   BUTTONS
+   BUTTONS (EXACT IMAGE GLASSMORPHISM)
 ========================================== */
-
 .hero-actions {
-
   display: flex;
-
   justify-content: center;
-
   align-items: center;
-
   gap: 18px;
-
-  margin-top: 20px;
-
+  margin-top: 28px;
   flex-wrap: wrap;
 }
 
-/* ==========================================
-   PRIMARY BUTTON
-========================================== */
-
-.primary {
-
-  padding: 15px 36px;
-
-  border: none;
-
+/* Shared Glassmorphism Foundations */
+.btn-glass {
+  padding: 14px 36px;
   border-radius: 999px;
-
-  cursor: pointer;
-
+  font-family: 'Montserrat', sans-serif;
   font-size: 1rem;
-
   font-weight: 600;
-
-  color: #fff;
-
-  background: linear-gradient(
-    135deg,
-    #ff2d8d,
-    #ff5ca8
-  );
-
-  box-shadow: 0 12px 30px rgba(255, 45, 141, 0.35);
-
-  transition: all .3s ease;
-}
-
-.primary:hover {
-
-  transform: translateY(-4px);
-
-  box-shadow: 0 18px 40px rgba(255, 45, 141, 0.45);
-
-  background: linear-gradient(
-    135deg,
-    #ff177f,
-    #ff4f9d
-  );
-}
-
-/* ==========================================
-   SECONDARY BUTTON
-========================================== */
-
-.secondary {
-
-  padding: 15px 36px;
-
-  border-radius: 999px;
-
-  border: 2px solid rgba(255,255,255,.7);
-
-  background: transparent;
-
-  color: #fff;
-
+  color: #ffffff;
   cursor: pointer;
-
-  font-size: 1rem;
-
-  font-weight: 600;
-
-  transition: all .3s ease;
+  letter-spacing: 0.3px;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
-.secondary:hover {
+/* Explore Services (Translucent Soft Purple Glass) */
+.btn-glass.primary {
+  background: rgba(147, 112, 219, 0.65); 
+  border: 1.5px solid rgba(255, 255, 255, 0.45);
+  box-shadow: 0 8px 24px rgba(147, 112, 219, 0.25);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+}
 
-  background: rgba(255,255,255,.15);
+.btn-glass.primary:hover {
+  transform: translateY(-3px);
+  background: rgba(147, 112, 219, 0.8);
+  box-shadow: 0 12px 30px rgba(147, 112, 219, 0.4);
+  border-color: rgba(255, 255, 255, 0.7);
+}
 
-  border-color: #fff;
+/* Join as a Provider (Dark Tinted / Clear Outline Glass) */
+.btn-glass.secondary {
+  background: rgba(0, 0, 0, 0.2); 
+  border: 1.5px solid rgba(255, 255, 255, 0.75); 
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
 
-  transform: translateY(-4px);
+.btn-glass.secondary:hover {
+  transform: translateY(-3px);
+  background: rgba(255, 255, 255, 0.15);
+  border-color: #ffffff;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
 }
 
 /* ==========================================
    RESPONSIVE
 ========================================== */
-
-@media (max-width: 992px) {
-
-  .hero-title {
-    font-size: 3.8rem;
-  }
-
-  .hero-description {
-    font-size: 1.05rem;
-  }
-}
-
 @media (max-width: 768px) {
-
-  .hero {
-    padding: 20px;
-  }
-
-  .hero-title {
-    font-size: 2.8rem;
-    letter-spacing: -1px;
-  }
-
-  .hero-description {
-    font-size: 1rem;
+  .hero-content {
+    padding: 0 16px;
   }
 
   .hero-actions {
     flex-direction: column;
-    gap: 16px;
-  }
-
-  .primary,
-  .secondary {
+    gap: 14px;
     width: 100%;
-    max-width: 320px;
-  }
-}
-
-@media (max-width: 480px) {
-
-  .hero-title {
-    font-size: 2.2rem;
   }
 
-  .hero-tagline {
-    font-size: 0.75rem;
-    letter-spacing: 3px;
-  }
-
-  .hero-description {
-    font-size: 0.95rem;
-    line-height: 1.7;
+  .btn-glass.primary,
+  .btn-glass.secondary {
+    width: 100%;
+    max-width: 300px;
+    padding: 14px 24px;
+    text-align: center;
   }
 }
