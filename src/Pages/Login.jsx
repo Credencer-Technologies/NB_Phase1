@@ -4,10 +4,8 @@ import "./Login.css";
 
 function Login() {
   const [showRegisterCard, setShowRegisterCard] = useState(false);
-
   const [phone, setPhone] = useState("");
   const [otp, setOtp] = useState("");
-
   const navigate = useNavigate();
 
   const validPhone = "1234567890";
@@ -35,59 +33,43 @@ function Login() {
   return (
     <div className="login-page">
       <div className="login-form-card">
-
         <div className="login-avatar">
-          <img
-            src="/image/logo2.jpeg"
-            alt="NariBazar"
-          />
+          <img src="/image/logo2.jpeg" alt="NariBazar" />
         </div>
 
         {!showRegisterCard ? (
           <>
             <div className="login-header">
               <h2>Welcome Back</h2>
-
               <p>
-                Access your NariBazar account and continue
-                exploring services and opportunities.
+                Access your NariBazar account and continue exploring services
+                and opportunities.
               </p>
             </div>
 
-            <div className="field-label">
-              Mobile Number
-            </div>
+            <div className="field-label">Mobile Number</div>
 
             <div className="input-box">
               <i className="fas fa-phone"></i>
-
               <input
                 type="tel"
                 placeholder="Enter Mobile Number"
                 value={phone}
-                onChange={(e) =>
-                  setPhone(e.target.value)
-                }
+                onChange={(e) => setPhone(e.target.value)}
               />
             </div>
 
-            <button
-              className="otp-btn"
-              onClick={handleSendOtp}
-            >
+            <button className="otp-btn" onClick={handleSendOtp}>
               Send OTP
             </button>
 
             <div className="input-box">
               <i className="fas fa-lock"></i>
-
               <input
                 type="text"
                 placeholder="Enter OTP"
                 value={otp}
-                onChange={(e) =>
-                  setOtp(e.target.value)
-                }
+                onChange={(e) => setOtp(e.target.value)}
               />
             </div>
 
@@ -98,10 +80,7 @@ function Login() {
               </label>
             </div>
 
-            <button
-              className="main-btn"
-              onClick={handleLogin}
-            >
+            <button className="main-btn" onClick={handleLogin}>
               Verify & Login
             </button>
 
@@ -110,13 +89,8 @@ function Login() {
             </div>
 
             <p className="switch-link">
-              New to NariBazar?
-
-              <span
-                onClick={() =>
-                  setShowRegisterCard(true)
-                }
-              >
+              New to NariBazar?{" "}
+              <span onClick={() => setShowRegisterCard(true)}>
                 Register Now
               </span>
             </p>
@@ -125,56 +99,35 @@ function Login() {
           <>
             <div className="login-header">
               <h2>Create Account</h2>
-
-              <p>
-                Select how you want to join
-                NariBazar
-              </p>
+              <p>Select how you want to join NariBazar</p>
             </div>
 
             <div className="register-options">
-
               <div
                 className="register-option-card"
-                onClick={() =>
-                  navigate("/register?role=user")
-                }
+                onClick={() => navigate("/register?role=user")}
               >
                 <i className="fas fa-user"></i>
-
                 <h4>User Registration</h4>
-
               </div>
 
               <div
                 className="register-option-card"
-                onClick={() =>
-                  navigate("/register?role=provider")
-                }
+                onClick={() => navigate("/register?role=provider")}
               >
                 <i className="fas fa-briefcase"></i>
-
                 <h4>Service Provider</h4>
-
-                
               </div>
-
             </div>
 
             <p className="switch-link">
-              Already have an account?
-
-              <span
-                onClick={() =>
-                  setShowRegisterCard(false)
-                }
-              >
+              Already have an account?{" "}
+              <span onClick={() => setShowRegisterCard(false)}>
                 Login Here
               </span>
             </p>
           </>
         )}
-
       </div>
     </div>
   );
