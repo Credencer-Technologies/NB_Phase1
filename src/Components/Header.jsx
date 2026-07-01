@@ -17,6 +17,13 @@ const Header = () => {
 
   const searchRef = useRef(null);
   const profileRef = useRef(null);
+  const handleSearch = () => {
+    const value = query.trim();
+
+      if (!value) return;
+
+      navigate(`/explore?search=${encodeURIComponent(value)}`);
+    };
 
   /* AUTH SYNC */
   useEffect(() => {
@@ -133,35 +140,46 @@ const Header = () => {
         <div className="nav-actions">
 
           {/* SEARCH */}
-          <div
-            ref={searchRef}
-            className={`search-container ${searchOpen ? "active" : ""}`}
-          >
-            <FaSearch
-              className="search-icon"
-              onClick={() => setSearchOpen(true)}
-            />
+<div
+  ref={searchRef}
+  className={`search-container ${searchOpen ? "active" : ""}`}
+>
+  <FaSearch
+    className="search-icon"
+    onClick={() => {
+      if (!searchOpen) {
+        setSearchOpen(true);
+      } else {
+        handleSearch();
+      }
+    }}
+  />
 
-            {searchOpen && (
-              <>
-                <input
-                  autoFocus
-                  type="text"
-                  placeholder="Search services..."
-                  value={query}
-                  onChange={(e) => setQuery(e.target.value)}
-                />
+  {searchOpen && (
+    <>
+      <input
+        autoFocus
+        type="text"
+        placeholder="Search services..."
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            handleSearch();
+          }
+        }}
+      />
 
-                <FaTimes
-                  className="close-icon"
-                  onClick={() => {
-                    setSearchOpen(false);
-                    setQuery("");
-                  }}
-                />
-              </>
-            )}
-          </div>
+      <FaTimes
+        className="close-icon"
+        onClick={() => {
+          setSearchOpen(false);
+          setQuery("");
+        }}
+      />
+    </>
+  )}
+</div>
 
           {/* DASHBOARD */}
           <button

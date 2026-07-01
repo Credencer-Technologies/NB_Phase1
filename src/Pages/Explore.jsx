@@ -15,8 +15,8 @@ import customer2 from "../assets/Images/customer2.jpg";
 import customer3 from "../assets/Images/customer3.jpg";
 
 
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import {
 FaSearch,
 FaMapMarkerAlt,
@@ -179,7 +179,12 @@ const providers = [
 function Explore() {
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
+const [searchParams] = useSearchParams();
 
+useEffect(() => {
+  const search = searchParams.get("search") || "";
+  setSearchTerm(search);
+}, [searchParams]);
 const [selectedLocation, setSelectedLocation] =useState("All");
 const [sortBy, setSortBy] =useState("topRated");
 const [wishlist, setWishlist] =useState([]);
