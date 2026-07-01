@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { FaSearch, FaUserCircle, FaTimes } from "react-icons/fa";
+import { FaSearch, FaUserCircle, FaTimes, FaBars } from "react-icons/fa";
 import "./Header.css";
 
 const Header = () => {
@@ -14,22 +14,22 @@ const Header = () => {
   const [searchOpen, setSearchOpen] = useState(false);
   const [commandOpen, setCommandOpen] = useState(false);
   const [query, setQuery] = useState("");
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const searchRef = useRef(null);
   const profileRef = useRef(null);
+
   const handleSearch = () => {
     const value = query.trim();
-
-      if (!value) return;
-
-      navigate(`/explore?search=${encodeURIComponent(value)}`);
-    };
+    if (!value) return;
+    navigate(`/explore?search=${encodeURIComponent(value)}`);
+  };
 
   /* AUTH SYNC */
   useEffect(() => {
     const syncAuth = () => {
       setIsLoggedIn(localStorage.getItem("isLoggedIn") === "true");
-      setRole(localStorage.getItem("role")); // 🔥 IMPORTANT
+      setRole(localStorage.getItem("role"));
     };
 
     syncAuth();
@@ -49,7 +49,7 @@ const Header = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  /* CLOSE SEARCH OUTSIDE */
+  /* OUTSIDE CLICK */
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (searchRef.current && !searchRef.current.contains(e.target)) {
@@ -77,6 +77,7 @@ const Header = () => {
         setCommandOpen(false);
         setSearchOpen(false);
         setShowDropdown(false);
+        setMobileMenuOpen(false);
       }
     };
 
@@ -84,23 +85,25 @@ const Header = () => {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
+  /* BODY SCROLL LOCK */
+  useEffect(() => {
+    document.body.style.overflow = mobileMenuOpen ? "hidden" : "";
+    return () => (document.body.style.overflow = "");
+  }, [mobileMenuOpen]);
+
   const handleDashboard = () => {
-    const loggedIn = localStorage.getItem("isLoggedIn") === "true";
-    const role = localStorage.getItem("role");
+    if (!isLoggedIn) {
+      navigate("/login");
+      return;
+    }
 
-  if (!isLoggedIn) {
-    navigate("/login");
-    return;
-  }
+    if (role === "provider") {
+      navigate("/provider-dashboard");
+    } else {
+      navigate("/user-dashboard");
+    }
+  };
 
-  if (role === "provider") {
-    navigate("/provider-dashboard");
-  } else {
-    navigate("/user-dashboard");
-  }
-};
-
-  /* LOGOUT */
   const handleLogout = () => {
     localStorage.removeItem("isLoggedIn");
     setIsLoggedIn(false);
@@ -116,6 +119,7 @@ const Header = () => {
 
   return (
     <>
+      {/* HEADER */}
       <header className={`header ${scrolled ? "scrolled" : ""}`}>
 
         {/* LOGO */}
@@ -123,12 +127,13 @@ const Header = () => {
           <Link to="/" className="logo-link">
             <img src="/image/Logo.jpeg" alt="Logo" />
             <h4 className="logo-text">
-              <span className = "nari">Nari</span><span className="bazar">Bazar</span>
+              <span className="nari">Nari</span>
+              <span className="bazar">Bazar</span>
             </h4>
           </Link>
         </div>
 
-        {/* NAV LINKS */}
+        {/* NAV LINKS (DESKTOP ONLY via CSS) */}
         <nav className="nav-links">
           <Link to="/">Home</Link>
           <Link to="/explore">Explore</Link>
@@ -136,57 +141,49 @@ const Header = () => {
           <Link to="/contact">Contact</Link>
         </nav>
 
-        {/* RIGHT ACTIONS */}
+        {/* RIGHT ACTIONS (DESKTOP ONLY CONTENT) */}
         <div className="nav-actions">
 
           {/* SEARCH */}
-<div
-  ref={searchRef}
-  className={`search-container ${searchOpen ? "active" : ""}`}
->
-  <FaSearch
-    className="search-icon"
-    onClick={() => {
-      if (!searchOpen) {
-        setSearchOpen(true);
-      } else {
-        handleSearch();
-      }
-    }}
-  />
+          <div
+            ref={searchRef}
+            className={`search-container ${searchOpen ? "active" : ""}`}
+          >
+            <FaSearch
+              className="search-icon"
+              onClick={() => {
+                if (!searchOpen) setSearchOpen(true);
+                else handleSearch();
+              }}
+            />
 
-  {searchOpen && (
-    <>
-      <input
-        autoFocus
-        type="text"
-        placeholder="Search services..."
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        onKeyDown={(e) => {
-          if (e.key === "Enter") {
-            handleSearch();
-          }
-        }}
-      />
+            {searchOpen && (
+              <>
+                <input
+                  autoFocus
+                  type="text"
+                  placeholder="Search services..."
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  onKeyDown={(e) => e.key === "Enter" && handleSearch()}
+                />
 
-      <FaTimes
-        className="close-icon"
-        onClick={() => {
-          setSearchOpen(false);
-          setQuery("");
-        }}
-      />
-    </>
-  )}
-</div>
+                <FaTimes
+                  className="close-icon"
+                  onClick={() => {
+                    setSearchOpen(false);
+                    setQuery("");
+                  }}
+                />
+              </>
+            )}
+          </div>
 
           {/* DASHBOARD */}
           <button
             className={`dashboard-btn ${!isLoggedIn ? "disabled" : ""}`}
             disabled={!isLoggedIn}
             onClick={handleDashboard}
-            
           >
             Dashboard
           </button>
@@ -198,7 +195,6 @@ const Header = () => {
             </button>
           ) : (
             <div ref={profileRef} className="profile-menu">
-
               <FaUserCircle
                 className="profile-icon"
                 onClick={() => setShowDropdown(!showDropdown)}
@@ -206,22 +202,82 @@ const Header = () => {
 
               {showDropdown && (
                 <div className="dropdown-menu">
-
-                  <button onClick={handleLogout}>
-                    Logout
-                  </button>
+                  <button onClick={handleLogout}>Logout</button>
                 </div>
               )}
             </div>
           )}
-
         </div>
+
+        {/* ✅ HAMBURGER (MOVED OUTSIDE NAV ACTIONS - FIXED) */}
+        <button
+          className="hamburger"
+          onClick={() => setMobileMenuOpen(true)}
+        >
+          <FaBars />
+        </button>
       </header>
+
+      {/* MOBILE MENU */}
+      {mobileMenuOpen && (
+        <>
+          <div
+            className="mobile-overlay"
+            onClick={() => setMobileMenuOpen(false)}
+          />
+
+          <div className="mobile-menu">
+            <button
+              className="mobile-close"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              <FaTimes />
+            </button>
+
+            <Link to="/" onClick={() => setMobileMenuOpen(false)}>Home</Link>
+            <Link to="/explore" onClick={() => setMobileMenuOpen(false)}>Explore</Link>
+            <Link to="/about" onClick={() => setMobileMenuOpen(false)}>About</Link>
+            <Link to="/contact" onClick={() => setMobileMenuOpen(false)}>Contact</Link>
+
+            {isLoggedIn && (
+              <button
+                onClick={() => {
+                  handleDashboard();
+                  setMobileMenuOpen(false);
+                }}
+              >
+                Dashboard
+              </button>
+            )}
+
+            {!isLoggedIn ? (
+              <button
+                onClick={() => {
+                  navigate("/login");
+                  setMobileMenuOpen(false);
+                }}
+              >
+                Login
+              </button>
+            ) : (
+              <button
+                onClick={() => {
+                  handleLogout();
+                  setMobileMenuOpen(false);
+                }}
+              >
+                Logout
+              </button>
+            )}
+          </div>
+        </>
+      )}
 
       {/* COMMAND PALETTE */}
       {commandOpen && (
         <div className="command-overlay" onClick={() => setCommandOpen(false)}>
           <div className="command-box" onClick={(e) => e.stopPropagation()}>
+
             <input
               autoFocus
               value={query}
@@ -250,6 +306,7 @@ const Header = () => {
                 Education
               </div>
             </div>
+
           </div>
         </div>
       )}
