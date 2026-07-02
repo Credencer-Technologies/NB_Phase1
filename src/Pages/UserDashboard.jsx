@@ -2,7 +2,9 @@ import service1 from "../assets/Images/service1.jpeg";
 import service2 from "../assets/Images/service2.jpeg";
 
 import { useState } from "react";
-import { FaMapMarkerAlt, FaEdit, FaTrash } from "react-icons/fa";
+import { useEffect } from "react";
+import { FaHeart } from "react-icons/fa";
+import { FaMapMarkerAlt, FaTrash } from "react-icons/fa";
 import "./UserDashboard.css";
 
 function UserDashboard() {
@@ -43,14 +45,9 @@ function UserDashboard() {
   const [user, setUser] = useState(initialUser);
   const [services, setServices] = useState(sampleServices);
   const [saved, setSaved] = useState(false);
+  const [showSupport, setShowSupport] = useState(false);
   const [lastUpdated, setLastUpdated] = useState("Never");
-  const [editingService, setEditingService] = useState(null);
-const [serviceForm, setServiceForm] = useState({
-  title: "",
-  category: "",
-  city: "",
-  price: "",
-});
+  const [wishlistItems, setWishlistItems] = useState([]);
 
   const handleChange = (e) => {
     setUser({
@@ -79,41 +76,31 @@ const [serviceForm, setServiceForm] = useState({
     setSaved(false);
   };
 
-const handleEditService = (service) => {
-  setEditingService(service.id);
-
-  setServiceForm({
-    title: service.title,
-    category: service.category,
-    city: service.city,
-    price: service.price,
-  });
-};
-
-const handleUpdateService = () => {
-  setServices(
-    services.map((service) =>
-      service.id === editingService
-        ? {
-            ...service,
-            title: serviceForm.title,
-            category: serviceForm.category,
-            city: serviceForm.city,
-            price: serviceForm.price,
-          }
-        : service
-    )
-  );
-
-  setEditingService(null);
-};
-
   const completion =
     user.full_name && user.city ? 100 : 50;
 
   const handleDeleteService = (id) => {
   setServices(services.filter((service) => service.id !== id));
 };
+useEffect(() => {
+
+  const savedWishlist =
+    JSON.parse(
+      localStorage.getItem("wishlistServices")
+    ) || [];
+  setWishlistItems(savedWishlist);
+}, []);
+const removeWishlistItem = (id) => {
+
+  const updated =
+    wishlistItems.filter(
+      item => item.id !== id
+    );
+  setWishlistItems(updated);
+  localStorage.setItem(
+    "wishlistServices",
+    JSON.stringify(updated)
+  );};
 
   return (
 
@@ -186,6 +173,23 @@ const handleUpdateService = () => {
             </div>
 
             <div className="form-group">
+  <label>Email Address</label>
+
+  <input
+    type="email"
+    name="email"
+    value={user.email}
+    onChange={handleChange}
+    placeholder="Enter your email"
+  />
+
+  <small>
+    This email will be used for notifications and account updates.
+  </small>
+</div>
+
+
+            <div className="form-group">
               <label>Phone Number</label>
 
               <input
@@ -199,6 +203,7 @@ const handleUpdateService = () => {
                 cannot be edited.
               </small>
             </div>
+
 
             <div className="form-group">
               <label>City</label>
@@ -242,7 +247,7 @@ const handleUpdateService = () => {
         <div className="services-section">
 
   <div className="services-header">
-    <h2>My Services</h2>
+    <h2>Service Listings</h2>
 
     <span>
       {services.length} Services
@@ -275,32 +280,19 @@ const handleUpdateService = () => {
             {service.city}
           </div>
 
+
           <div className="service-price">
             ₹ {service.price}
+            <div className="service-actions">
+  <button
+    type="button"
+    className="delete-service"
+    onClick={() => handleDeleteService(service.id)}
+  >
+    <FaTrash />
+  </button>
+</div>
           </div>
-
-          <div className="service-actions">
-
-            <button
-  type="button"
-  className="edit-service"
-  onClick={() => handleEditService(service)}
->
-              <FaEdit />
-            </button>
-
-            <button
-             type="button"
-              className="delete-service"
-              onClick={() =>
-                handleDeleteService(service.id)
-              }
-            >
-              <FaTrash />
-            </button>
-
-          </div>
-
         </div>
 
       </div>
@@ -309,100 +301,181 @@ const handleUpdateService = () => {
 
   </div>
 
-  {editingService && (
+</div>
+   {/* ===========================
+        MY WISHLIST
+=========================== */}
 
-  <div className="edit-modal">
+<div className="wishlist-dashboard-section">
 
-    <div className="edit-box">
+<div className="wishlist-dashboard-header">
 
-      <h2>Edit Service</h2>
+<h2>
+<FaHeart />
+My Favourite 
+</h2>
 
-      <input
-        type="text"
-        value={serviceForm.title}
-        onChange={(e) =>
-          setServiceForm({
-            ...serviceForm,
-            title: e.target.value,
-          })
-        }
-      />
+<span>
 
-      <input
-        type="text"
-        value={serviceForm.category}
-        onChange={(e) =>
-          setServiceForm({
-            ...serviceForm,
-            category: e.target.value,
-          })
-        }
-      />
+{wishlistItems.length} Saved
 
-      <input
-        type="text"
-        value={serviceForm.city}
-        onChange={(e) =>
-          setServiceForm({
-            ...serviceForm,
-            city: e.target.value,
-          })
-        }
-      />
+</span>
 
-      <input
-        type="number"
-        value={serviceForm.price}
-        onChange={(e) =>
-          setServiceForm({
-            ...serviceForm,
-            price: e.target.value,
-          })
-        }
-      />
+</div>
 
-      <div className="modal-buttons">
+{wishlistItems.length===0 ? (
+
+<div className="wishlist-empty">
+
+No favourite services yet ❤️
+
+</div>
+
+):(
+
+<div className="wishlist-dashboard-grid">
+
+{wishlistItems.map((item)=>(
+
+<div
+className="wishlist-dashboard-card"
+key={item.id}
+>
+
+<img
+src={item.image}
+alt={item.name}
+/>
+
+<div className="wishlist-dashboard-content">
+
+<h3>{item.name}</h3>
+
+<p>{item.category}</p>
+
+<div className="wishlist-dashboard-location">
+
+<FaMapMarkerAlt />
+
+{item.city}
+
+</div>
+
+<div className="wishlist-dashboard-bottom">
+
+<div>
+
+⭐ {item.rating}
+
+</div>
+
+<div>
+
+₹{item.price}
+
+</div>
+
+</div>
+
+<button
+className="wishlist-remove-btn"
+onClick={()=>
+removeWishlistItem(item.id)
+}
+>
+
+Remove
+
+</button>
+
+</div>
+
+</div>
+
+))}
+
+</div>
+)}
+
+</div>   
+
+
+       <div className="quick-actions">
+
+    <h2>Support Center</h2>
+
+    
+
+    <div className="action-buttons">
 
         <button
-          onClick={handleUpdateService}
+            className="action-btn"
+            onClick={() => setShowSupport(true)}
         >
-          Update
+            Contact Support
         </button>
-
-        <button
-          onClick={() =>
-            setEditingService(null)
-          }
-        >
-          Cancel
-        </button>
-
-      </div>
 
     </div>
 
-  </div>
+    {showSupport && (
+
+<div className="support-modal">
+
+<div className="support-card">
+
+<button
+className="close-btn"
+onClick={() => setShowSupport(false)}
+>
+×
+</button>
+
+<h2>Customer Support</h2>
+
+<p>
+Our team is happy to assist you.
+</p>
+
+<div className="support-item">
+<strong>Support Email</strong>
+<span>support@naribazar.in</span>
+</div>
+
+<div className="support-item">
+<strong>Business Enquiries</strong>
+<span>info@naribazar.in</span>
+</div>
+
+<div className="support-item">
+<strong>Customer Care</strong>
+<span>+91 9490594867</span>
+</div>
+
+<div className="support-item">
+<strong>Corporate Office</strong>
+
+<span>
+8th Floor, Vaishnavi's Cynosure,
+<br />
+2-48/5/6,
+<br />
+Gachibowli Road,
+Opp. RTTC,
+<br />
+Telecom Nagar,
+Hyderabad,
+Telangana - 500032
+</span>
+
+</div>
+
+</div>
+
+</div>
 
 )}
 
-</div>      
-
-
-        <div className="quick-actions">
-  <h2>Quick Actions</h2>
-
-  <div className="action-buttons">
-
-    <button className="action-btn">
-      Contact Support
-    </button>
-
-    <button className="action-btn">
-      Help Center
-    </button>
-
-  </div>
-</div>
+</div> 
 
 
       </div>

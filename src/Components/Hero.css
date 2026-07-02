@@ -1,12 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&family=Playfair+Display:wght@400..900&display=swap');
 
 /* ==========================================
    HERO SECTION
 ========================================== */
+
 .hero {
   position: relative;
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
+  min-height: 100dvh;
   overflow: hidden;
 
   display: flex;
@@ -17,8 +19,9 @@
 }
 
 /* ==========================================
-   VIDEO & OVERLAY
+   VIDEO
 ========================================== */
+
 .hero-video {
   position: absolute;
   inset: 0;
@@ -26,8 +29,13 @@
   height: 100%;
   object-fit: cover;
   filter: brightness(0.8) contrast(1.02);
+  pointer-events: none;
   z-index: 0;
 }
+
+/* ==========================================
+   OVERLAY
+========================================== */
 
 .overlay {
   position: absolute;
@@ -35,144 +43,286 @@
   z-index: 1;
   background: linear-gradient(
     rgba(0, 0, 0, 0.25),
-    rgba(0, 0, 0, 0.4)
+    rgba(0, 0, 0, 0.45)
   );
 }
 
 /* ==========================================
-   CONTENT & TYPOGRAPHY
+   CONTENT
 ========================================== */
+
 .hero-content {
   position: relative;
   z-index: 2;
+
   width: min(92%, 1000px);
+
   text-align: center;
   color: #fff;
-  padding: 0;
-}
 
-.hero-tagline {
-  display: inline-block;
-  margin-bottom: 24px;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 0.9rem;
-  font-weight: 600;
-  letter-spacing: 4px;
-  text-transform: uppercase;
-  color: #ffffff;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
-}
-
-.hero-title {
-  margin: 0 0 28px;
-  font-family: 'Playfair Display', serif; /* Elegant Serif font style from the image */
-  font-size: clamp(2.8rem, 6.5vw, 5.2rem);
-  font-weight: 600; /* Bold yet sophisticated weight */
-  line-height: 1.2;
-  letter-spacing: -0.5px;
-  
-  /* Matches the soft lavender tone in the image */
-  color: #d1c4ff;
-  text-shadow: 0 4px 20px rgba(209, 196, 255, 0.2), 0 4px 12px rgba(0, 0, 0, 0.5);
-}
-
-/* Forces ScrollRevealText child elements to inherit the Playfair font & colors */
-.hero-title *,
-.hero-title span {
-  font-family: 'Playfair Display', serif !important;
-  color: #d1c4ff !important;
-  -webkit-text-fill-color: #d1c4ff !important;
-  background: none !important;
-  background-clip: unset !important;
-}
-
-.hero-description {
-  max-width: 780px;
-  margin: 0 auto 48px;
-  font-family: 'Montserrat', sans-serif;
-  font-size: clamp(1rem, 1.8vw, 1.15rem);
-  line-height: 1.7;
-  color: rgba(255, 255, 255, 0.9);
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-  font-weight: 400;
+  padding: 120px 20px 60px;
 }
 
 /* ==========================================
-   BUTTONS (EXACT IMAGE GLASSMORPHISM)
+   TAGLINE
 ========================================== */
+
+.hero-tagline {
+  display: inline-block;
+  margin-bottom: 22px;
+
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+
+  letter-spacing: 4px;
+  text-transform: uppercase;
+
+  color: #fff;
+
+  text-shadow: 0 2px 8px rgba(0,0,0,.5);
+}
+
+/* ==========================================
+   TITLE
+========================================== */
+
+.hero-title {
+  margin: 0 0 28px;
+
+  font-family: "Playfair Display", serif;
+  font-size: clamp(2.8rem, 6vw, 5.2rem);
+  font-weight: 600;
+
+  line-height: 1.2;
+  letter-spacing: -0.5px;
+
+  color: #d1c4ff;
+
+  text-shadow:
+    0 4px 20px rgba(209,196,255,.2),
+    0 4px 12px rgba(0,0,0,.5);
+}
+
+.hero-title *,
+.hero-title span {
+  font-family: "Playfair Display", serif !important;
+  color: #d1c4ff !important;
+  -webkit-text-fill-color: #d1c4ff !important;
+  background: none !important;
+}
+
+/* ==========================================
+   DESCRIPTION
+========================================== */
+
+.hero-description {
+  max-width: 760px;
+
+  margin: 0 auto 46px;
+
+  font-family: "Montserrat", sans-serif;
+  font-size: clamp(1rem, 1.8vw, 1.15rem);
+
+  line-height: 1.7;
+
+  color: rgba(255,255,255,.92);
+
+  text-shadow: 0 2px 10px rgba(0,0,0,.45);
+}
+
+/* ==========================================
+   BUTTONS
+========================================== */
+
 .hero-actions {
   display: flex;
   justify-content: center;
   align-items: center;
+
   gap: 18px;
-  margin-top: 28px;
+
   flex-wrap: wrap;
 }
 
-/* Shared Glassmorphism Foundations */
+/* Shared */
+
 .btn-glass {
   padding: 14px 36px;
+
   border-radius: 999px;
-  font-family: 'Montserrat', sans-serif;
+  border: none;
+
+  font-family: "Montserrat", sans-serif;
   font-size: 1rem;
   font-weight: 600;
-  color: #ffffff;
+
   cursor: pointer;
-  letter-spacing: 0.3px;
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-  
+
+  color: #fff;
+
+  transition: all .3s ease;
+
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
+
+  white-space: nowrap;
 }
 
-/* Explore Services (Translucent Soft Purple Glass) */
+/* Primary */
+
 .btn-glass.primary {
-  background: rgba(147, 112, 219, 0.65); 
-  border: 1.5px solid rgba(255, 255, 255, 0.45);
-  box-shadow: 0 8px 24px rgba(147, 112, 219, 0.25);
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  background: rgba(147,112,219,.65);
+
+  border: 1.5px solid rgba(255,255,255,.45);
+
+  box-shadow: 0 8px 24px rgba(147,112,219,.25);
 }
 
 .btn-glass.primary:hover {
   transform: translateY(-3px);
-  background: rgba(147, 112, 219, 0.8);
-  box-shadow: 0 12px 30px rgba(147, 112, 219, 0.4);
-  border-color: rgba(255, 255, 255, 0.7);
+
+  background: rgba(147,112,219,.8);
+
+  box-shadow: 0 12px 30px rgba(147,112,219,.4);
 }
 
-/* Join as a Provider (Dark Tinted / Clear Outline Glass) */
+/* Secondary */
+
 .btn-glass.secondary {
-  background: rgba(0, 0, 0, 0.2); 
-  border: 1.5px solid rgba(255, 255, 255, 0.75); 
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  background: rgba(0,0,0,.25);
+
+  border: 1.5px solid rgba(255,255,255,.75);
+
+  box-shadow: 0 8px 20px rgba(0,0,0,.25);
 }
 
 .btn-glass.secondary:hover {
   transform: translateY(-3px);
-  background: rgba(255, 255, 255, 0.15);
-  border-color: #ffffff;
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+
+  background: rgba(255,255,255,.15);
+
+  border-color: #fff;
+
+  box-shadow: 0 12px 28px rgba(0,0,0,.35);
 }
 
 /* ==========================================
-   RESPONSIVE
+   TABLET
 ========================================== */
-@media (max-width: 768px) {
+
+@media (max-width: 992px) {
+
   .hero-content {
-    padding: 0 16px;
+    padding: 110px 24px 60px;
+  }
+
+  .hero-title {
+    font-size: clamp(2.5rem, 7vw, 4rem);
+  }
+
+}
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media (max-width: 768px) {
+
+  .hero {
+    align-items: center;
+  }
+
+  .hero-content {
+    width: 94%;
+    padding: 110px 20px 50px;
+  }
+
+  .hero-tagline {
+    font-size: .8rem;
+    letter-spacing: 2px;
+    margin-bottom: 18px;
+  }
+
+  .hero-title {
+    font-size: 2.8rem;
+    margin-bottom: 20px;
+    line-height: 1.2;
+  }
+
+  .hero-description {
+    font-size: 1rem;
+    line-height: 1.7;
+    margin-bottom: 34px;
   }
 
   .hero-actions {
     flex-direction: column;
-    gap: 14px;
     width: 100%;
+    gap: 16px;
   }
 
-  .btn-glass.primary,
-  .btn-glass.secondary {
+  .btn-glass {
     width: 100%;
-    max-width: 300px;
-    padding: 14px 24px;
-    text-align: center;
+    max-width: 320px;
+    min-height: 52px;
+    font-size: .95rem;
+    padding: 15px 24px;
   }
+
+}
+
+/* ==========================================
+   SMALL PHONES
+========================================== */
+
+@media (max-width: 480px) {
+
+  .hero-content {
+    padding: 100px 18px 40px;
+  }
+
+  .hero-tagline {
+    font-size: .72rem;
+    letter-spacing: 1.5px;
+  }
+
+  .hero-title {
+    font-size: 2.2rem;
+    line-height: 1.15;
+    margin-bottom: 18px;
+  }
+
+  .hero-description {
+    font-size: .95rem;
+    line-height: 1.6;
+    margin-bottom: 30px;
+  }
+
+  .btn-glass {
+    max-width: 100%;
+    font-size: .92rem;
+    padding: 14px 20px;
+  }
+
+}
+
+/* ==========================================
+   EXTRA SMALL DEVICES
+========================================== */
+
+@media (max-width: 360px) {
+
+  .hero-title {
+    font-size: 2rem;
+  }
+
+  .hero-description {
+    font-size: .9rem;
+  }
+
+  .btn-glass {
+    font-size: .9rem;
+  }
+
 }

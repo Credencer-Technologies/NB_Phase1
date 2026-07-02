@@ -1,3 +1,4 @@
+
 import "./Explore.css";
 
 import bannerWomen from "../assets/Images/bannerWomen.png";
@@ -15,8 +16,8 @@ import customer2 from "../assets/Images/customer2.jpg";
 import customer3 from "../assets/Images/customer3.jpg";
 
 
-import { useState, useEffect } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
 FaSearch,
 FaMapMarkerAlt,
@@ -51,7 +52,7 @@ const providers = [
     role: "Beauty Expert",
     city: "Hyderabad",
     rating: 4.9,
-    reviews: 120,
+    reviews: 238,
     price: 500,
     image: provider1,
     badge: "Top Rated",
@@ -66,8 +67,8 @@ const providers = [
     name: "Nashra Fatima",
     role: "Mehndi Artist",
     city: "Bengaluru",
-    rating: 4.8,
-    reviews: 95,
+    rating: 4.3,
+    reviews: 81,
     price: 300,
     image: provider2,
     badge: "Trending",
@@ -82,8 +83,8 @@ const providers = [
     name: "Reshma Tailors",
     role: "Tailoring Expert",
     city: "Hyderabad",
-    rating: 4.9,
-    reviews: 150,
+    rating: 4.8,
+    reviews: 162,
     price: 250,
     image: provider3,
     badge: "Highly Rated",
@@ -98,8 +99,8 @@ const providers = [
     name: "Lakshmi Devi",
     role: "Home Chef",
     city: "Secunderabad",
-    rating: 4.7,
-    reviews: 80,
+    rating: 3.9,
+    reviews: 45,
     price: 400,
     image: provider4,
     badge: "Rising Star",
@@ -114,8 +115,8 @@ const providers = [
     name: "Kavya Tutor",
     role: "Private Tutor",
     city: "Nizamabad",
-    rating: 4.8,
-    reviews: 110,
+    rating: 4.6,
+    reviews: 124,
     price: 600,
     image: provider5,
     badge: "Verified",
@@ -130,8 +131,8 @@ const providers = [
     name: "Sneha Rao",
     role: "Trainer",
     city: "Mumbai",
-    rating: 4.8,
-    reviews: 170,
+    rating: 4.2,
+    reviews: 90,
     price: 1500,
     image: provider6,
     badge: "Top Rated",
@@ -146,8 +147,8 @@ const providers = [
     name: "Anjali Services",
     role: "Home Care Services ",
     city: "Bengaluru",
-    rating: 4.9,
-    reviews: 130,
+    rating: 4.7,
+    reviews: 142,
     price: 2000,
     image: provider7,
     badge: "Popular",
@@ -162,8 +163,8 @@ const providers = [
     name: "Aarti Creations",
     role: "Handicraft Artist",
     city: "Hyderabad",
-    rating: 4.6,
-    reviews: 60,
+    rating: 3.8,
+    reviews: 39,
     price: 350,
     image: provider8,
     badge: "New",
@@ -179,19 +180,18 @@ const providers = [
 function Explore() {
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
-const [searchParams] = useSearchParams();
 
-useEffect(() => {
-  const search = searchParams.get("search") || "";
-  setSearchTerm(search);
-}, [searchParams]);
 const [selectedLocation, setSelectedLocation] =useState("All");
 const [sortBy, setSortBy] =useState("topRated");
-const [wishlist, setWishlist] =useState([]);
 const [viewMode, setViewMode] =useState("grid");
+ const [activeCategory, setActiveCategory] = useState("All");
 const [selectedCategories, setSelectedCategories] =useState([]);
 const [selectedRating, setSelectedRating] =useState(0);
 const [selectedServiceMode, setSelectedServiceMode] = useState("all");
+const [wishlist, setWishlist] = useState(() => {
+  const saved = localStorage.getItem("wishlistServices");
+  return saved ? JSON.parse(saved) : [];
+});
 
 const [openSections, setOpenSections] = useState({
   category: true,
@@ -211,13 +211,24 @@ const [openSections, setOpenSections] = useState({
   };
 
 // WISHLIST
-  const toggleWishlist = (id) => {
-  setWishlist((prev) =>
-    prev.includes(id)
-      ? prev.filter((item) => item !== id)
-      : [...prev, id]
+ const toggleWishlist = (provider) => {
+
+  let updatedWishlist = [];
+
+  if (wishlist.some(item => item.id === provider.id)) {
+
+    updatedWishlist = wishlist.filter(
+      item => item.id !== provider.id
+    );
+  } else {
+    updatedWishlist = [...wishlist, provider];
+  }
+  setWishlist(updatedWishlist);
+  localStorage.setItem(
+    "wishlistServices",
+    JSON.stringify(updatedWishlist)
   );
-};
+}; 
 
   // CATEGORY FILTER
   const handleCategoryChange = (category) => {
@@ -283,14 +294,27 @@ const [appliedFilters, setAppliedFilters] = useState({
         provider.name
           .toLowerCase()
           .includes(searchTerm.toLowerCase());
+          const locationMatch =
+  selectedLocation === "All" ||
+  provider.city === selectedLocation;
 
   const serviceModeMatch =
   selectedServiceMode === "all" ||
   provider.serviceMode === selectedServiceMode;    
 
-      const categoryMatch =
-        selectedCategories.length === 0 ||
-        selectedCategories.includes(provider.category);
+      let categoryMatch = true;
+
+// Top category buttons
+if (activeCategory !== "All") {
+  categoryMatch = provider.category === activeCategory;
+}
+
+// Left sidebar category filters
+if (selectedCategories.length > 0) {
+  categoryMatch =
+    categoryMatch &&
+    selectedCategories.includes(provider.category);
+}
         const ratingMatch =
         provider.rating >= selectedRating;
         const priceMatch =
@@ -315,14 +339,15 @@ const availabilityMatch =
 provider.available;
 
       return (
-        searchMatch &&
-        categoryMatch &&
-        ratingMatch &&
-        serviceModeMatch &&
-        priceMatch &&
-experienceMatch &&
-availabilityMatch
-      );
+    searchMatch &&
+    locationMatch &&
+    categoryMatch &&
+    ratingMatch &&
+    serviceModeMatch &&
+    priceMatch &&
+    experienceMatch &&
+    availabilityMatch
+);
 
       
        })
@@ -456,46 +481,70 @@ Nizamabad
       {/* CATEGORY PILLS */}
 
       <section className="category-row">
-        <button className="category-pill active"> 
-          <FaThLarge />All Categories</button>
 
-        <button className="category-pill">
-          <FaSpa />Beauty & Wellness</button>
+  <button
+    className={`category-pill ${activeCategory === "All" ? "active" : ""}`}
+    onClick={() => setActiveCategory("All")}
+  >
+    <FaThLarge />
+    All Categories
+  </button>
 
-<button className="category-pill">
-<FaPaintBrush />
-Mehndi & Henna
-</button>
+  <button
+    className={`category-pill ${activeCategory === "Beauty & Wellness" ? "active" : ""}`}
+    onClick={() => setActiveCategory("Beauty & Wellness")}
+  >
+    <FaSpa />
+    Beauty & Wellness
+  </button>
 
-<button className="category-pill">
-<FaTshirt />
-Tailoring & Fashion
-</button>
+  <button
+    className={`category-pill ${activeCategory === "Mehndi & Henna" ? "active" : ""}`}
+    onClick={() => setActiveCategory("Mehndi & Henna")}
+  >
+    <FaPaintBrush />
+    Mehndi & Henna
+  </button>
 
-<button className="category-pill">
-<FaUtensils />
-Home Chef
-</button>
+  <button
+    className={`category-pill ${activeCategory === "Tailoring & Fashion" ? "active" : ""}`}
+    onClick={() => setActiveCategory("Tailoring & Fashion")}
+  >
+    <FaTshirt />
+    Tailoring & Fashion
+  </button>
 
-<button className="category-pill">
-<FaPalette />
-Handicrafts
-</button>
+  <button
+    className={`category-pill ${activeCategory === "Food & Catering" ? "active" : ""}`}
+    onClick={() => setActiveCategory("Food & Catering")}
+  >
+    <FaUtensils />
+    Home Chef
+  </button>
 
-<button className="category-pill">
-<FaBook />
-Education
-</button>
+  <button
+    className={`category-pill ${activeCategory === "Handicrafts" ? "active" : ""}`}
+    onClick={() => setActiveCategory("Handicrafts")}
+  >
+    <FaPalette />
+    Handicrafts
+  </button>
 
-<button className="category-pill">
-<FaDumbbell />
-Fitness
-</button>
+  <button
+    className={`category-pill ${activeCategory === "Education & Tutoring" ? "active" : ""}`}
+    onClick={() => setActiveCategory("Education & Tutoring")}
+  >
+    <FaBook />
+    Education
+  </button>
 
-<button className="category-pill">
-<FaEllipsisH />
-More
-</button>
+  <button
+    className={`category-pill ${activeCategory === "Yoga & Fitness" ? "active" : ""}`}
+    onClick={() => setActiveCategory("Yoga & Fitness")}
+  >
+    <FaDumbbell />
+    Fitness
+  </button>
 
 </section>
 
@@ -905,29 +954,15 @@ viewMode === "list"
 
                 <div className="card-overlay">
 
-  <div
-    className={`hover-badge ${
-      provider.badge === "Top Rated"
-        ? "top"
-        : provider.badge === "Trending"
-        ? "trending"
-        : provider.badge === "Highly Rated"
-        ? "high"
-        : provider.badge === "Rising Star"
-        ? "rising"
-        : "new"
-    }`}
-  >
-    {provider.badge}
-  </div>
+  
 
   <button
   className={`wishlist-btn ${
-    wishlist.includes(provider.id) ? "active" : ""
+    wishlist.some(item => item.id === provider.id) ? "active" : ""
   }`}
-  onClick={() => toggleWishlist(provider.id)}
+  onClick={() => toggleWishlist(provider)}
 >
-  {wishlist.includes(provider.id) ? (
+  {wishlist.some(item => item.id === provider.id) ? (
     <FaHeart />
   ) : (
     <FaRegHeart />
@@ -941,12 +976,10 @@ viewMode === "list"
   src={provider.image}
   alt={provider.name}
 />
-<div className="card-wave">
-
-</div>
+<div className="provider-status-bar">
 
   <div
-    className={`hover-badge ${
+    className={`status-left ${
       provider.badge === "Top Rated"
         ? "top"
         : provider.badge === "Trending"
@@ -958,9 +991,18 @@ viewMode === "list"
         : "new"
     }`}
   >
-    {provider.badge}
+    ⭐ {provider.badge}
   </div>
 
+  <div className="status-right">
+    ✓ Available Today
+  </div>
+
+</div>
+
+<div className="card-wave">
+
+</div>
 
 
 <div className="provider-hover-info">
@@ -984,16 +1026,13 @@ viewMode === "list"
 
 </div>
 
-<div className="available-tag">
-  ✓ Available Today
-</div>
 
 
                 <div className="card-content">
 
                   <h3>{provider.name}</h3>
 
-                  <p className="role">{provider.role}</p>
+                  <p className="role">{/*provider.role*/}</p>
 
                   <div className="meta-row">
 
@@ -1011,18 +1050,14 @@ viewMode === "list"
 </div>
 
                   <p className="price">
-Starting from ₹{provider.price}
+Price Range
+<span>
+₹{provider.price}+
+</span>
 </p>
 
-<div className="skills">
 
-{provider.skills.map((skill,index)=>(
-<span key={index}>
-{skill}
-</span>
-))}
 
-</div>
 
                <button
   className="profile-btn"
@@ -1115,7 +1150,7 @@ marginTop:"30px"
     <div className="testimonial-card">
       <div className="stars">★★★★★</div>
       <p>
-        NaariBazar helped me discover local women-led businesses
+        NariBazar helped me discover local women-led businesses
         I never knew existed.
       </p>
       <div className="customer-info">
@@ -1150,32 +1185,22 @@ All service providers are verified for your safety.
 </div>
 
 <div className="trust-card">
-
 <FaAward size={30} />
-
 <h4>Top Quality Service</h4>
 <p>
 We ensure the best quality services.
 </p>
-
 </div>
 
 <div className="trust-card">
-
 <FaUsers size={30} />
-
 <h4>Empowering Women</h4>
-
 <p>
 Every booking supports women entrepreneurs.
 </p>
-
 </div>
-
 <div className="trust-card">
-
 <FaHeadset size={30} />
-
 <h4>24/7 Support</h4>
 <p>
 We are here to help anytime.

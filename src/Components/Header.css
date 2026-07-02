@@ -7,7 +7,7 @@
 }
 
 /* =========================
-   HEADER (DESKTOP DEFAULT)
+   HEADER
 ========================= */
 
 .header {
@@ -34,7 +34,13 @@
 
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
 
-  z-index: 999;
+  z-index: 2000; /* FIXED */
+  transition: all 0.35s ease;
+}
+
+.header.scrolled {
+  top: 10px;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
 }
 
 /* =========================
@@ -60,21 +66,19 @@
 }
 
 .logo-text {
-  font-size: 1.8rem;
+  font-size: clamp(1rem, 2vw, 1.8rem);
   font-weight: 800;
   font-family: Georgia, serif;
   display: flex;
-  align-items: center;
+  white-space: nowrap;
 }
 
 .logo-text .nari {
   color: #5B1FAE;
-  font-weight: 900;
 }
 
 .logo-text .bazar {
   color: #E91E79;
-  font-weight: 900;
 }
 
 /* =========================
@@ -106,19 +110,28 @@
   align-items: center;
   justify-content: flex-end;
   gap: 12px;
-  flex-shrink: 0;
 }
 
 /* =========================
-   HAMBURGER (DESKTOP HIDDEN)
+   HAMBURGER
 ========================= */
 
 .hamburger {
   display: none;
-  border: none;
+  position: relative;
+  z-index: 99999;
+  width: 44px;
+  height: 44px;
+
+  align-items: center;
+  justify-content: center;
+
   background: transparent;
-  font-size: 24px;
+  border: none;
+
+  font-size: 26px;
   color: #ff2e88;
+
   cursor: pointer;
 }
 
@@ -134,22 +147,20 @@
   border-radius: 14px;
   overflow: hidden;
   cursor: pointer;
-  transition: width 0.3s ease;
-  flex-shrink: 0;
+  transition: all 0.3s ease;
 }
 
 .search-container.active {
   width: 300px;
   padding: 0 12px;
   background: #fff;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+  box-shadow: 0 6px 20px rgba(0,0,0,.08);
 }
 
-.search-container input {
-  border: none;
-  outline: none;
-  flex: 1;
-  font-size: 14px;
+.search-icon,
+.close-icon {
+  color: #ff2e88;
+  font-size: 18px;
 }
 
 /* =========================
@@ -165,7 +176,6 @@
   cursor: pointer;
   background: linear-gradient(135deg, #ff006e, #ff3d97, #ff74b8);
   color: white;
-  white-space: nowrap;
 }
 
 .dashboard-btn.disabled {
@@ -211,36 +221,50 @@
 
 .mobile-menu {
   position: fixed;
-  right: 0;
   top: 0;
-  width: 280px;
+  right: 0;
+
+  width: min(85vw, 320px);
   height: 100vh;
-  background: white;
-  padding: 80px 25px;
+
+  background: #fff;
+
+  padding: calc(70px + env(safe-area-inset-top)) 24px 30px;
+
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  z-index: 2000;
+  gap: 18px;
+
+  overflow-y: auto;
+
+  z-index: 2500;
+
+  box-shadow: -8px 0 30px rgba(0,0,0,.12);
+
+  transform: translateX(100%);
+  animation: slideMenu .3s forwards;
 }
 
-.mobile-menu a,
-.mobile-menu button {
-  text-decoration: none;
-  font-size: 16px;
-  font-weight: 600;
-  background: none;
-  border: none;
-  text-align: left;
-  cursor: pointer;
+@keyframes slideMenu {
+  to {
+    transform: translateX(0);
+  }
 }
 
 .mobile-close {
   position: absolute;
   top: 20px;
   right: 20px;
-  font-size: 24px;
-  background: none;
+
+  width: 40px;
+  height: 40px;
+
   border: none;
+  background: transparent;
+
+  font-size: 22px;
+  color: #ff2e88;
+  cursor: pointer;
 }
 
 /* =========================
@@ -258,21 +282,14 @@
 }
 
 .command-box {
-  width: 420px;
+  width: min(92%, 420px);
   background: white;
   border-radius: 16px;
   padding: 20px;
 }
 
-.command-box input {
-  width: 100%;
-  padding: 10px;
-  border-radius: 10px;
-  border: 1px solid #ddd;
-}
-
 /* =========================
-   RESPONSIVE TABLET
+   RESPONSIVE
 ========================= */
 
 @media (max-width: 1024px) {
@@ -285,58 +302,44 @@
   }
 }
 
-/* =========================
-   🚨 MOBILE FIX (IMPORTANT)
-========================= */
+@media (max-width:768px){
 
-@media (max-width: 768px) {
-
-  /* 🔥 CRITICAL FIX: remove grid completely */
-  .header {
-    display: flex !important;
-    justify-content: space-between;
-    align-items: center;
-
-    height: 62px;
-    padding: 0 14px;
-  }
-
-  .nav-links {
+  .nav-links,
+  .nav-actions {
     display: none;
   }
 
-  /* remove all desktop actions */
-  .nav-actions {
-    display: none !important;
+  .hamburger {
+    display: flex;
+    position: fixed;
+    right: 16px;
+    top: 16px;
+    z-index: 999999;
   }
 
-  /* SHOW hamburger properly */
-  .hamburger {
-    display: flex !important;
-    align-items: center;
-    justify-content: center;
+  .header {
+    grid-template-columns: auto 1fr auto;
+    height: 64px;
+    padding: 0 16px;
+    top: 12px;
+    border-radius: 18px;
+  }
 
-    width: 44px;
-    height: 44px;
+  .logo img {
+    width: 42px;
+    height: 42px;
+  }
 
-    font-size: 24px;
-    color: #ff2e88;
-
-    background: transparent;
-    border: none;
-    cursor: pointer;
-
-    z-index: 9999;
+  .logo-text {
+    font-size: 1.2rem;
   }
 }
 
-/* =========================
-   SMALL MOBILE
-========================= */
+@media (max-width:480px){
 
-@media (max-width: 480px) {
   .header {
     height: 58px;
+    top: 10px;
   }
 
   .logo img {
@@ -346,5 +349,9 @@
 
   .logo-text {
     font-size: 1rem;
+  }
+
+  .mobile-menu {
+    width: 100%;
   }
 }
