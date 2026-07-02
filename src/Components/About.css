@@ -4,7 +4,7 @@
 
 .about-section {
   width: 100%;
-  padding: 100px 8%;
+  padding: 150px 8% 100px;
   background: linear-gradient(180deg, #ffffff 0%, #fff8fc 100%);
   overflow-x: hidden;
 }

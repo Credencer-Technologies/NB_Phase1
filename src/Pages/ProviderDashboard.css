@@ -22,6 +22,14 @@
   align-items: start !important;
 }
 
+/* ⚡ HEADER GAP FIX: Adds padding to push the top section out from under the fixed navbar */
+.dashboard-wrapper {
+  padding: 100px 24px 24px 24px !important; /* Increased top padding ensures clear separation below the navbar */
+  background-color: #f9fafb;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
 @media (max-width: 900px) {
   .dashboard-wrapper {
     width: 92% !important; /* Slight adjustments for tablets viewports */

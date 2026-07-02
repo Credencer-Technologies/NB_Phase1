@@ -20,9 +20,7 @@ function App() {
 
   const hideLayout =
     location.pathname === "/login" ||
-    location.pathname === "/register" ||
-    location.pathname === "/provider-dashboard" || 
-    location.pathname === "/user-dashboard";       
+    location.pathname === "/register";       
 
   return (
     <>

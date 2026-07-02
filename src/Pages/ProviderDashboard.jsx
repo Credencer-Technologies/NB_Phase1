@@ -25,14 +25,14 @@ function ProviderDashboard() {
   const [activeServiceId, setActiveServiceId] = useState(null);
 
   const [dbCategoriesList, setDbCategoriesList] = useState([
-    "Mehandi Artistry", 
-    "Tailoring Hub", 
-    "Boutique Designer", 
-    "Beauty & Makeup Care",
-    "Food Catering & Sweets",
-    "Handicrafts & Decor",
-    "Tutoring & Education",
-    "Home Care Services"
+    "Beauty & Wellness",
+    "Mehendi & Bridal",
+    "Tailoring & Fashion",
+    "Food and Catering",
+    "Education & Tutoring",
+    "Yoga & Fitness",
+    "Home Services",
+    "Arts & Crafts"
   ]);
 
   // Form Field Tracker Sub-States

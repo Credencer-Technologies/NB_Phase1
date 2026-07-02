@@ -209,69 +209,48 @@ const Header = () => {
           )}
         </div>
 
-        {/* ✅ HAMBURGER (MOVED OUTSIDE NAV ACTIONS - FIXED) */}
-        <button
-          className="hamburger"
-          onClick={() => setMobileMenuOpen(true)}
-        >
+        {/* FRESH HAMBURGER ICON */}
+        <button className="hamburger-btn" onClick={() => setMobileMenuOpen(true)}>
           <FaBars />
         </button>
       </header>
 
-      {/* MOBILE MENU */}
-      {mobileMenuOpen && (
-        <>
-          <div
-            className="mobile-overlay"
-            onClick={() => setMobileMenuOpen(false)}
-          />
-
-          <div className="mobile-menu">
-            <button
-              className="mobile-close"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              <FaTimes />
-            </button>
-
+      {/* FRESH MOBILE MENU */}
+      <div className={`mobile-nav-container ${mobileMenuOpen ? "open" : ""}`}>
+        <div className="mobile-nav-overlay" onClick={() => setMobileMenuOpen(false)}></div>
+        <nav className="mobile-nav-menu">
+          <button className="mobile-nav-close" onClick={() => setMobileMenuOpen(false)}>
+            <FaTimes />
+          </button>
+          
+          <div className="mobile-nav-links">
             <Link to="/" onClick={() => setMobileMenuOpen(false)}>Home</Link>
             <Link to="/explore" onClick={() => setMobileMenuOpen(false)}>Explore</Link>
             <Link to="/about" onClick={() => setMobileMenuOpen(false)}>About</Link>
             <Link to="/contact" onClick={() => setMobileMenuOpen(false)}>Contact</Link>
+          </div>
 
-            {isLoggedIn && (
-              <button
-                onClick={() => {
-                  handleDashboard();
-                  setMobileMenuOpen(false);
-                }}
-              >
-                Dashboard
-              </button>
-            )}
-
+          <div className="mobile-nav-actions">
             {!isLoggedIn ? (
-              <button
-                onClick={() => {
-                  navigate("/login");
-                  setMobileMenuOpen(false);
-                }}
-              >
+              <button className="mobile-login-btn" onClick={() => { navigate("/login"); setMobileMenuOpen(false); }}>
                 Login
               </button>
             ) : (
-              <button
-                onClick={() => {
-                  handleLogout();
-                  setMobileMenuOpen(false);
-                }}
-              >
+              <button className="mobile-logout-btn" onClick={() => { handleLogout(); setMobileMenuOpen(false); }}>
                 Logout
               </button>
             )}
+            
+            <button 
+              className={`mobile-dashboard-btn ${!isLoggedIn ? "disabled" : ""}`}
+              disabled={!isLoggedIn}
+              onClick={() => { handleDashboard(); setMobileMenuOpen(false); }}
+            >
+              Dashboard
+            </button>
           </div>
-        </>
-      )}
+        </nav>
+      </div>
 
       {/* COMMAND PALETTE */}
       {commandOpen && (

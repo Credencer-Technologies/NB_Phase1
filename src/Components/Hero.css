@@ -190,21 +190,19 @@
 /* Secondary */
 
 .btn-glass.secondary {
-  background: rgba(0,0,0,.25);
+  background: rgba(147,112,219,.65);
 
-  border: 1.5px solid rgba(255,255,255,.75);
+  border: 1.5px solid rgba(255,255,255,.45);
 
-  box-shadow: 0 8px 20px rgba(0,0,0,.25);
+  box-shadow: 0 8px 24px rgba(147,112,219,.25);
 }
 
 .btn-glass.secondary:hover {
   transform: translateY(-3px);
 
-  background: rgba(255,255,255,.15);
+  background: rgba(147,112,219,.8);
 
-  border-color: #fff;
-
-  box-shadow: 0 12px 28px rgba(0,0,0,.35);
+  box-shadow: 0 12px 30px rgba(147,112,219,.4);
 }
 
 /* ==========================================

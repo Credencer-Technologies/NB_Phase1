@@ -1,11 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./ProviderProfile.css";
 
-// ==========================================================================
-// 🏆 NAARIBAZAR COMPLIANT INITIAL MASTER STATES (SNAKE_CASE RE-ALIGNMENT)
-// ==========================================================================
-
-// 📊 Reflecting Table 4.2: providers Master Schema State
+// 📋 100% FAITHFUL MATCH TO SECTIONS 4.2 - 4.5 DATABASE SCHEMAS
 const DATABASE_PERSISTED_PROVIDER_ROW = {
   id: 42,
   full_name: "Mehndi by Sana",
@@ -23,39 +19,29 @@ const DATABASE_PERSISTED_PROVIDER_ROW = {
   updated_at: "2026-06-25 12:30:00"
 };
 
-// 🎨 FRONTEND VIRTUAL UI EXTENSION ACCENTS (Isolated to prevent SQL validation failure)
 const FRONTEND_UI_DISPLAY_METRICS = {
-  category_name: "Mehndi Artist", // Virtual join from categories table helper
+  category_name: "Mehndi Artist",
   avg_rating: 4.8, 
   ratings_count: 120, 
   completed_enquiries_count: 24, 
   profile_image: "/1.jpeg",  
-  cover_image: "/2.jpeg",    
   weekly_off_days: [], 
   booked_dates: ["2026-06-18", "2026-06-22", "2026-06-23", "2026-07-04"]
 };
 
-// 💸 Reflecting Table 4.3: services Master Schema Sub-State Collection
 const SEED_SERVICES_TABLE_ROWS = [
   { id: 1, provider_id: 42, service_name: "Bridal Mehndi", price_min: 500.00, price_max: 1500.00, created_at: "2026-06-11 09:00:00" },
   { id: 2, provider_id: 42, service_name: "Party Mehndi", price_min: 300.00, price_max: 800.00, created_at: "2026-06-11 09:00:00" },
   { id: 3, provider_id: 42, service_name: "Arabic Mehndi", price_min: 400.00, price_max: 1200.00, created_at: "2026-06-11 09:00:00" }
 ];
 
-// 🖼️ Reflecting Table 4.4: portfolio_images Master Schema Sub-State Collection
 const SEED_PORTFOLIO_IMAGES_ROWS = [
   { id: 101, provider_id: 42, image_url: "/2.jpeg", uploaded_at: "2026-06-11 09:05:00" },
   { id: 102, provider_id: 42, image_url: "/1.jpeg", uploaded_at: "2026-06-11 09:05:00" },
   { id: 103, provider_id: 42, image_url: "/2.jpeg", uploaded_at: "2026-06-11 09:06:00" },
-  { id: 104, provider_id: 42, image_url: "/1.jpeg", uploaded_at: "2026-06-11 09:06:00" },
-  { id: 105, provider_id: 42, image_url: "/2.jpeg", uploaded_at: "2026-06-11 09:07:00" },
-  { id: 106, provider_id: 42, image_url: "/1.jpeg", uploaded_at: "2026-06-11 09:07:00" },
-  { id: 107, provider_id: 42, image_url: "/2.jpeg", uploaded_at: "2026-06-11 09:08:00" },
-  { id: 108, provider_id: 42, image_url: "/1.jpeg", uploaded_at: "2026-06-11 09:08:00" },
-  { id: 109, provider_id: 42, image_url: "/3.jpeg", uploaded_at: "2026-06-11 09:08:00" }
+  { id: 104, provider_id: 42, image_url: "/1.jpeg", uploaded_at: "2026-06-11 09:06:00" }
 ];
 
-// Mock storage for horizontal loop marquee tracking updates
 const INITIAL_REVIEWS_MOCK_DATA = [
   { id: 1, author: "Priya Sharma", rating: 5, created_at: 1715817600, date: "16 May 2024", service_tag: "Bridal Mehndi", text: "Excellent work! Very professional and beautiful bridal hand designs." },
   { id: 2, author: "Neha Reddy", rating: 5, created_at: 1715301600, date: "10 May 2024", service_tag: "Party Mehndi", text: "Amazing standard party mehndi patterns and very friendly behavior." },
@@ -63,7 +49,6 @@ const INITIAL_REVIEWS_MOCK_DATA = [
 ];
 
 const ProviderProfile = () => {
-  // --- Master State Hooks ---
   const [providerRow] = useState(DATABASE_PERSISTED_PROVIDER_ROW);
   const [uiExtensions] = useState(FRONTEND_UI_DISPLAY_METRICS);
   const [servicesList] = useState(SEED_SERVICES_TABLE_ROWS);
@@ -79,11 +64,8 @@ const ProviderProfile = () => {
 
   const [reviewForm, setReviewForm] = useState({ author: "", rating: "5", service_tag: "Bridal Mehndi", text: "" });
   const [currentDate, setCurrentDate] = useState(new Date());
-  
-  // ✉️ Reflecting Table 4.5: enquiries Master Schema State 
   const [enquiryFormData, setEnquiryFormData] = useState({ customer_name: "Priya Rao", customer_phone: "+919876543210", message: "" });
 
-  // Sync Bookmarking Status with LocalStorage on mount
   useEffect(() => {
     const existingList = JSON.parse(localStorage.getItem("naaribazar_saved_providers") || "[]");
     const isSaved = existingList.some((item) => item.id === providerRow.id);
@@ -149,7 +131,6 @@ const ProviderProfile = () => {
     setTimeout(() => setReviewFormSuccess(false), 4000);
   };
 
-  // Calendar Math utilities
   const year = currentDate.getFullYear();
   const monthIndex = currentDate.getMonth();
   const monthLabel = currentDate.toLocaleString("default", { month: "long" });
@@ -170,11 +151,15 @@ const ProviderProfile = () => {
   const handleNextMonth = () => setCurrentDate(new Date(year, monthIndex + 1, 1));
 
   return (
-    <div className="layout-profile-container">
-      <div className="layout-cover-banner" style={{ backgroundImage: `url(${uiExtensions.cover_image})` }}></div>
-      {/* HEADER SECTION HERO AREA */}
-      <header className="layout-header-card">
-        <img src={uiExtensions.profile_image} alt={providerRow.full_name} className="layout-avatar" />
+  <div className="layout-profile-container">
+    {/* 🚀 THE FIX: A solid layout spacer replacing the cover image to push content down below the sticky nav */}
+    <div className="profile-canvas-top-neat-spacer"></div>
+
+    {/* HERO VENDOR DETAILS SYSTEM CARD SECTION (Section 1) */}
+    <header className="layout-header-card pristine-top-alignment-card">
+      <img src={uiExtensions.profile_image} alt={providerRow.full_name} className="layout-avatar" />
+      {/* ... keeping the rest of the child content elements inside the file exactly the same */}
+
         <div className="layout-header-info">
           <div className="layout-name-line">
             <h1>{providerRow.full_name}</h1>
@@ -215,7 +200,6 @@ const ProviderProfile = () => {
         <h3>ABOUT</h3>
         <p className="layout-body-bio">{providerRow.bio}</p>
       </section>
-
       {/* 📅 IN-LINE AVAILABILITY CALENDAR BLOCK */}
       {showCalendarInLine && (
         <section className="layout-card-block full-width-block inline-calendar-section-wrapper animate-slide-down">
@@ -257,8 +241,6 @@ const ProviderProfile = () => {
 
       {/* 50/50 MIDDLE COLUMNS LAYOUT SPLIT */}
       <div className="layout-double-columns dynamic-equal-height-grid-wrapper">
-        
-        {/* LEFT COLUMN: SERVICES OFFERED LIST */}
         <div className="equal-column-box-cell">
           <section className="layout-card-block dynamic-height-card">
             <h3>SERVICES OFFERED</h3>
@@ -272,8 +254,6 @@ const ProviderProfile = () => {
             </div>
           </section>
         </div>
-
-        {/* RIGHT COLUMN: MINI COMPACT PORTFOLIO GALLERY */}
         <div className="equal-column-box-cell">
           {portfolioList && portfolioList.length > 0 && (
             <section className="layout-card-block dynamic-height-card side-portfolio-box-panel mini-portfolio-override">
@@ -319,6 +299,7 @@ const ProviderProfile = () => {
           </div>
         </div>
       </section>
+
       {/* IN-LINE WRITE A REVIEW FORM PANEL */}
       {showWriteReviewInLine && (
         <section className="layout-card-block full-width-block inline-review-entry-form-wrapper animate-slide-down standard-page-alignment-form">
@@ -360,7 +341,6 @@ const ProviderProfile = () => {
           </form>
         </section>
       )}
-
       {/* FULL-WIDTH CONTACT FORM */}
       <section id="contactSectionBlock" className="layout-card-block premium-contact-section">
         <div className="contact-heading-area">

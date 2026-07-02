@@ -955,3 +955,26 @@ body {
 }
 .marquee-fixed-card { flex: 0 0 340px !important; width: 340px !important; margin: 0 !important; }
 .standard-page-alignment-form { border-top: 4px solid var(--color-accent) !important; margin-top: 8px !important; }
+
+/* ==========================================================================
+   SECTION 33: STICKY NAV RE-ISOLATION SPACING SYSTEM
+   ========================================================================== */
+
+/* 🎯 Forces a clear structural gap between the top header navbar and your profile card */
+.profile-canvas-top-neat-spacer {
+  width: 100% !important;
+  height: 160px !important;       /* Adds explicit spacing so the card header drops down perfectly */
+  background: transparent !important;
+  display: block !important;
+  box-sizing: border-box !important;
+}
+
+/* Re-adjusts Section 1 bounds to drop naturally down the page view list */
+.pristine-top-alignment-card {
+  margin: 0 0 24px 0 !important;   /* Clears old negative pull positions */
+  border-top: 4px solid var(--color-primary) !important;
+  background-color: var(--color-surface) !important;
+  box-shadow: var(--shadow) !important;
+  position: relative !important;
+  top: 0 !important;               /* Stops card from sliding up into header tabs */
+}
