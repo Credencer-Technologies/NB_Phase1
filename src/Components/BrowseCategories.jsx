@@ -29,11 +29,10 @@ const baseCategories = [
 ];
 
 export default function BrowseCategories() {
-  // Duplicate categories for infinite scrolling
   const categories = [...baseCategories, ...baseCategories];
 
   return (
-    <section className="browse-categories micro-section glass">
+    <section className="browse-categories">
       <div className="browse-header">
         <span className="section-tag">EXPLORE</span>
 
@@ -42,25 +41,21 @@ export default function BrowseCategories() {
         <p>Discover premium services</p>
       </div>
 
-      {/* Scroll Wrapper */}
       <div className="scroll-wrapper">
         <div className="auto-scroll-track">
           {categories.map((item, index) => (
-            <div
-              key={index}
-              className="category-card micro-card"
-            >
+            <div key={index} className="category-card">
               <img
                 src={item.image}
                 alt={item.title}
                 loading="lazy"
               />
 
+              <div className="card-overlay"></div>
+
               <div className="category-content">
                 <h3>{item.title}</h3>
               </div>
-
-              <div className="card-overlay"></div>
             </div>
           ))}
         </div>
