@@ -34,7 +34,7 @@ function App() {
         <Route path="/explore" element={<Explore />} />
         <Route path="/about" element={<About />} />
         
-        <Route path="/provider/:id" element={<ProviderProfile />} />
+        <Route path="/provider-profile/:id" element={<ProviderProfile />} />
   
         <Route path="/provider-dashboard" element={<ProviderDashboard />} />
         <Route path="/user-dashboard" element={<UserDashboard />} />

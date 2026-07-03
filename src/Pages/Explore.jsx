@@ -1018,12 +1018,11 @@ viewMode === "list"
   </p>
 
   <button
-    className="hover-profile-btn"
-    onClick={() => navigate("/coming-soon")}
-  >
-    View Profile
-  </button>
-
+  className="hover-profile-btn"
+  onClick={() => navigate(`/provider-profile/${provider.id}`)}
+>
+  View Profile
+</button>
 </div>
 
 
