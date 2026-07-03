@@ -72,26 +72,96 @@ const ProviderProfile = () => {
     setIsAddedToList(isSaved);
   }, [providerRow.id]);
 
-  const toggleSaveProfileToDashboardList = () => {
-    const existingList = JSON.parse(localStorage.getItem("naaribazar_saved_providers") || "[]");
-    if (isAddedToList) {
-      const filteredList = existingList.filter((item) => item.id !== providerRow.id);
-      localStorage.setItem("naaribazar_saved_providers", JSON.stringify(filteredList));
-      setIsAddedToList(false);
-    } else {
-      const profileSummary = {
-        id: providerRow.id,
-        full_name: providerRow.full_name,
-        category_name: uiExtensions.category_name,
-        city: providerRow.city,
-        avg_rating: uiExtensions.avg_rating,
-        profile_image: uiExtensions.profile_image
-      };
+ useEffect(() => {
+  const dashboardServices =
+    JSON.parse(
+      localStorage.getItem("providerDashboardServices")
+    ) || [];
+
+  const exists = dashboardServices.some(
+    (item) => item.id === providerRow.id
+  );
+
+  setIsAddedToList(exists);
+}, [providerRow.id]);
+
+const toggleSaveProfileToDashboardList = () => {
+
+  const existingList =
+    JSON.parse(
+      localStorage.getItem("naaribazar_saved_providers")
+    ) || [];
+
+  const dashboardServices =
+    JSON.parse(
+      localStorage.getItem("providerDashboardServices")
+    ) || [];
+
+  if (isAddedToList) {
+
+    // Remove from dashboard services
+    const updatedServices = dashboardServices.filter(
+      (item) => item.id !== providerRow.id
+    );
+
+    localStorage.setItem(
+      "providerDashboardServices",
+      JSON.stringify(updatedServices)
+    );
+
+    // Remove from saved providers
+    const updatedList = existingList.filter(
+      (item) => item.id !== providerRow.id
+    );
+
+    localStorage.setItem(
+      "naaribazar_saved_providers",
+      JSON.stringify(updatedList)
+    );
+
+    setIsAddedToList(false);
+
+  } else {
+
+    const profileSummary = {
+      id: providerRow.id,
+      full_name: providerRow.full_name,
+      category_name: uiExtensions.category_name,
+      city: providerRow.city,
+      avg_rating: uiExtensions.avg_rating,
+      profile_image: uiExtensions.profile_image,
+    };
+
+    // Save provider (avoid duplicates)
+    if (!existingList.some((item) => item.id === providerRow.id)) {
       existingList.push(profileSummary);
-      localStorage.setItem("naaribazar_saved_providers", JSON.stringify(existingList));
-      setIsAddedToList(true);
+
+      localStorage.setItem(
+        "naaribazar_saved_providers",
+        JSON.stringify(existingList)
+      );
     }
-  };
+
+    // Save dashboard service (avoid duplicates)
+    if (!dashboardServices.some((item) => item.id === providerRow.id)) {
+      dashboardServices.push({
+        id: providerRow.id,
+        title: providerRow.full_name,
+        category: uiExtensions.category_name,
+        city: providerRow.city,
+        price: servicesList?.[0]?.price_min || 0,
+        image: uiExtensions.profile_image,
+      });
+
+      localStorage.setItem(
+        "providerDashboardServices",
+        JSON.stringify(dashboardServices)
+      );
+    }
+
+    setIsAddedToList(true);
+  }
+};
 
   const handlePrevImage = () => {
     setLightboxIndex((prev) => (prev === 0 ? portfolioList.length - 1 : prev - 1));

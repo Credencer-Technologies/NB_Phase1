@@ -79,16 +79,51 @@ function UserDashboard() {
   const completion =
     user.full_name && user.city ? 100 : 50;
 
-  const handleDeleteService = (id) => {
-  setServices(services.filter((service) => service.id !== id));
+ const handleDeleteService = (id) => {
+
+  // Remove from UI
+  const updatedServices = services.filter(
+    (service) => service.id !== id
+  );
+
+  setServices(updatedServices);
+
+  // Remove from localStorage
+  const dashboardServices =
+    JSON.parse(
+      localStorage.getItem("providerDashboardServices")
+    ) || [];
+
+  const updatedDashboardServices =
+    dashboardServices.filter(
+      (service) => service.id !== id
+    );
+
+  localStorage.setItem(
+    "providerDashboardServices",
+    JSON.stringify(updatedDashboardServices)
+  );
 };
 useEffect(() => {
-
   const savedWishlist =
     JSON.parse(
       localStorage.getItem("wishlistServices")
     ) || [];
   setWishlistItems(savedWishlist);
+}, []);
+
+useEffect(() => {
+
+const providerServices =
+JSON.parse(
+localStorage.getItem("providerDashboardServices")
+) || [];
+
+setServices([
+...sampleServices,
+...providerServices
+]);
+
 }, []);
 const removeWishlistItem = (id) => {
 
@@ -276,10 +311,9 @@ const removeWishlistItem = (id) => {
           <p>{service.category}</p>
 
           <div className="service-location">
-            <FaMapMarkerAlt />
-            {service.city}
-          </div>
-
+  <FaMapMarkerAlt />
+  {service.city?.split(",")[0]}
+</div>
 
           <div className="service-price">
             ₹ {service.price}
@@ -397,15 +431,12 @@ Remove
 </div>
 )}
 
-</div>   
-
+</div>  
 
        <div className="quick-actions">
 
     <h2>Support Center</h2>
-
     
-
     <div className="action-buttons">
 
         <button
