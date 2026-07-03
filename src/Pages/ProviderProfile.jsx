@@ -418,7 +418,7 @@ const toggleSaveProfileToDashboardList = () => {
           <p className="form-helper-meta-desc">Send an enquiry request to lock in your booking slot.</p>
         </div>
         {isSubmitted ? (
-          <div className="layout-success-state-banner">✨ Your message has been sent cleanly to the server database!</div>
+          <div className="layout-success-state-banner">✨ Your message has been sent!</div>
         ) : (
           <form onSubmit={handleEnquiryFormSubmit} className="premium-form-layout">
             <div className="form-input-split-row">

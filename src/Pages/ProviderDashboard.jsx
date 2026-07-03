@@ -2,24 +2,26 @@ import React, { useState, useEffect } from 'react';
 import './ProviderDashboard.css';
 
 function ProviderDashboard() {
-  // --- 1. Core Profile Details State Stack (Table 4.2 Schema Mappings) ---
+  // --- 1. Core Profile Details State Stack (Table 4.2 Schema Mapping) ---
   const [profileForm, setProfileForm] = useState({
     id: 42,
     full_name: "Ananya Rao",
     phone: "9876543210",
     city: "Hyderabad",
     pin_code: "500016",
-    status: "approved",
-    rejection_reason: "",
+    category_id: 2, 
+    bio: "Professional mehendi artist.", 
+    service_description: "Specializing in heavy traditional bridal work fusions.",
+    id_document_url: "/id_proof.jpg",
+    status: "approved", 
+    rejection_reason: "The uploaded identification document copy was blurry and unreadable. Please upload a clear digital snapshot.",
     is_available: true
   });
   const [tempProfileForm, setTempProfileForm] = useState({});
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
 
-  // --- 2. Dynamic Services Offers Repositories (Table 4.3 & 4.4 Schema Mappings) ---
+  // --- 2. Dynamic Repositories Data Arrays (Tables 4.3, 4.4 & 4.5) ---
   const [services, setServices] = useState([]);
-  const [inspectedService, setInspectedService] = useState(null);
-  const [isServiceViewModalOpen, setIsServiceViewModalOpen] = useState(false);
   const [isServiceModalOpen, setIsServiceModalOpen] = useState(false);
   const [isEditingService, setIsEditingService] = useState(false);
   const [activeServiceId, setActiveServiceId] = useState(null);
@@ -28,61 +30,54 @@ function ProviderDashboard() {
     "Beauty & Wellness",
     "Mehendi & Bridal",
     "Tailoring & Fashion",
-    "Food and Catering",
+    "Food & Catering",
     "Education & Tutoring",
     "Yoga & Fitness",
     "Home Services",
     "Arts & Crafts"
   ]);
 
-  // Form Field Tracker Sub-States
+  // Form Field Trackers Aligned to Section 4.3 & 4.4 Specifications
   const [modalServiceName, setModalServiceName] = useState('');
-  const [modalCustomServiceTitle, setModalCustomServiceTitle] = useState('');
   const [modalServiceBio, setModalServiceBio] = useState('');
+  const [modalCustomServiceTitle, setModalCustomServiceTitle] = useState('');
   const [modalServiceProfileImage, setModalServiceProfileImage] = useState(''); 
   const [isCustomCategoryInputVisible, setIsCustomCategoryInputVisible] = useState(false);
   const [customCategoryFieldValue, setCustomCategoryFieldValue] = useState('');
+  
+  // Singleton Portfolio Repositories (Table 4.4 Schema Mapping)
+  const [modalPortfolioUrlInput, setModalPortfolioUrlInput] = useState('');
   const [modalPortfolioImages, setModalPortfolioImages] = useState([]); 
 
-  // --- 3. Dynamic Price Matrix Packages ---
+  // --- 3. Dynamic Sub-Offers Matrix Configurations ---
   const [modalOffers, setModalOffers] = useState([
     { id: Date.now(), offer_name: '', price_min: '', price_max: '' }
   ]);
 
-  // --- 4. Customer Enquiries Inbox Repository (Table 4.5 Schema Mapping) ---
+  // --- 4. Customer Enquiries Received Log (Table 4.5 Schema Mapping) ---
   const [enquiries, setEnquiries] = useState([]);
 
-  // --- 5. Interactive Calendar Traversal Parameters ---
+  // --- 5. Navigation Control Overlays and Calendar Parameters ---
   const [busyDates, setBusyDates] = useState(["2026-06-25", "2026-06-26"]);
-  const [currentCalendarMonth, setCurrentCalendarMonth] = useState(new Date(2026, 5, 1)); // June 2026
+  const [currentCalendarMonth, setCurrentCalendarMonth] = useState(new Date(2026, 5, 1)); 
   const [isDeleteAccountModalOpen, setIsDeleteAccountModalOpen] = useState(false);
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
 
-  // --- Mapped Schema Mock Data Hydration Engine ---
+  // --- Mock Data Hydration Engine ---
   useEffect(() => {
-    setProfileForm({
-      id: 42,
-      full_name: "Ananya Rao",
-      phone: "9876543210",
-      city: "Hyderabad",
-      pin_code: "500016",
-      status: "approved",
-      rejection_reason: "",
-      is_available: true
-    });
-
     setServices([
       {
         id: 1,
         provider_id: 42,
-        service_name: "Mehandi Artistry", 
+        service_name: "Mehendi & Bridal", 
         custom_service_title: "Bridal Mehandi Studio",
-        service_bio: "Specializing in heavy traditional bridal work fusions, geometric Arabic templates, and organic henna cone arrangements.",
+        service_bio: "Specializing in heavy traditional bridal work, geometric Arabic fusions, and custom portrait henna layouts using organic cones.",
         service_profile_image: "/1.jpeg",
         is_item_available: true,
         portfolio_images: ["/1.jpeg", "/2.jpeg"],
         offers: [
-          { id: 101, offer_name: "Arabic Mehndi Package", price_min: "400", price_max: "1200" },
-          { id: 102, offer_name: "Full Bridal Traditional Combo", price_min: "2500", price_max: "6000" }
+          { id: 101, offer_name: "Arabic Mehndi Package", price_min: "400.00", price_max: "1200.00" },
+          { id: 102, offer_name: "Child Mehndi Rates", price_min: "150.00", price_max: "300.00" }
         ]
       }
     ]);
@@ -93,13 +88,12 @@ function ProviderDashboard() {
         provider_id: 42, 
         customer_name: "Suresh Kumar", 
         customer_phone: "9123456789", 
-        message: "Need heavy mehndi booking configuration for a wedding function on July 15th near Ameerpet.", 
-        created_at: "2026-06-25 09:20:00" 
+        message: "Need heavy mehndi booking configuration for a wedding function on July 15th near Ameerpet."
       }
     ]);
   }, []);
 
-  // --- Local Device Single-Image & Multi-Gallery File Loader Hook Modifiers ---
+  // --- Image File Selection Processing Hooks ---
   const handleProcessSingleImageSelection = (e, targetImageStateSetter) => {
     const rawFiles = e.target.files;
     if (!rawFiles || rawFiles.length === 0) return;
@@ -115,16 +109,12 @@ function ProviderDashboard() {
 
     targetImageStateSetter(prev => {
       const combined = [...(prev || []), ...transformedPreviewUrls];
-      if (combined.length > 12) {
-        alert("Portfolio allowance is hard capped at 12 records max per category pathway.");
-        return combined.slice(0, 12);
-      }
-      return combined;
+      return combined.slice(0, 12); 
     });
     e.target.value = '';
   };
 
-  // --- Personal Profiles Modification Handlers ---
+  // --- Core Personal Profiles Managers ---
   const openEditProfileModal = () => {
     setTempProfileForm({ ...profileForm });
     setIsProfileModalOpen(true);
@@ -137,41 +127,20 @@ function ProviderDashboard() {
 
   const handleProfileFormSubmit = (e) => {
     e.preventDefault();
+    if (tempProfileForm.bio && tempProfileForm.bio.length > 200) {
+      alert("Error: Biography length cannot exceed 200 characters."); 
+      return;
+    }
     setProfileForm({ ...tempProfileForm });
     setIsProfileModalOpen(false);
   };
 
-  // --- 🔍 Split View Details vs Form Editors Workflow Engine Links ---
-  const handleOpenInspectionModal = (service) => {
-    setInspectedService(service);
-    setIsServiceViewModalOpen(true);
-  };
-
-  const handleTransitionToEditModal = () => {
-    if (!inspectedService) return;
-    setIsServiceViewModalOpen(false); 
-    
-    setIsEditingService(true);
-    setActiveServiceId(inspectedService.id);
-    setModalServiceName(inspectedService.service_name);
-    setModalCustomServiceTitle(inspectedService.custom_service_title || '');
-    setModalServiceBio(inspectedService.service_bio || '');
-    setModalServiceProfileImage(inspectedService.service_profile_image || '');
-    setModalPortfolioImages(inspectedService.portfolio_images || []);
-    setModalOffers(inspectedService.offers.map(o => ({ ...o })));
-    
-    setIsServiceModalOpen(true);
-  };
-
+  // --- Dynamic Inventory Controllers ---
   const handleToggleIndividualServiceAvailability = (serviceId, currentCheckedState) => {
     const updatedServices = services.map(s => s.id === serviceId ? { ...s, is_item_available: currentCheckedState } : s);
     setServices(updatedServices);
-    if (inspectedService && inspectedService.id === serviceId) {
-      setInspectedService({ ...inspectedService, is_item_available: currentCheckedState });
-    }
   };
 
-  // --- Service Creation & Editing Forms Management Infrastructure ---
   const openAddServiceModal = () => {
     setIsEditingService(false);
     setActiveServiceId(null);
@@ -181,7 +150,7 @@ function ProviderDashboard() {
     setModalServiceProfileImage('');
     setModalPortfolioImages([]);
     setModalOffers([{ id: Date.now(), offer_name: '', price_min: '', price_max: '' }]);
-    setIsServiceModalOpen(true);
+    setIsServiceModalOpen(true); 
   };
 
   const openEditServiceModal = (service) => {
@@ -192,7 +161,7 @@ function ProviderDashboard() {
     setModalServiceBio(service.service_bio || '');
     setModalServiceProfileImage(service.service_profile_image || '');
     setModalPortfolioImages(service.portfolio_images || []);
-    setModalOffers(service.offers.map(o => ({ ...o })));
+    setModalOffers((service.offers || []).map(o => ({ ...o })));
     setIsServiceModalOpen(true);
   };
 
@@ -260,12 +229,12 @@ function ProviderDashboard() {
   };
 
   const handleDeleteService = (id) => {
-    if (window.confirm("Are you sure you want to permanently delete this service group layout branch?")) {
+    if (window.confirm("Are you sure you want to remove this service?")) {
       setServices(services.filter(s => s.id !== id));
     }
   };
 
-  // --- Operational Store Availability Calendar Matrix Engine ---
+  // --- Inline Calendar Traversal Engine ---
   const toggleDateCalendarSchedule = (dateString, isPastDate) => {
     if (isPastDate) return; 
     if (busyDates.includes(dateString)) {
@@ -287,21 +256,16 @@ function ProviderDashboard() {
     for (let i = 0; i < blankOffsets; i++) {
       gridCells.push(<div key={`blank-${i}`} className="calendar-day empty-cell"></div>);
     }
-    
-    for (let day = 1; day <= totalDaysInMonth; day++) {
+        for (let day = 1; day <= totalDaysInMonth; day++) {
       const currentCellDate = new Date(year, month, day);
       const dayStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
       const isBusy = busyDates.includes(dayStr);
       const isPastDate = currentCellDate < systemTodayAnchor;
       
       let cellClassName = "calendar-day actionable-day ";
-      if (isPastDate) {
-        cellClassName += "day-past-completed";
-      } else if (isBusy) {
-        cellClassName += "day-busy-red"; 
-      } else {
-        cellClassName += "day-available-green"; 
-      }
+      if (isPastDate) cellClassName += "day-past-completed";
+      else if (isBusy) cellClassName += "day-busy-red"; 
+      else cellClassName += "day-available-green"; 
 
       gridCells.push(
         <div 
@@ -317,33 +281,22 @@ function ProviderDashboard() {
     return gridCells;
   };
 
-  const currentMonthYearStringDisplay = currentCalendarMonth.toLocaleDateString('en-US', {
-    month: 'long',
-    year: 'numeric'
-  });
+  const currentMonthYearStringDisplay = currentCalendarMonth.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+  const handleNavigateToPreviousMonth = () => setCurrentCalendarMonth(prev => new Date(prev.getFullYear(), prev.getMonth() - 1, 1));
+  const handleNavigateToNextMonth = () => setCurrentCalendarMonth(prev => new Date(prev.getFullYear(), prev.getMonth() + 1, 1));
 
-  const handleNavigateToPreviousMonth = () => {
-    setCurrentCalendarMonth(prev => new Date(prev.getFullYear(), prev.getMonth() - 1, 1));
-  };
-
-  const handleNavigateToNextMonth = () => {
-    setCurrentCalendarMonth(prev => new Date(prev.getFullYear(), prev.getMonth() + 1, 1));
-  };
-
-  // --- Shared Management Control Infrastructure Hooks ---
-  const handleConfirmDeleteAccount = () => {
-    localStorage.clear();
-    window.location.href = "/";
-  };
-
-  const handleLogoutAction = () => {
-    localStorage.removeItem("user_session");
-    window.location.href = "/";
-  };
+  const handleConfirmDeleteAccount = () => { localStorage.clear(); window.location.href = "/"; };
+  const handleLogoutAction = () => { setIsLogoutModalOpen(true); };
+  const handleConfirmLogout = () => { localStorage.removeItem("user_session"); window.location.href = "/"; };
 
   return (
     <div className="dashboard-wrapper">
-      
+      <section className="heading">
+        <div class="heading_text">
+          <h4>{profileForm.full_name}'s Dashboard</h4>
+
+          </div>
+      </section>
       {/* 📊 TOP BRANDING SECTION */}
       <section className="dashboard-top-management-grid">
         <div className="stats-summary-inline-grid">
@@ -352,15 +305,29 @@ function ProviderDashboard() {
           <div className="stat-box"><h3>⭐ 4.8</h3><p className="caption">Avg Review</p></div>
         </div>
 
+        {/* 🛠️ Dynamic Verification Status & Rejection Panel Block */}
         <div className="status-card">
-          <h3>{profileForm.full_name}'s Management Desk</h3>
-          <p className="status-verified">● Live & Visible inside NaariBazar database lookups.</p>
+          <h3 className="status-card-heading">Profile Status Verification</h3>
+          {profileForm.status === 'approved' && <p className="status-verified">● Verified: Your profile is approved and live across NaariBazar searches.</p>}
+          {profileForm.status === 'pending' && <p className="status-reviewing">◓ Reviewing: Profile details checking takes up to 48 hours.</p>}
+          {profileForm.status === 'rejected' && (
+            <div className="status-denied-container">
+              <p className="status-denied-title">✕ Account Denied / Rejected By Admin</p>
+              <div className="status-denied-reason-box">
+                <strong>Reason for Rejection:</strong> {profileForm.rejection_reason || "No explicit reason detailed by the administrator panel."}
+              </div>
+            </div>
+          )}
         </div>
       </section>
 
-      {/* 🔲 SECTION GRIDS LAYOUT CONTAINER WORKSPACE */}
+      {/* 🔲 MIDDLE SPLIT GRID WORKSPACE MAIN SECTION LAYOUT */}
       <div className="dashboard-layout-grid">
+        
+        {/* LEFT COLUMN MATRIX STACK */}
         <div className="left-column-stack">
+          
+          {/* Static Personal Details Display Section */}
           <section className="dashboard-card">
             <div className="section-title-action-row">
               <h2>Personal Details</h2>
@@ -369,34 +336,31 @@ function ProviderDashboard() {
             
             <div className="profile-details-display-fields">
               <div className="detail-display-row"><strong>Full Name:</strong> <span>{profileForm.full_name}</span></div>
-              <div className="detail-display-row"><strong>Phone:</strong> <span>{profileForm.phone}</span></div>
-              <div className="detail-display-row"><strong>City Hub Location:</strong> <span>{profileForm.city}</span></div>
-              <div className="detail-display-row"><strong>PIN Code:</strong> <span>{profileForm.pin_code || "Not Configured"}</span></div>
+              <div className="detail-display-row"><strong>Phone Number:</strong> <span>{profileForm.phone}</span></div>
+              <div className="detail-display-row"><strong>Location:</strong> <span>{profileForm.city}</span></div>
+              <div className="detail-display-row"><strong>PIN Code:</strong> <span>{profileForm.pin_code || "Not Stated"}</span></div>
               
-              {/* 🔄 GLOBAL STORE AVAILABILITY CHECKBOX SLIDER */}
-              <div className="detail-display-row" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '14px', background: profileForm.is_available ? '#ecfdf5' : '#fef2f2', padding: '10px 14px', borderRadius: '8px', border: profileForm.is_available ? '1px solid #a7f3d0' : '1px solid #fca5a5' }}>
+              {/* 🔄 GLOBAL STORE AVAILABILITY CHECKBOX SLIDER CONTAINER */}
+              <div className={`detail-display-row global-availability-toggle-row ${profileForm.is_available ? 'state-active' : 'state-paused'}`}>
                 <div>
-                  <strong style={{ display: 'block', fontSize: '13px' }}>Immediate Booking Status:</strong>
-                  <span style={{ fontSize: '12px', color: profileForm.is_available ? '#047857' : '#b91c1c' }}>
-                    {profileForm.is_available ? "● Active & Accepting Clients" : "○ Paused / Storefront Invisible"}
+                  <strong className="booking-status-header">Immediate Booking Status:</strong>
+                  <span className={`booking-status-subtext ${profileForm.is_available ? 'text-active-green' : 'text-paused-red'}`}>
+                    {profileForm.is_available ? "● Active & Accepting Clients" : "○ Temporarily Paused / Invisible"}
                   </span>
                 </div>
-                <label className="checkbox-switch-container-label" style={{ margin: 0, position: 'relative', display: 'inline-block', width: '42px', height: '22px' }}>
+                <label className="checkbox-switch-container-label">
                   <input 
                     type="checkbox" 
                     checked={profileForm.is_available} 
                     onChange={(e) => setProfileForm(prev => ({ ...prev, is_available: e.target.checked }))}
-                    style={{ opacity: 0, width: 0, height: 0 }}
+                    className="native-hidden-checkbox"
                   />
-                  <span className="custom-styled-toggle-box-indicator" style={{ position: 'absolute', cursor: 'pointer', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: profileForm.is_available ? '#10b981' : '#ccc', borderRadius: '34px', transition: '0.3s' }}>
-                    <span style={{ position: 'absolute', height: '16px', width: '16px', left: '3px', bottom: '3px', backgroundColor: 'white', borderRadius: '50%', transition: '0.3s', transform: profileForm.is_available ? 'translateX(20px)' : 'none' }}></span>
-                  </span>
+                  <span className="custom-styled-toggle-box-indicator"></span>
                 </label>
               </div>
             </div>
           </section>
-
-          {/* Calendar Block Component Grid Layout */}
+          {/* Availability Calendar Block */}
           <section className="dashboard-card calendar-card-inline-section">
             <div className="calendar-header-strip">
               <div>
@@ -407,8 +371,14 @@ function ProviderDashboard() {
                   <button type="button" className="btn-calendar-nav-arrow" onClick={handleNavigateToNextMonth}>▶</button>
                 </div>
               </div>
+              
+              <div className="calendar-legends-wrapper-row">
+                <div className="legend-item"><span className="legend-box label-completed"></span><span className="caption">Past</span></div>
+                <div className="legend-item"><span className="legend-box label-avail-green"></span><span className="caption">Available</span></div>
+                <div className="legend-item"><span className="legend-box label-busy-red"></span><span className="caption">Busy</span></div>
+              </div>
             </div>
-            <div className="calendar-weekdays-grid" style={{ marginTop: '10px' }}>
+            <div className="calendar-weekdays-grid">
               {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map(day => <div key={day} className="weekday-label"><strong>{day}</strong></div>)}
             </div>
             <div className="calendar-days-matrix-grid">{renderCalendarDaysGrid()}</div>
@@ -417,7 +387,7 @@ function ProviderDashboard() {
           {/* Customer Communications Incoming Inbox Panel */}
           <section className="dashboard-card">
             <h2>Customer Enquiries Received</h2>
-            {enquiries.length === 0 ? <div className="empty-enquiries" style={{ textAlign: 'center' }}><p className="caption">📩 Your incoming request tracking queue is empty.</p></div> : (
+            {enquiries.length === 0 ? <div className="empty-enquiries"><p className="caption">📩 Your incoming request tracking queue index is empty.</p></div> : (
               <div className="enquiry-stack">
                 {enquiries.map(e => (
                   <div key={e.id} className="enquiry-row-item">
@@ -430,77 +400,89 @@ function ProviderDashboard() {
           </section>
         </div>
 
-        {/* RIGHT COLUMN */}
+        {/* RIGHT COLUMN STACK MATRIX */}
         <div className="right-column">
+          
+          {/* Services Offered Tiered Form Accumulator Module */}
           <section className="dashboard-card">
             <div className="services-section-header">
               <h2>SERVICES & OFFERS</h2>
-              <button type="button" className="btn-primary" onClick={openAddServiceModal}>+ Add Service Group</button>
+              <button type="button" className="btn-primary" onClick={() => openAddServiceModal()}>+ Add Service Group</button>
             </div>
-            
-            {services.length === 0 && <p className="warning-text">⚠️ Publish at least 1 nested package group option to appear live inside filters searches.</p>}
+            {services.length === 0 && <p className="warning-text">⚠️ Publish at least 1 service group to appear live </p>}
             
             <div className="services-nested-accordion-display-stack">
               {services.map(service => (
                 <div key={service.id} className="service-category-parent-card-block">
+                  
+                  {/* Category Header Bar Title Row Component Elements */}
                   <div className="service-parent-header-bar-row">
                     <div className="parent-title-group-text">
-                      <img src={service.service_profile_image} alt="Service Cover" className="service-group-mini-cover" style={{ width: '40px', height: '40px', borderRadius: '8px', objectFit: 'cover' }} />
+                      <img src={service.service_profile_image || "/1.jpeg"} alt="Service Artwork" className="service-group-mini-cover" />
                       <div>
-                        <h3>{service.custom_service_title || service.service_name}</h3>
-                        <span className="category-core-sub-caption">Core Trade: {service.service_name}</span>
+                        <div className="parent-title-headline-wrap">
+                          <h3>{service.custom_service_title || service.service_name}</h3>
+                        </div>
+                        <span className="category-core-sub-caption">Category{service.service_name}</span>
                       </div>
+                      <span className="offers-badge-counter-pill">{(service.offers || []).length} sub-offers</span>
                     </div>
+
                     {/* 🔄 INDEPENDENT SERVICE CATEGORY LEVEL AVAILABILITY SLIDER */}
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginLeft: 'auto', marginRight: '16px' }}>
-                      <span style={{ fontSize: '12px', fontWeight: '500', color: service.is_item_available !== false ? '#047857' : '#b91c1c' }}>
+                    <div className="service-item-toggle-wrapper">
+                      <span className={`service-item-toggle-status-text ${service.is_item_available !== false ? 'status-active-green' : 'status-paused-red'}`}>
                         {service.is_item_available !== false ? "Active" : "Paused"}
                       </span>
-                      <label className="checkbox-switch-container-label" style={{ margin: 0, position: 'relative', display: 'inline-block', width: '36px', height: '18px' }}>
+                      <label className="checkbox-switch-container-label">
                         <input 
                           type="checkbox" 
                           checked={service.is_item_available !== false} 
                           onChange={(e) => handleToggleIndividualServiceAvailability(service.id, e.target.checked)}
-                          style={{ opacity: 0, width: 0, height: 0 }}
+                          className="native-hidden-checkbox"
                         />
-                        <span className="custom-styled-toggle-box-indicator" style={{ position: 'absolute', cursor: 'pointer', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: service.is_item_available !== false ? '#10b981' : '#ccc', borderRadius: '34px', transition: '0.3s' }}>
-                          <span style={{ position: 'absolute', height: '14px', width: '14px', left: '2px', bottom: '2px', backgroundColor: 'white', borderRadius: '50%', transition: '0.3s', transform: service.is_item_available !== false ? 'translateX(18px)' : 'none' }}></span>
-                        </span>
+                        <span className="custom-styled-toggle-box-indicator size-small"></span>
                       </label>
                     </div>
-
+                    
                     <div className="parent-actions-group-links-row">
-                      <button type="button" className="btn-service-action-edit" onClick={() => handleOpenInspectionModal(service)}>View Details</button>
+                      <button type="button" className="btn-service-action-edit" onClick={() => openEditServiceModal(service)}>View/Edit Details</button>
                       <button type="button" className="btn-service-action-delete" onClick={() => handleDeleteService(service.id)}>Delete Service</button>
                     </div>
                   </div>
                   
-                  <div className="detail-display-row flex-column-start" style={{ marginTop: '10px' }}>
-                    <strong className="field-group-desc-label">Description / Bio:</strong>
-                    <p className="service-desc-text-p">{service.service_bio || "No summary overview specified."}</p>
+                  {/* Reflected Service Summary Description View Box */}
+                  <div className="detail-display-row flex-column-start">
+                    <strong className="field-group-desc-label">Category Scope Overview / Bio:</strong>
+                    <p className="service-desc-text-p">{service.service_bio || "No summary overview specified summary layout lane yet."}</p>
                   </div>
 
-                  <div className="portfolio-row-view-container" style={{ marginTop: '12px' }}>
-                    <strong className="field-group-desc-label">Portfolio Media Samples ({service.portfolio_images.length}/12):</strong>
-                    <div className="photo-grid-accordion" style={{ display: 'flex', gap: '8px', overflowX: 'auto', marginTop: '6px' }}>
-                      {service.portfolio_images.map((img, idx) => (
-                        <div key={idx} className="portfolio-thumb" style={{ width: '50px', height: '50px', borderRadius: '6px', overflow: 'hidden', flexShrink: 0 }}>
-                          <img src={img} alt="Snapshot preview" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                        </div>
-                      ))}
-                    </div>
+                  {/* Reflected Portfolio Gallery View Box Matrix List Wrapper */}
+                  <div className="portfolio-row-view-container">
+                    <strong className="field-group-desc-label">Portfolio Media Samples ({(service.portfolio_images || []).length}/12):</strong>
+                    {(!service.portfolio_images || service.portfolio_images.length === 0) ? (
+                      <p className="caption italic-font">📷 No portfolio snapshots attached specifically for this lane.</p>
+                    ) : (
+                      <div className="photo-grid-accordion">
+                        {service.portfolio_images.map((img, idx) => (
+                          <div key={idx} className="portfolio-thumb"><img src={img} alt="Snapshot frame layout" /></div>
+                        ))}
+                      </div>
+                    )}
                   </div>
 
-                  <div className="nested-sub-offers-table-wrapper" style={{ marginTop: '14px' }}>
+                  {/* Nested Sub-Offers Pricing Data Grid Portfolio Component */}
+                  <div className="nested-sub-offers-table-wrapper">
                     <table className="dashboard-nested-offers-data-table">
                       <thead>
-                        <tr><th>Specific Package Title</th><th className="text-right-aligned">Estimated Range</th></tr>
+                        <tr><th>Specific Sub-Offer Option Package Title</th><th className="text-right-aligned">Estimated Price Range</th></tr>
                       </thead>
                       <tbody>
-                        {service.offers.map((offer, idx) => (
+                        {(service.offers || []).map((offer, idx) => (
                           <tr key={offer.id || idx}>
-                            <td>🔹 {offer.offer_name}</td>
-                            <td className="text-right-aligned">₹{parseFloat(offer.price_min).toLocaleString('en-IN')} - ₹{parseFloat(offer.price_max).toLocaleString('en-IN')}</td>
+                            <td className="offer-cell-name-title">🔹 {offer.offer_name}</td>
+                            <td className="offer-cell-pricing-digits text-right-aligned">
+                              Price Range: ₹{parseFloat(offer.price_min || 0).toLocaleString('en-IN')} - ₹{parseFloat(offer.price_max || 0).toLocaleString('en-IN')}
+                            </td>
                           </tr>
                         ))}
                       </tbody>
@@ -513,89 +495,31 @@ function ProviderDashboard() {
         </div>
       </div>
 
-      {/* 🔍 POPUP 1: READ-ONLY PUBLIC SERVICE PROFILE INSPECTION SHEET OVERLAY */}
-      {isServiceViewModalOpen && inspectedService && (
-        <div className="modal-overlay">
-          <div className="modal-container multi-offer-modal">
-            <button type="button" className="btn-modal-close-x" onClick={() => setIsServiceViewModalOpen(false)}>✕</button>
-            <div className="modal-header-visual-strip">
-              <img src={inspectedService.service_profile_image || "/1.jpeg"} alt="Service cover preview" className="modal-profile-image-preview" style={{ width: '50px', height: '50px', borderRadius: '8px', objectFit: 'cover' }} />
-              <div>
-                <h3>{inspectedService.custom_service_title || inspectedService.service_name}</h3>
-                <span className="offers-badge-counter-pill">{(inspectedService.offers || []).length} Packages Live</span>
-              </div>
-            </div>
+      {/* =================================================================================
+          POPUP CONFIGURATION MODALS INTERACTION LAYER OVERLAYS
+          ================================================================================= */}
 
-            <div className="modal-scrollable-content-area">
-              <div className="service-toggle-status-highlight-container" style={{ backgroundColor: inspectedService.is_item_available !== false ? '#ecfdf5' : '#fef2f2', border: inspectedService.is_item_available !== false ? '1px dashed #a7f3d0' : '1px dashed #fca5a5', padding: '12px 14px', borderRadius: '8px', marginBottom: '16px', display: 'flex' }}>
-                <label className="checkbox-switch-container-label" style={{ margin: 0, display: 'flex', alignItems: 'center', width: '100%' }}>
-                  <span className="checkbox-toggle-text-descriptor" style={{ color: inspectedService.is_item_available !== false ? '#065f46' : '#991b1b', fontWeight: '500', fontSize: '13px' }}>
-                    {inspectedService.is_item_available !== false ? "● Mapped Active: This category branch appears live across searches." : "○ Mapped Paused: This trade category is temporarily hidden from searches."}
-                  </span>
-                </label>
-              </div>
-
-              <label className="modal-section-uppercase-label">Core Category Track</label>
-              <span className="modal-category-static-text">{inspectedService.service_name}</span>
-
-              <label className="modal-section-uppercase-label">Service Overview Scope / Bio</label>
-              <p className="modal-bio-static-paragraph" style={{ whiteSpace: 'pre-wrap' }}>
-                {inspectedService.service_bio || "No summary overview bio configured relative to this trade category group module track."}
-              </p>
-
-              <label className="modal-section-uppercase-label">Portfolio Snapshots Collection</label>
-              {(!inspectedService.portfolio_images || inspectedService.portfolio_images.length === 0) ? (
-                <p className="caption italic-font margin-bottom-16">📷 No portfolio images uploaded specifically for this category lane yet.</p>
-              ) : (
-                <div className="photo-grid-modal-preview">
-                  {inspectedService.portfolio_images.map((img, idx) => (
-                    <div key={idx} className="portfolio-thumb">
-                      <img src={img} alt="Snapshot grid frame preview asset" />
-                    </div>
-                  ))}
-                </div>
-              )}
-
-              <label className="modal-section-uppercase-label">Active Pricing Rates Structure Matrix</label>
-              <div className="nested-sub-offers-table-wrapper margin-bottom-8">
-                <table className="dashboard-nested-offers-data-table">
-                  <thead>
-                    <tr><th>Package Display Name</th><th className="text-right-aligned">Estimated Range</th></tr>
-                  </thead>
-                  <tbody>
-                    {(inspectedService.offers || []).map((offer, idx) => (
-                      <tr key={offer.id || idx}>
-                        <td className="offer-cell-name-static">🔹 {offer.offer_name}</td>
-                        <td className="offer-cell-pricing-static text-right-aligned">₹{parseFloat(offer.price_min || 0).toLocaleString('en-IN')} - ₹{parseFloat(offer.price_max || 0).toLocaleString('en-IN')}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-
-            <div className="modal-actions-wrapper border-top-divider">
-              <button type="button" className="btn-disabled-secondary" onClick={() => setIsServiceViewModalOpen(false)}>Close View</button>
-              <button type="button" className="btn-primary" onClick={handleTransitionToEditModal}>✏️ Edit Details Form</button>
-            </div>
-          </div>
-        </div>
-      )}
-      {/* MODAL 1: STOREFRONT DETAILS PROFILE DRAWER SUBFORM */}
+      {/* MODAL 1: EDIT PROFILE PERSONAL DETAILS SUBFORM POPUP SHEET */}
       {isProfileModalOpen && (
         <div className="modal-overlay">
           <div className="modal-container">
             <button type="button" className="btn-modal-close-x" onClick={() => setIsProfileModalOpen(false)}>✕</button>
             <h3>✏️ Update Storefront Details</h3>
-            <form onSubmit={handleProfileFormSubmit} style={{ marginTop: '12px' }}>
-              <label>Full Name</label>
-              <input type="text" name="full_name" value={tempProfileForm.full_name || ""} onChange={handleProfileInputChange} required />
-              <label>City Hub Location</label>
-              <input type="text" name="city" value={tempProfileForm.city || ""} onChange={handleProfileInputChange} required />
-              <label>PIN Code</label>
-              <input type="text" name="pin_code" value={tempProfileForm.pin_code || ""} onChange={handleProfileInputChange} />
+            <form onSubmit={handleProfileFormSubmit} className="modal-form-element">
+              <div className="modal-input-block-container">
+                <label>Full Name</label>
+                <input type="text" name="full_name" value={tempProfileForm.full_name || ""} onChange={handleProfileInputChange} required />
+              </div>
+              <div className="modal-input-block-container">
+                <label>City Hub Location</label>
+                <input type="text" name="city" value={tempProfileForm.city || ""} onChange={handleProfileInputChange} required />
+              </div>
+              <div className="modal-input-block-container">
+                <label>PIN Code</label>
+                <input type="text" name="pin_code" value={tempProfileForm.pin_code || ""} onChange={handleProfileInputChange} />
+              </div>
 
-              <div className="modal-actions-wrapper" style={{ marginTop: '20px' }}>
+              <div className="modal-actions-wrapper">
                 <button type="button" className="btn-small-cancel" onClick={() => setIsProfileModalOpen(false)}>Discard</button>
                 <button type="submit" className="btn-primary">Save Profile Setup</button>
               </div>
@@ -604,110 +528,150 @@ function ProviderDashboard() {
         </div>
       )}
 
-      {/* 📝 POPUP 2: DETAILED INTERACTIVE SERVICE GROUP EDITOR MODAL OVERLAY */}
+            {/* 📝 POPUP 2: DETAILED INTERACTIVE SERVICE GROUP EDITOR MODAL OVERLAY */}
       {isServiceModalOpen && (
         <div className="modal-overlay">
           <div className="modal-container multi-offer-modal">
+            {/* Upper Right Explicit Close Button */}
             <button type="button" className="btn-modal-close-x" onClick={() => setIsServiceModalOpen(false)}>✕</button>
+            
             <h3>{isEditingService ? '✏️ Edit Changes Form - Service Category Row' : '🚀 Service Offered Group Configuration'}</h3>
-            <form onSubmit={handlePublishServicesForm} style={{ marginTop: '14px' }}>
-              
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
-                <div>
-                  <label>Core Trade Skill Classification</label>
-                  <select value={modalServiceName} onChange={handleCategoryDropdownSelection} required className="modal-select-field-element">
-                    <option value="" disabled>-- Select core lane --</option>
-                    {dbCategoriesList.map((item, idx) => <option key={idx} value={item}>{item}</option>)}
-                    <option value="Others">Others ...</option>
-                  </select>
-                </div>
+            
+            {/* Scrollable Form Box Container */}
+            <div className="modal-scrollable-content-body">
+              <form onSubmit={handlePublishServicesForm} className="modal-form-element">
                 
-                <div>
-                  <label>Service Profile Cover Image</label>
-                  <div style={{ display: 'flex', gap: '10px', alignItems: 'center', marginTop: '6px' }}>
-                    <img src={modalServiceProfileImage || "/1.jpeg"} alt="Lookup preview" style={{ width: '40px', height: '40px', borderRadius: '6px', objectFit: 'cover', border: '1px solid #d1d5db' }} />
-                    <button type="button" onClick={() => document.getElementById('serviceCategoryProfileCoverFileTrigger').click()} style={{ padding: '8px 12px', background: '#fcfaff', border: '1px dashed #6021a8', color: '#6021a8', borderRadius: '6px', cursor: 'pointer', fontSize: '11px', fontWeight: '500' }}>
-                      📷 Select Photo
-                    </button>
-                    <input type="file" id="serviceCategoryProfileCoverFileTrigger" accept="image/*" style={{ display: 'none' }} onChange={(e) => handleProcessSingleImageSelection(e, setModalServiceProfileImage)} />
+                <div className="modal-split-fields-grid">
+                  <div className="modal-input-block-container">
+                    <label>Category Name</label>
+                    <select value={modalServiceName} onChange={handleCategoryDropdownSelection} required className="modal-select-field-element">
+                      <option value="" disabled>-- Select core lane --</option>
+                      {dbCategoriesList.map((item, idx) => <option key={idx} value={item}>{item}</option>)}
+                      <option value="Others">Others ...</option>
+                    </select>
+                  </div>
+                  
+                  <div className="modal-input-block-container">
+                    <label>Service Profile Cover Image</label>
+                    <div className="single-photo-uploader-row">
+                      <img src={modalServiceProfileImage || "/1.jpeg"} alt="Lookup preview" className="single-photo-preview-thumbnail" />
+                      <button type="button" onClick={() => document.getElementById('serviceCategoryProfileCoverFileTrigger').click()} className="btn-select-photo-trigger">
+                        📷 Select Photo
+                      </button>
+                      <input type="file" id="serviceCategoryProfileCoverFileTrigger" accept="image/*" className="hidden-file-input" onChange={(e) => handleProcessSingleImageSelection(e, setModalServiceProfileImage)} />
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              {isCustomCategoryInputVisible && (
-                <div style={{ marginTop: '10px' }}>
-                  <label>Register Custom Class Title</label>
-                  <input type="text" placeholder="e.g., Food Catering" value={customCategoryFieldValue} onChange={e => setCustomCategoryFieldValue(e.target.value)} required />
-                </div>
-              )}
-
-              <div style={{ marginTop: '10px' }}>
-                <label>Specific Service Branch Public Title</label>
-                <input type="text" placeholder="e.g., Royal Rajasthani Mehndi Studio" value={modalCustomServiceTitle} onChange={e => setModalCustomServiceTitle(e.target.value)} required />
-              </div>
-
-              <div style={{ marginTop: '10px' }}>
-                <label>Detailed Public Service Summary Description / Bio</label>
-                <textarea placeholder="Provide unique training parameters or scope specific details..." value={modalServiceBio} onChange={e => setModalServiceBio(e.target.value)} required className="modal-textarea-fixed-height" />
-              </div>
-
-              <div style={{ marginTop: '14px' }}>
-                <label style={{ fontWeight: '600', color: '#1e1b4b', display: 'block', marginBottom: '6px' }}>
-                  Category Portfolio Showcase Samples ({modalPortfolioImages.length}/12)
-                </label>
-                <div className="mock-upload-field-box" onClick={() => document.getElementById('categoryGridMultiFilesTrigger').click()} style={{ border: '2px dashed #6021a8', background: '#fcfaff', padding: '16px', borderRadius: '10px', textAlign: 'center', cursor: 'pointer' }}>
-                  <p style={{ margin: 0, fontSize: '12px', color: '#6021a8', fontWeight: '500' }}>🖼️ Click to pick multiple portfolio images from gallery</p>
-                </div>
-                <input type="file" id="categoryGridMultiFilesTrigger" multiple accept="image/*" style={{ display: 'none' }} onChange={(e) => handleProcessLocalGallerySelection(e, setModalPortfolioImages)} />
-                
-                {modalPortfolioImages.length > 0 && (
-                  <div style={{ display: 'flex', gap: '8px', overflowX: 'auto', background: '#f9fafb', padding: '8px', borderRadius: '8px', border: '1px solid #e5e7eb', marginTop: '10px' }}>
-                    {modalPortfolioImages.map((img, idx) => (
-                      <div key={idx} style={{ position: 'relative', flexShrink: 0, width: '55px', height: '55px', borderRadius: '6px', overflow: 'hidden', border: '1px solid #d1d5db' }}>
-                        <img src={img} alt="Portfolio item asset" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                        <button type="button" onClick={() => handleRemovePortfolioImageInForm(idx)} style={{ position: 'absolute', top: '2px', right: '2px', background: 'rgba(220, 38, 38, 0.85)', color: '#fff', border: 'none', borderRadius: '50%', width: '14px', height: '14px', fontSize: '9px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>✕</button>
-                      </div>
-                    ))}
+                {isCustomCategoryInputVisible && (
+                  <div className="modal-input-block-container custom-category-input-row">
+                    <label>Custom Category Name</label>
+                    <input type="text" placeholder="e.g., Food Catering" value={customCategoryFieldValue} onChange={e => setCustomCategoryFieldValue(e.target.value)} required />
                   </div>
                 )}
-              </div>
 
-              <div className="offers-fields-scroll-area" style={{ marginTop: '14px', maxHeight: '200px', overflowY: 'auto' }}>
-                {modalOffers.map((offer, index) => (
-                  <div key={offer.id || index} className="offer-inputs-row-box" style={{ background: '#fcfaff', border: '1px solid #e9e3ff', padding: '12px', borderRadius: '10px', marginBottom: '10px' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
-                      <h4 style={{ margin: 0, fontSize: '13px', color: '#6021a8' }}>Sub-Offer Package Option #{index + 1}</h4>
-                      {modalOffers.length > 1 && <button type="button" className="remove-row-btn" onClick={() => removeOfferFieldFromForm(index)} style={{ background: 'transparent', border: 'none', color: '#dc2626', fontSize: '11px', cursor: 'pointer' }}>✕ Remove</button>}
-                    </div>
-                    <input type="text" placeholder="Package Title Name" value={offer.offer_name || ''} onChange={e => handleOfferFieldChange(index, 'offer_name', e.target.value)} required />
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', marginTop: '6px' }}>
-                      <input type="number" placeholder="Min Price" value={offer.price_min || ''} onChange={e => handleOfferFieldChange(index, 'price_min', e.target.value)} required />
-                      <input type="number" placeholder="Max Price" value={offer.price_max || ''} onChange={e => handleOfferFieldChange(index, 'price_max', e.target.value)} required />
-                    </div>
+                <div className="modal-input-block-container">
+                  <label>Service Title</label>
+                  <input type="text" placeholder="e.g., Royal Rajasthani Mehndi Studio" value={modalCustomServiceTitle} onChange={e => setModalCustomServiceTitle(e.target.value)} required />
+                </div>
+
+                <div className="modal-input-block-container">
+                  <label>Service Description</label>
+                  <textarea placeholder="Provide unique training parameters or scope specific details summary overview text..." value={modalServiceBio} onChange={e => setModalServiceBio(e.target.value)} required className="modal-textarea-fixed-height" />
+                </div>
+
+                {/* --- 2. MULTI PORTFOLIO UPLOADER ROW --- */}
+                <div className="modal-input-block-container">
+                  <label className="portfolio-uploader-title-label">
+                    Service Portfolio Samples ({modalPortfolioImages.length}/12)
+                  </label>
+                  <div className="mock-upload-field-box" onClick={() => document.getElementById('categoryGridMultiFilesTrigger').click()}>
+                    <p className="mock-upload-field-box-text">🖼️ Click to pick multiple portfolio images from gallery</p>
                   </div>
-                ))}
-              </div>
-              
-              {modalOffers.length < 20 && <button type="button" className="btn-add-more-offers" onClick={addMoreOffersInForm} style={{ width: '100%', padding: '8px', background: '#f3e8ff', border: '1px dashed #c084fc', color: '#6b21a8', borderRadius: '6px', cursor: 'pointer', fontSize: '12px', marginTop: '6px' }}>➕ Add More Pricing Packages Options ({modalOffers.length}/20)</button>}
+                  {/* 🗲 CRITICAL FIX: Applied hidden class tracker to eliminate duplicate raw choose files box buttons */}
+                  <input type="file" id="categoryGridMultiFilesTrigger" multiple accept="image/*" className="hidden-file-input" onChange={(e) => handleProcessLocalGallerySelection(e, setModalPortfolioImages)} />
+                  
+                  {modalPortfolioImages.length > 0 && (
+                    <div className="modal-portfolio-preview-scroller-box">
+                      {modalPortfolioImages.map((img, idx) => (
+                        <div key={idx} className="portfolio-preview-thumb-wrapper">
+                          <img src={img} alt="Portfolio snapshot lookup item" />
+                          <button type="button" onClick={() => handleRemovePortfolioImageInForm(idx)} className="btn-portfolio-remove-round">✕</button>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
 
-              <div className="modal-actions-wrapper" style={{ marginTop: '18px' }}>
-                <button type="button" className="btn-small-cancel" onClick={() => setIsServiceModalOpen(false)}>Cancel</button>
-                <button type="submit" className="btn-primary">Publish Service Changes</button>
-              </div>
-            </form>
+
+                <div className="offers-fields-scroll-area">
+                  {modalOffers.map((offer, index) => (
+                    <div key={offer.id || index} className="offer-inputs-row-box">
+                      <div className="offer-inputs-row-header-strip">
+                        <h4>Sub-Offer Package Option #{index + 1}</h4>
+                        {modalOffers.length > 1 && <button type="button" className="remove-row-btn" onClick={() => removeOfferFieldFromForm(index)}>✕ Remove</button>}
+                      </div>
+                      <div className="modal-input-block-container">
+                        <input type="text" placeholder="Package Title Name" value={offer.offer_name || ''} onChange={e => handleOfferFieldChange(index, 'offer_name', e.target.value)} required />
+                      </div>
+                      <div className="price-inputs-split-row">
+                        <input type="number" placeholder="Min Price (₹)" value={offer.price_min || ''} onChange={e => handleOfferFieldChange(index, 'price_min', e.target.value)} required />
+                        <input type="number" placeholder="Max Price (₹)" value={offer.price_max || ''} onChange={e => handleOfferFieldChange(index, 'price_max', e.target.value)} required />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                
+                {modalOffers.length < 20 && <button type="button" className="btn-add-more-offers" onClick={addMoreOffersInForm}>+ Add More Pricing Packages Options ({modalOffers.length}/20)</button>}
+
+                <div className="modal-actions-wrapper">
+                  <button type="button" className="btn-small-cancel" onClick={() => setIsServiceModalOpen(false)}>Cancel</button>
+                  <button type="submit" className="btn-primary">Publish Service Changes</button>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
       )}
+
       {/* MODAL 3: RISK DIALOG ACCOUNT DELETION */}
       {isDeleteAccountModalOpen && (
         <div className="modal-overlay">
           <div className="modal-container text-center-modal-box">
+            {/* Upper Right Explicit Close Button */}
             <button type="button" className="btn-modal-close-x" onClick={() => setIsDeleteAccountModalOpen(false)}>✕</button>
+            
             <h3 className="risk-header-title">⚠️ Are you sure??</h3>
-            <p className="risk-warning-body-text">This action completely wipes out your data from NaariBazar permanently.</p>
-            <div className="modal-actions-wrapper dual-grid-actions-wrapper">
-              <button type="button" className="btn-small-cancel" onClick={() => setIsDeleteAccountModalOpen(false)}>No, Keep Dashboard</button>
-              <button type="button" className="btn-primary risk-delete-confirm-btn" onClick={handleConfirmDeleteAccount}>Yes, Delete Account</button>
+            
+            <div className="modal-scrollable-content-body text-center-modal-box">
+              <p className="risk-warning-body-text">Please note that this action initiates the permanent deletion of your NaariBazar data. This process takes 30 days to complete. You may reverse this decision and prevent permanent deletion by logging into your account at any point during this 30-day window.</p>
+              <div className="modal-actions-wrapper dual-grid-actions-wrapper">
+                <button type="button" className="btn-small-cancel" onClick={() => setIsDeleteAccountModalOpen(false)}>No, Keep Dashboard</button>
+                <button type="button" className="btn-primary risk-delete-confirm-btn" onClick={handleConfirmDeleteAccount}>Yes, Delete Account</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+
+      {/* 🚪 MODAL 4: RISK DIALOG LOGOUT ACTION CONFIRMATION SECURITY OVERLAY */}
+      {isLogoutModalOpen && (
+        <div className="modal-overlay">
+          <div className="modal-container text-center-modal-box modal-logout-size-restriction">
+            <button type="button" className="btn-modal-close-x" onClick={() => setIsLogoutModalOpen(false)}>✕</button>
+            <div className="modal-logout-emoji-graphic">🚪</div>
+            <h3 className="risk-header-title">Confirm Logout</h3>
+            <p className="risk-warning-body-text">
+              Are you sure you want to logout from your account?
+            </p>
+            <div className="modal-actions-wrapper dual-grid-actions-wrapper logout-actions-grid-override">
+              <button type="button" className="btn-disabled-secondary" onClick={() => setIsLogoutModalOpen(false)}>
+                No, Stay
+              </button>
+              <button type="button" className="btn-primary logout-confirm-color-override" onClick={handleConfirmLogout}>
+                Yes, Logout
+              </button>
             </div>
           </div>
         </div>
