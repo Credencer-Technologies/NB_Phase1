@@ -15,8 +15,9 @@ function Login() {
     if (phone === validPhone && otp === validOtp) {
       alert("Login Successful");
       localStorage.setItem("isLoggedIn", "true");
-      window.dispatchEvent(new Event("storage"));
-      navigate("/explore");
+      localStorage.setItem("role", "provider");
+      window.dispatchEvent(new Event("authChange"));
+      navigate("/provider-dashboard");
     } else {
       alert("Invalid Phone Number or OTP");
     }
