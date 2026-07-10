@@ -11,6 +11,7 @@ import Contact from "./Components/Contact";
 import Register from "./Pages/Register";
 import PageIntro from "./Components/PageIntro";
 import ProviderProfile from "./Pages/ProviderProfile";
+import ChatBot from "./components/ChatBot/ChatBot";
 
 import UserDashboard from "./Pages/UserDashboard";
 
@@ -43,6 +44,7 @@ function App() {
       </Routes>
 
       {!hideLayout && <Footer />}
+      <ChatBot />
     </>
   );
 }
