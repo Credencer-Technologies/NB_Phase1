@@ -58,12 +58,12 @@ function ProviderDashboard() {
   const [enquiries, setEnquiries] = useState([]);
 
   // --- 5. Navigation Control Overlays and Calendar Parameters ---
-  const [busyDates, setBusyDates] = useState(["2026-06-25", "2026-06-26"]);
+  const [busyDates, setBusyDates] = useState(["2026-06-25", "2026-06-26","2026-06-16" ,"2026-06-2","2026-07-16","2026-07-19"]);
   const [currentCalendarMonth, setCurrentCalendarMonth] = useState(new Date(2026, 5, 1)); 
   const [isDeleteAccountModalOpen, setIsDeleteAccountModalOpen] = useState(false);
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
 
-  // --- Mock Data Hydration Engine ---
+    // --- Mock Data Hydration Engine ---
   useEffect(() => {
     setServices([
       {
@@ -75,9 +75,34 @@ function ProviderDashboard() {
         service_profile_image: "/1.jpeg",
         is_item_available: true,
         portfolio_images: ["/1.jpeg", "/2.jpeg"],
+        reviews: [
+          { id: 301, rating: 5, status: "completed" },
+          { id: 302, rating: 4, status: "completed" },
+          { id: 303, rating: 5, status: "completed" }
+        ],
         offers: [
-          { id: 101, offer_name: "Arabic Mehndi Package", price_min: "400.00", price_max: "1200.00" },
+          { id: 101, offer_name: " PackagePackagePackagePackagePackagePackage", price_min: "40000.00", price_max: "120000.00" },
           { id: 102, offer_name: "Child Mehndi Rates", price_min: "150.00", price_max: "300.00" }
+        ]
+      },
+      {
+        id: 2,
+        provider_id: 42,
+        service_name: "Beauty & Wellness", 
+        custom_service_title: "Premium Bridal Makeover Group",
+        service_bio: "Complete luxury bridal makeover treatments including airbrush HD makeup setups, specialized pre-wedding skincare routines, and customized hairstyling options.",
+        service_profile_image: "/3.jpeg",
+        is_item_available: true,
+        portfolio_images: ["/3.jpeg", "/4.jpeg"],
+        reviews: [
+          { id: 304, rating: 5, status: "completed" },
+          { id: 305, rating: 5, status: "completed" },
+          { id: 306, rating: 4, status: "completed" },
+          { id: 307, rating: 3, status: "pending" } // This pending review won't affect completed count
+        ],
+        offers: [
+          { id: 201, offer_name: "HD Airbrush Bridal Makeup Package", price_min: "5000.00", price_max: "12000.00" },
+          { id: 202, offer_name: "Pre-Bridal Skincare Prep Session", price_min: "2500.00", price_max: "6000.00" }
         ]
       }
     ]);
@@ -92,6 +117,27 @@ function ProviderDashboard() {
       }
     ]);
   }, []);
+
+
+  // --- 📊 DYNAMIC LIVE METRICS COMPUTATION ENGINE ---
+  // Step 1: Accumulate every individual review object nested across all listed provider services
+  const allProviderReviews = services.reduce((acc, currentService) => {
+    if (currentService.reviews && Array.isArray(currentService.reviews)) {
+      return [...acc, ...currentService.reviews];
+    }
+    return acc;
+  }, []);
+
+  // Step 2: Get the count of completed status updates from total service reviews
+  const completedReviewsCount = allProviderReviews.filter(
+    (review) => review.status === "completed"
+  ).length;
+
+  // Step 3: Compute the exact math average of all reviews from all combined services
+  const totalReviewsRatingSum = allProviderReviews.reduce((sum, review) => sum + (review.rating || 0), 0);
+  const averageReviewRatingScore = allProviderReviews.length > 0 
+    ? (totalReviewsRatingSum / allProviderReviews.length).toFixed(1) 
+    : "0.0";
 
   // --- Image File Selection Processing Hooks ---
   const handleProcessSingleImageSelection = (e, targetImageStateSetter) => {
@@ -197,7 +243,6 @@ function ProviderDashboard() {
   const handleRemovePortfolioImageInForm = (index) => {
     setModalPortfolioImages(modalPortfolioImages.filter((_, i) => i !== index));
   };
-
   const handlePublishServicesForm = (e) => {
     e.preventDefault();
     let finalizedCategoryName = modalServiceName;
@@ -211,7 +256,8 @@ function ProviderDashboard() {
         service_bio: modalServiceBio.trim(), 
         service_profile_image: modalServiceProfileImage || "/1.jpeg",
         portfolio_images: modalPortfolioImages,
-        offers: modalOffers 
+        offers: modalOffers,
+        reviews: s.reviews || []
       } : s));
     } else {
       setServices([...services, { 
@@ -222,7 +268,8 @@ function ProviderDashboard() {
         service_profile_image: modalServiceProfileImage || "/1.jpeg",
         portfolio_images: modalPortfolioImages,
         offers: modalOffers,
-        is_item_available: true
+        is_item_available: true,
+        reviews: []
       }]);
     }
     setIsServiceModalOpen(false);
@@ -256,7 +303,7 @@ function ProviderDashboard() {
     for (let i = 0; i < blankOffsets; i++) {
       gridCells.push(<div key={`blank-${i}`} className="calendar-day empty-cell"></div>);
     }
-        for (let day = 1; day <= totalDaysInMonth; day++) {
+    for (let day = 1; day <= totalDaysInMonth; day++) {
       const currentCellDate = new Date(year, month, day);
       const dayStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
       const isBusy = busyDates.includes(dayStr);
@@ -292,17 +339,16 @@ function ProviderDashboard() {
   return (
     <div className="dashboard-wrapper">
       <section className="heading">
-        <div class="heading_text">
+        <div className="heading_text">
           <h4>{profileForm.full_name}'s Dashboard</h4>
-
-          </div>
+        </div>
       </section>
+
       {/* 📊 TOP BRANDING SECTION */}
       <section className="dashboard-top-management-grid">
-        <div className="stats-summary-inline-grid">
-          <div className="stat-box"><h3>15</h3><p className="caption">Total Queries</p></div>
-          <div className="stat-box"><h3>9</h3><p className="caption">Completed</p></div>
-          <div className="stat-box"><h3>⭐ 4.8</h3><p className="caption">Avg Review</p></div>
+        <div className="stats-summary-inline-grid matching-dual-layout">
+          <div className="stat-box"><h3>{completedReviewsCount}</h3><p className="caption">Completed</p></div>
+          <div className="stat-box"><h3>⭐ {averageReviewRatingScore}</h3><p className="caption">Avg Review</p></div>
         </div>
 
         {/* 🛠️ Dynamic Verification Status & Rejection Panel Block */}
@@ -360,6 +406,7 @@ function ProviderDashboard() {
               </div>
             </div>
           </section>
+
           {/* Availability Calendar Block */}
           <section className="dashboard-card calendar-card-inline-section">
             <div className="calendar-header-strip">
@@ -383,7 +430,6 @@ function ProviderDashboard() {
             </div>
             <div className="calendar-days-matrix-grid">{renderCalendarDaysGrid()}</div>
           </section>
-
           {/* Customer Communications Incoming Inbox Panel */}
           <section className="dashboard-card">
             <h2>Customer Enquiries Received</h2>
@@ -423,7 +469,7 @@ function ProviderDashboard() {
                         <div className="parent-title-headline-wrap">
                           <h3>{service.custom_service_title || service.service_name}</h3>
                         </div>
-                        <span className="category-core-sub-caption">Category{service.service_name}</span>
+                        <span className="category-core-sub-caption">Category: {service.service_name}</span>
                       </div>
                       <span className="offers-badge-counter-pill">{(service.offers || []).length} sub-offers</span>
                     </div>
@@ -474,14 +520,14 @@ function ProviderDashboard() {
                   <div className="nested-sub-offers-table-wrapper">
                     <table className="dashboard-nested-offers-data-table">
                       <thead>
-                        <tr><th>Specific Sub-Offer Option Package Title</th><th className="text-right-aligned">Estimated Price Range</th></tr>
+                        <tr><th>Specific Sub-Offer  Package Title</th><th className="text-right-aligned"> Price </th></tr>
                       </thead>
                       <tbody>
                         {(service.offers || []).map((offer, idx) => (
                           <tr key={offer.id || idx}>
-                            <td className="offer-cell-name-title">🔹 {offer.offer_name}</td>
+                            <td className="offer-cell-name-title">{offer.offer_name}</td>
                             <td className="offer-cell-pricing-digits text-right-aligned">
-                              Price Range: ₹{parseFloat(offer.price_min || 0).toLocaleString('en-IN')} - ₹{parseFloat(offer.price_max || 0).toLocaleString('en-IN')}
+                              ₹{parseFloat(offer.price_min || 0).toLocaleString('en-IN')} - ₹{parseFloat(offer.price_max || 0).toLocaleString('en-IN')}
                             </td>
                           </tr>
                         ))}
@@ -527,8 +573,7 @@ function ProviderDashboard() {
           </div>
         </div>
       )}
-
-            {/* 📝 POPUP 2: DETAILED INTERACTIVE SERVICE GROUP EDITOR MODAL OVERLAY */}
+      {/* 📝 POPUP 2: DETAILED INTERACTIVE SERVICE GROUP EDITOR MODAL OVERLAY */}
       {isServiceModalOpen && (
         <div className="modal-overlay">
           <div className="modal-container multi-offer-modal">
@@ -580,7 +625,7 @@ function ProviderDashboard() {
                   <textarea placeholder="Provide unique training parameters or scope specific details summary overview text..." value={modalServiceBio} onChange={e => setModalServiceBio(e.target.value)} required className="modal-textarea-fixed-height" />
                 </div>
 
-                {/* --- 2. MULTI PORTFOLIO UPLOADER ROW --- */}
+                {/* --- MULTI PORTFOLIO UPLOADER ROW --- */}
                 <div className="modal-input-block-container">
                   <label className="portfolio-uploader-title-label">
                     Service Portfolio Samples ({modalPortfolioImages.length}/12)
@@ -588,7 +633,6 @@ function ProviderDashboard() {
                   <div className="mock-upload-field-box" onClick={() => document.getElementById('categoryGridMultiFilesTrigger').click()}>
                     <p className="mock-upload-field-box-text">🖼️ Click to pick multiple portfolio images from gallery</p>
                   </div>
-                  {/* 🗲 CRITICAL FIX: Applied hidden class tracker to eliminate duplicate raw choose files box buttons */}
                   <input type="file" id="categoryGridMultiFilesTrigger" multiple accept="image/*" className="hidden-file-input" onChange={(e) => handleProcessLocalGallerySelection(e, setModalPortfolioImages)} />
                   
                   {modalPortfolioImages.length > 0 && (
@@ -602,7 +646,6 @@ function ProviderDashboard() {
                     </div>
                   )}
                 </div>
-
 
                 <div className="offers-fields-scroll-area">
                   {modalOffers.map((offer, index) => (
@@ -653,7 +696,6 @@ function ProviderDashboard() {
           </div>
         </div>
       )}
-
 
       {/* 🚪 MODAL 4: RISK DIALOG LOGOUT ACTION CONFIRMATION SECURITY OVERLAY */}
       {isLogoutModalOpen && (

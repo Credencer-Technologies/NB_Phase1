@@ -379,6 +379,7 @@ const addPackage = () => {
       <div className="service-config-field">
         <label>Specific Service Branch Public Title</label>
         <input
+          autoComplete="off"
           type="text"
           placeholder="e.g. Royal Rajasthani Mehndi Studio"
           value={providerData.branch_title}
@@ -431,6 +432,7 @@ const addPackage = () => {
     <h3>Sub-Offer Package #{index + 1}</h3>
 
     <input
+      autoComplete="off"
       type="text"
       placeholder="Package Title Name"
       value={pkg.package_title}
@@ -443,6 +445,7 @@ const addPackage = () => {
 
     <div className="service-config-row">
       <input
+        autoComplete="off"
         type="number"
         placeholder="Min Price"
         value={pkg.min_price}
@@ -454,6 +457,7 @@ const addPackage = () => {
       />
 
       <input
+        autoComplete="off"
         type="number"
         placeholder="Max Price"
         value={pkg.max_price}

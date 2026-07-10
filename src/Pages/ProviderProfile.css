@@ -305,10 +305,15 @@ body {
 
 .calendar-centering-container-box {
   width: 100% !important;
+  max-width: 100% !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
 }
 
 .real-calendar-frame-box {
   width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
 }
 
 .calendar-navigation-header {
@@ -344,21 +349,25 @@ body {
 
 .calendar-weekday-labels-row {
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
+  grid-template-columns: repeat(7, minmax(0, 1fr));
   text-align: center;
   font-size: 12px;
   font-weight: 600;
   color: var(--color-text-secondary);
+  width: 100%;
   max-width: 450px;
   margin: 0 auto 8px auto;
+  box-sizing: border-box;
 }
 
 .calendar-grid-cells-matrix {
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
+  grid-template-columns: repeat(7, minmax(0, 1fr));
   gap: 6px;
+  width: 100%;
   max-width: 450px;
   margin: 0 auto;
+  box-sizing: border-box;
 }
 
 .calendar-cell {
@@ -370,6 +379,10 @@ body {
   border-radius: 8px !important;
   font-size: 13px !important;
   font-weight: 500 !important;
+  min-width: 0 !important;
+  overflow: hidden !important;
+  padding: 2px !important;
+  box-sizing: border-box !important;
 }
 
 .day-blank {
@@ -396,6 +409,10 @@ body {
   font-size: 9px !important;
   margin-top: 2px !important;
   text-transform: uppercase !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  max-width: 100% !important;
 }
 .animate-slide-down {
   animation: slideDownEntrance 0.25s ease-out forwards !important;
@@ -799,6 +816,21 @@ body {
   }
   .in-column-portfolio-grid {
     grid-template-columns: repeat(2, 1fr) !important;
+  }
+  .calendar-grid-cells-matrix,
+  .calendar-weekday-labels-row,
+  .calendar-navigation-header {
+    max-width: 100% !important;
+  }
+  .calendar-grid-cells-matrix {
+    gap: 4px !important;
+  }
+  .calendar-cell {
+    font-size: 11px !important;
+    border-radius: 6px !important;
+  }
+  .day-status-indicator-lbl {
+    font-size: 7px !important;
   }
 }
 

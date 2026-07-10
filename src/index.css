@@ -179,3 +179,51 @@ button {
 ::-webkit-scrollbar-thumb:hover {
   background: #9ca3af;
 }
+
+/* =========================
+   THEMES
+========================= */
+
+[data-theme="light"] {
+  --primary: #3b82f6;
+  --primary-dark: #2563eb;
+  --bg: #ffffff;
+  --text-dark: #111827;
+  --text-light: #6b7280;
+}
+[data-theme="dark"] {
+  --primary: #06b6d4;
+  --primary-dark: #0891b2;
+  --bg: #0f172a;
+  --text-dark: #f8fafc;
+  --text-light: #94a3b8;
+}
+[data-theme="cyber"] {
+  --primary: #d946ef;
+  --primary-dark: #c026d3;
+  --bg: #170f1e;
+  --text-dark: #fdf4ff;
+  --text-light: #e879f9;
+}
+[data-theme="ocean"] {
+  --primary: #0ea5e9;
+  --primary-dark: #0284c7;
+  --bg: #f0f9ff;
+  --text-dark: #0f172a;
+  --text-light: #38bdf8;
+}
+[data-theme="sunset"] {
+  --primary: #f43f5e;
+  --primary-dark: #e11d48;
+  --bg: #fff1f2;
+  --text-dark: #4c0519;
+  --text-light: #fb7185;
+}
+
+[data-theme] .btn-glass {
+  border-color: var(--primary);
+}
+[data-theme] .btn-glass:hover {
+  background: var(--primary);
+  box-shadow: 0 15px 35px var(--primary-dark);
+}

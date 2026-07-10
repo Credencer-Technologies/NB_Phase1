@@ -36,10 +36,18 @@ const SEED_SERVICES_TABLE_ROWS = [
 ];
 
 const SEED_PORTFOLIO_IMAGES_ROWS = [
-  { id: 101, provider_id: 42, image_url: "/2.jpeg", uploaded_at: "2026-06-11 09:05:00" },
+  { id: 101, provider_id: 42, image_url: "/4.jpeg", uploaded_at: "2026-06-11 09:05:00" },
   { id: 102, provider_id: 42, image_url: "/1.jpeg", uploaded_at: "2026-06-11 09:05:00" },
   { id: 103, provider_id: 42, image_url: "/2.jpeg", uploaded_at: "2026-06-11 09:06:00" },
-  { id: 104, provider_id: 42, image_url: "/1.jpeg", uploaded_at: "2026-06-11 09:06:00" }
+  { id: 104, provider_id: 42, image_url: "/1.jpeg", uploaded_at: "2026-06-11 09:06:00" },
+  { id: 103, provider_id: 42, image_url: "/2.jpeg", uploaded_at: "2026-06-11 09:06:00" },
+  { id: 104, provider_id: 42, image_url: "/1.jpeg", uploaded_at: "2026-06-11 09:06:00" },
+  { id: 103, provider_id: 42, image_url: "/2.jpeg", uploaded_at: "2026-06-11 09:06:00" },
+  { id: 104, provider_id: 42, image_url: "/1.jpeg", uploaded_at: "2026-06-11 09:06:00" },
+  { id: 103, provider_id: 42, image_url: "/2.jpeg", uploaded_at: "2026-06-11 09:06:00" },
+  { id: 104, provider_id: 42, image_url: "/1.jpeg", uploaded_at: "2026-06-11 09:06:00" },
+  { id: 103, provider_id: 42, image_url: "/2.jpeg", uploaded_at: "2026-06-11 09:06:00" },
+  { id: 104, provider_id: 42, image_url: "/3.jpeg", uploaded_at: "2026-06-11 09:06:00" }
 ];
 
 const INITIAL_REVIEWS_MOCK_DATA = [
@@ -329,7 +337,7 @@ const toggleSaveProfileToDashboardList = () => {
             <section className="layout-card-block dynamic-height-card side-portfolio-box-panel mini-portfolio-override">
               <h3>PORTFOLIO</h3>
               <div className="layout-portfolio-grid in-column-portfolio-grid mini-grid-sizing">
-                {portfolioList.slice(0, 8).map((item, idx) => (
+                {portfolioList.slice(0, 12).map((item, idx) => (
                   <div key={item.id || idx} className="layout-portfolio-item mini-item-card" onClick={() => setLightboxIndex(idx)}>
                     <img src={item.image_url} alt={`Showcase piece ${idx + 1}`} />
                   </div>
@@ -418,7 +426,7 @@ const toggleSaveProfileToDashboardList = () => {
           <p className="form-helper-meta-desc">Send an enquiry request to lock in your booking slot.</p>
         </div>
         {isSubmitted ? (
-          <div className="layout-success-state-banner">✨ Your message has been sent!</div>
+          <div className="layout-success-state-banner">✨ Your message has been sent cleanly to the server database!</div>
         ) : (
           <form onSubmit={handleEnquiryFormSubmit} className="premium-form-layout">
             <div className="form-input-split-row">
