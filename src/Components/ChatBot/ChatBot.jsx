@@ -1,12 +1,21 @@
 import { useState } from "react";
 import { FaRobot, FaPaperPlane, FaTimes } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+
 import ChatMessage from "./ChatMessage";
 import QuickReplies from "./QuickReplies";
 import "./ChatBot.css";
 
+import {
+  botReplies,
+  faqCategories,
+  faqData,
+} from "./chatbotData";
+
 const welcomeMessage = {
   sender: "bot",
-  text: "👋 Hi! Welcome to NariBazar.\n\nI'm your virtual assistant.\n\nHow can I help you today?"
+  text:
+    "👋 Hi! Welcome to NariBazar.\n\nI'm your virtual assistant.\n\nHow can I help you today?",
 };
 
 const welcomeOptions = [
@@ -14,10 +23,11 @@ const welcomeOptions = [
   "Become a Provider",
   "Booking Help",
   "Payments",
-  "FAQs"
+  "FAQs",
 ];
 
 export default function ChatBot() {
+  const navigate = useNavigate();
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -33,7 +43,7 @@ export default function ChatBot() {
     category: "",
     city: "",
     budget: "",
-    date: ""
+    date: "",
   });
 
   const botReply = (text, newOptions = []) => {
@@ -42,8 +52,8 @@ export default function ChatBot() {
         ...prev,
         {
           sender: "bot",
-          text
-        }
+          text,
+        },
       ]);
 
       setOptions(newOptions);
@@ -51,27 +61,42 @@ export default function ChatBot() {
   };
 
   const sendMessage = (text) => {
-
     if (!text.trim()) return;
 
     setMessages((prev) => [
       ...prev,
       {
         sender: "user",
-        text
-      }
+        text,
+      },
     ]);
 
     setInput("");
+
+    /* ==========================
+       START OVER
+    ========================== */
+
+    if (text === "Start Over") {
+      setStep("welcome");
+
+      setUserData({
+        category: "",
+        city: "",
+        budget: "",
+        date: "",
+      });
+
+      botReply("How can I help you today?", welcomeOptions);
+      return;
+    }
 
     /* ==========================
        WELCOME
     ========================== */
 
     if (step === "welcome") {
-
       if (text === "Find a Service") {
-
         setStep("category");
 
         botReply(
@@ -83,7 +108,7 @@ export default function ChatBot() {
             "Education",
             "Yoga & Fitness",
             "Photography",
-            "Home Services"
+            "Home Services",
           ]
         );
 
@@ -91,20 +116,12 @@ export default function ChatBot() {
       }
 
       if (text === "Become a Provider") {
-
-        botReply(
-          "That's wonderful! 🎉\n\nJoining NariBazar helps you grow your business.\n\nYou only need:\n\n• Aadhaar Card\n• Mobile Number\n• Business Details\n• Service Category\n\nWould you like to know the registration process?",
-          [
-            "Yes",
-            "No"
-          ]
-        );
-
+        navigate("/register?role=provider");
+        setIsOpen(false);
         return;
       }
 
       if (text === "Booking Help") {
-
         botReply(
           "Booking is simple 😊\n\n1️⃣ Search a Service\n2️⃣ Choose a Provider\n3️⃣ Select Date\n4️⃣ Confirm Booking",
           ["Okay", "Need More Help"]
@@ -114,7 +131,6 @@ export default function ChatBot() {
       }
 
       if (text === "Payments") {
-
         botReply(
           "We support:\n\n💳 UPI\n💳 Debit Card\n💳 Credit Card\n🏦 Net Banking\n💵 Cash (if provider allows)"
         );
@@ -123,20 +139,58 @@ export default function ChatBot() {
       }
 
       if (text === "FAQs") {
+        setStep("faqCategory");
 
         botReply(
-          "Here are some common questions.",
-          [
-            "How to Book?",
-            "How to Register?",
-            "Cancellation Policy",
-            "Contact Support"
-          ]
+          botReplies["FAQs"].text,
+          botReplies["FAQs"].options
         );
 
         return;
       }
+    }
 
+    /* ==========================
+       FAQ CATEGORY
+    ========================== */
+
+    if (step === "faqCategory") {
+      setStep("faqQuestion");
+
+      botReply(
+        "Please select your question:",
+        faqCategories[text] || []
+      );
+
+      return;
+    }
+
+    /* ==========================
+       FAQ QUESTION
+    ========================== */
+
+    if (step === "faqQuestion") {
+      botReply(
+        faqData[text] || "Sorry, I couldn't find an answer for that.",
+        ["Back to FAQs", "Start Over"]
+      );
+
+      return;
+    }
+
+    /* ==========================
+       BACK TO FAQ
+    ========================== */
+
+    if (text === "Back to FAQs") {
+      setStep("faqCategory");
+
+      botReply(
+        botReplies["FAQs"].text,
+        botReplies["FAQs"].options
+      );
+
+      return;
     }
 
     /* ==========================
@@ -144,17 +198,17 @@ export default function ChatBot() {
     ========================== */
 
     if (step === "category") {
-
       setUserData((prev) => ({
         ...prev,
-        category: text
+        category: text,
       }));
 
-      setStep("city");
-
-      botReply(
-        `Excellent choice! 😊\n\nYou selected:\n${text}\n\nWhich city are you looking in?`
+      navigate(
+        `/explore?category=${encodeURIComponent(text)}`
       );
+
+      setIsOpen(false);
+      setStep("welcome");
 
       return;
     }
@@ -164,22 +218,18 @@ export default function ChatBot() {
     ========================== */
 
     if (step === "city") {
-
       setUserData((prev) => ({
         ...prev,
-        city: text
+        city: text,
       }));
 
       setStep("budget");
 
-      botReply(
-        "What's your approximate budget?",
-        [
-          "₹1000-3000",
-          "₹3000-5000",
-          "₹5000+"
-        ]
-      );
+      botReply("What's your approximate budget?", [
+        "₹1000-3000",
+        "₹3000-5000",
+        "₹5000+",
+      ]);
 
       return;
     }
@@ -189,22 +239,18 @@ export default function ChatBot() {
     ========================== */
 
     if (step === "budget") {
-
       setUserData((prev) => ({
         ...prev,
-        budget: text
+        budget: text,
       }));
 
       setStep("date");
 
-      botReply(
-        "When do you need the service?",
-        [
-          "Today",
-          "Tomorrow",
-          "This Week"
-        ]
-      );
+      botReply("When do you need the service?", [
+        "Today",
+        "Tomorrow",
+        "This Week",
+      ]);
 
       return;
     }
@@ -214,47 +260,29 @@ export default function ChatBot() {
     ========================== */
 
     if (step === "date") {
-
       setUserData((prev) => ({
         ...prev,
-        date: text
+        date: text,
       }));
 
       setStep("completed");
 
       botReply(
-        "Perfect! 🎉\n\nThank you for sharing your requirements.\n\nI'm finding the best service providers for you.\n\n(Next, we'll display real providers from your Explore page.)",
-        [
-          "Start Over"
-        ]
+        "Perfect! 🎉\n\nThank you for sharing your requirements.\n\nI'm finding the best service providers for you.",
+        ["Start Over"]
       );
 
       return;
     }
 
     /* ==========================
-       START OVER
+       DEFAULT
     ========================== */
 
-    if (text === "Start Over") {
-
-      setStep("welcome");
-
-      setUserData({
-        category: "",
-        city: "",
-        budget: "",
-        date: ""
-      });
-
-      botReply(
-        "How can I help you today?",
-        welcomeOptions
-      );
-
-      return;
-    }
-
+    botReply(
+      "Sorry, I didn't understand that.\nPlease choose one of the available options.",
+      options
+    );
   };
 
   return (
@@ -268,7 +296,6 @@ export default function ChatBot() {
 
       {isOpen && (
         <div className="nb-chat-window">
-
           <div className="nb-chat-header">
             <div className="bot-info">
               <div className="bot-avatar">🤖</div>
@@ -281,7 +308,6 @@ export default function ChatBot() {
           </div>
 
           <div className="nb-chat-body">
-
             {messages.map((msg, index) => (
               <ChatMessage
                 key={index}
@@ -294,12 +320,11 @@ export default function ChatBot() {
               options={options}
               onSelect={sendMessage}
             />
-
           </div>
 
           <div className="nb-chat-footer">
-
             <input
+              type="text"
               placeholder="Type your message..."
               value={input}
               onChange={(e) => setInput(e.target.value)}
@@ -311,9 +336,7 @@ export default function ChatBot() {
             <button onClick={() => sendMessage(input)}>
               <FaPaperPlane />
             </button>
-
           </div>
-
         </div>
       )}
     </>

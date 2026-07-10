@@ -30,8 +30,7 @@ function getIcon(option) {
     case "Booking Help":
       return "📅";
 
-    case "Payments":
-      return "💳";
+   
 
     case "FAQs":
       return "❓";
