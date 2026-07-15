@@ -111,7 +111,7 @@ ${form.message}`;
             <div className="social-icons">
 
               <a
-                href="https://maps.google.com"
+                href="https://www.google.com/maps/place/Credencer+Technologies/@17.4366455,78.3642267,17z/data=!3m2!4b1!5s0x3bcb93ca67b0a531:0x5e9995f09d025bda!4m6!3m5!1s0x3bcb97c1def849f9:0xc19cbff77a08d69b!8m2!3d17.4366404!4d78.3668016!16s%2Fg%2F11flf5lpzz?entry=ttu&g_ep=EgoyMDI2MDcxMy4wIKXMDSoASAFQAw%3D%3D"
                 target="_blank"
                 rel="noreferrer"
                 className="icon"
