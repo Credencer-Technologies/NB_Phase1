@@ -197,6 +197,7 @@ html, body {
 .legend-box { width: 12px; height: 12px; border-radius: 3px; flex-shrink: 0; }
 .label-completed { background-color: #cbd5e1; }
 .label-avail-green { background-color: var(--green-success); }
+.label-partial-orange { background-color: #f59e0b; }
 .label-busy-red { background-color: var(--red-danger); }
 
 .calendar-weekdays-grid { display: grid; grid-template-columns: repeat(7, 1fr); text-align: center; margin-bottom: 8px; margin-top: 10px; }
@@ -206,7 +207,69 @@ html, body {
 .empty-cell { background: transparent; }
 .day-past-completed { background: #e2e8f0; color: #94a3b8; cursor: not-allowed; }
 .day-available-green { background: var(--green-bg); color: #065f46; cursor: pointer; }
+.day-partial-orange { background: #fef3c7; color: #92400e; cursor: pointer; }
 .day-busy-red { background: var(--red-bg); color: #991b1b; cursor: pointer; }
+.day-selected-active { outline: 2px solid var(--purple-primary); outline-offset: 1px; }
+.calendar-hint-caption { font-size: 12px; color: #64748b; margin: 10px 0 0 0; text-align: center; }
+
+/* 🕐 Hourly Availability Editor — opens as a popup modal when a calendar day is clicked */
+.hourly-availability-modal {
+  width: 560px;
+}
+.hourly-modal-subtext { font-size: 13px; color: #64748b; margin: 0; }
+.hourly-modal-quick-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+.hourly-mark-busy-btn { background: var(--red-bg); color: #991b1b; }
+.hourly-mark-busy-btn:hover { background: #fecaca; }
+.hourly-slots-grid {
+  display: flex;
+  flex-direction: column;
+  max-height: 55vh;
+  overflow-y: auto;
+  padding-right: 4px;
+  border-top: 1px solid #eef0f4;
+}
+.hourly-slot-btn {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  padding: 14px 4px;
+  border: none;
+  border-bottom: 1px solid #eef0f4;
+  border-radius: 0;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.15s ease;
+  background: #ffffff;
+}
+.hourly-slot-btn::before {
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-right: 4px;
+}
+.hourly-slot-time-label { font-size: 14px; font-weight: 600; color: #1e1b4b; flex: 1; }
+.hourly-slot-status-label { font-size: 11px; font-weight: 700; text-transform: uppercase; padding: 4px 10px; border-radius: 20px; }
+.hourly-slot-available { background: #ffffff; }
+.hourly-slot-available::before { background-color: var(--green-success); }
+.hourly-slot-available .hourly-slot-status-label { color: #065f46; background: var(--green-bg); }
+.hourly-slot-busy { background: #ffffff; }
+.hourly-slot-busy::before { background-color: var(--red-danger); }
+.hourly-slot-busy .hourly-slot-status-label { color: #991b1b; background: var(--red-bg); }
+.hourly-slot-btn:hover { background: #f8fafc; }
+
+@keyframes slideDownEntrance {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 480px) {
+  .hourly-slots-grid { max-height: 60vh; }
+}
 
 /* 📩 SECTION E: INCOMING INBOX COMMUNICATIONS LEADS LOG */
 .empty-enquiries { text-align: center; }

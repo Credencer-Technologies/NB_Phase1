@@ -74,6 +74,55 @@ const ProviderProfile = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [enquiryFormData, setEnquiryFormData] = useState({ customer_name: "Priya Rao", customer_phone: "+919876543210", message: "" });
 
+  // --- 📅 READ-ONLY HOURLY AVAILABILITY (mirrors what the provider sets in their Dashboard) ---
+  const BUSINESS_HOURS = Array.from({ length: 12 }, (_, i) => i * 2); // 2-hour slots, midnight to midnight (next day)
+  const formatHourSlotLabel = (h) => {
+    const toClock = (hr) => {
+      const normalized = hr % 24;
+      const period = normalized >= 12 ? "PM" : "AM";
+      const display = normalized % 12 === 0 ? 12 : normalized % 12;
+      return `${display}:00 ${period}`;
+    };
+    return `${toClock(h)} - ${toClock(h + 2)}`;
+  };
+  const AVAILABILITY_STORAGE_KEY = `naaribazar_provider_availability_${providerRow.id}`;
+  const [busyHoursMap, setBusyHoursMap] = useState({});
+  const [expandedReadOnlyDate, setExpandedReadOnlyDate] = useState(null);
+
+  const loadAvailabilityFromStorage = () => {
+    try {
+      const stored = JSON.parse(localStorage.getItem(AVAILABILITY_STORAGE_KEY));
+      if (stored && typeof stored === "object") {
+        setBusyHoursMap(stored);
+        return;
+      }
+    } catch (err) { /* fall through to fallback */ }
+    // Fallback for a fresh browser session where the provider hasn't opened the dashboard yet:
+    // treat the seed booked_dates as full-day busy so the profile still shows something sensible.
+    const fallback = {};
+    (uiExtensions.booked_dates || []).forEach((d) => { fallback[d] = [...BUSINESS_HOURS]; });
+    setBusyHoursMap(fallback);
+  };
+
+  useEffect(() => {
+    loadAvailabilityFromStorage();
+  }, [providerRow.id]);
+
+  // Re-read whenever the calendar is opened, so edits made in the Dashboard (even in another tab) show up.
+  useEffect(() => {
+    if (showCalendarInLine) {
+      loadAvailabilityFromStorage();
+      setExpandedReadOnlyDate(null);
+    }
+  }, [showCalendarInLine]);
+
+  const getDayAvailabilityStatus = (dateString) => {
+    const busyHoursForDay = busyHoursMap[dateString] || [];
+    if (busyHoursForDay.length === 0) return "available";
+    if (busyHoursForDay.length >= BUSINESS_HOURS.length) return "busy";
+    return "partial";
+  };
+
   useEffect(() => {
     const existingList = JSON.parse(localStorage.getItem("naaribazar_saved_providers") || "[]");
     const isSaved = existingList.some((item) => item.id === providerRow.id);
@@ -292,22 +341,28 @@ const toggleSaveProfileToDashboardList = () => {
                 <span className="cal-month-title-txt">{monthLabel} {year}</span>
                 <button type="button" className="cal-nav-arrow-btn" onClick={handleNextMonth}>▶</button>
               </div>
+              <div className="calendar-legend-readonly-row">
+                <div className="legend-item"><span className="legend-box legend-box-avail"></span><span>Available</span></div>
+                <div className="legend-item"><span className="legend-box legend-box-partial"></span><span>Partially Busy</span></div>
+                <div className="legend-item"><span className="legend-box legend-box-busy"></span><span>Busy</span></div>
+              </div>
               <div className="calendar-weekday-labels-row">
                 {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map((day) => <span key={day}>{day}</span>)}
               </div>
               <div className="calendar-grid-cells-matrix readonly-calendar">
                 {blankCellsArray.map((_, index) => <div key={`empty-${index}`} className="calendar-cell day-blank"></div>)}
                 {calendarDaysArray.map((dayNum) => {
-                  const loopDate = new Date(year, monthIndex, dayNum);
-                  const weekdayIndex = loopDate.getDay();
-                  const formattedDayIndex = weekdayIndex === 0 ? 6 : weekdayIndex - 1;
-                  let isClosedDay = uiExtensions.weekly_off_days?.includes(formattedDayIndex);
                   const dateStringKey = `${year}-${String(monthIndex + 1).padStart(2, "0")}-${String(dayNum).padStart(2, "0")}`;
-                  if (uiExtensions.booked_dates?.includes(dateStringKey)) isClosedDay = true;
+                  const dayStatus = getDayAvailabilityStatus(dateStringKey);
+                  const statusLabel = dayStatus === "busy" ? "Busy" : dayStatus === "partial" ? "Partially Busy" : "Available";
                   return (
-                    <div key={dayNum} className={`calendar-cell day-usable ${isClosedDay ? "status-closed" : "status-open"}`}>
+                    <div
+                      key={dayNum}
+                      className={`calendar-cell day-usable status-${dayStatus} ${expandedReadOnlyDate === dateStringKey ? "cell-expanded-active" : ""}`}
+                      onClick={() => setExpandedReadOnlyDate(expandedReadOnlyDate === dateStringKey ? null : dateStringKey)}
+                    >
                       <span className="day-number-label">{dayNum}</span>
-                      <span className="day-status-indicator-lbl">{isClosedDay ? "Unavailable" : "Available"}</span>
+                      <span className="day-status-indicator-lbl">{statusLabel}</span>
                     </div>
                   );
                 })}
@@ -454,6 +509,30 @@ const toggleSaveProfileToDashboardList = () => {
             <img src={portfolioList?.[lightboxIndex]?.image_url} alt="View" />
           </div>
           <button type="button" className="lightbox-nav-pointer-arrow arrow-right" onClick={(e) => { e.stopPropagation(); handleNextImage(); }}>▶</button>
+        </div>
+      )}
+
+      {/* READ-ONLY HOURLY AVAILABILITY POPUP */}
+      {expandedReadOnlyDate && (
+        <div className="hourly-popup-overlay" onClick={() => setExpandedReadOnlyDate(null)}>
+          <div className="hourly-popup-container" onClick={(e) => e.stopPropagation()}>
+            <button type="button" className="hourly-popup-close-x" onClick={() => setExpandedReadOnlyDate(null)}>✕</button>
+            <h3 className="hourly-popup-title">
+              {new Date(expandedReadOnlyDate + "T00:00:00").toLocaleDateString("default", { weekday: "long", month: "long", day: "numeric" })}
+            </h3>
+            <p className="hourly-popup-subtext">Hourly availability as set by the provider (read-only).</p>
+            <div className="readonly-hourly-slots-grid">
+              {BUSINESS_HOURS.map((hour) => {
+                const isHourBusy = (busyHoursMap[expandedReadOnlyDate] || []).includes(hour);
+                return (
+                  <div key={hour} className={`readonly-hourly-slot ${isHourBusy ? "readonly-slot-busy" : "readonly-slot-available"}`}>
+                    <span>{formatHourSlotLabel(hour)}</span>
+                    <span className="readonly-hourly-slot-tag">{isHourBusy ? "Busy" : "Available"}</span>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
         </div>
       )}
 

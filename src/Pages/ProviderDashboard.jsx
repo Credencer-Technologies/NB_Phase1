@@ -58,10 +58,44 @@ function ProviderDashboard() {
   const [enquiries, setEnquiries] = useState([]);
 
   // --- 5. Navigation Control Overlays and Calendar Parameters ---
-  const [busyDates, setBusyDates] = useState(["2026-06-25", "2026-06-26","2026-06-16" ,"2026-06-2","2026-07-16","2026-07-19"]);
+  // Business hours the storefront can be booked in — 2-hour slots, midnight to midnight (next day). 12 slots total.
+  const BUSINESS_HOURS = Array.from({ length: 12 }, (_, i) => i * 2); // [0,2,4,...,22]
+  const formatHourSlotLabel = (h) => {
+    const toClock = (hr) => {
+      const normalized = hr % 24;
+      const period = normalized >= 12 ? "PM" : "AM";
+      const display = normalized % 12 === 0 ? 12 : normalized % 12;
+      return `${display}:00 ${period}`;
+    };
+    return `${toClock(h)} - ${toClock(h + 2)}`;
+  };
+  const AVAILABILITY_STORAGE_KEY = `naaribazar_provider_availability_${profileForm.id}`;
+
+  // busyHoursMap shape: { "YYYY-MM-DD": [9, 10, 14, ...] } — hours from BUSINESS_HOURS marked busy for that date.
+  const [busyHoursMap, setBusyHoursMap] = useState(() => {
+    try {
+      const stored = JSON.parse(localStorage.getItem(AVAILABILITY_STORAGE_KEY));
+      if (stored && typeof stored === "object") return stored;
+    } catch (err) { /* fall through to seed defaults */ }
+    // Seed defaults so the dashboard has demo data on first load — legacy full-day-busy dates.
+    const seedDates = ["2026-06-25", "2026-06-26", "2026-06-16", "2026-07-16", "2026-07-19"];
+    const seeded = {};
+    seedDates.forEach((d) => { seeded[d] = [...BUSINESS_HOURS]; });
+    // One partially-busy demo date so the "Partially Busy" state is visible out of the box.
+    seeded["2026-07-10"] = [9, 10, 11, 14];
+    return seeded;
+  });
+  const [selectedEditDate, setSelectedEditDate] = useState(null);
   const [currentCalendarMonth, setCurrentCalendarMonth] = useState(new Date(2026, 5, 1)); 
   const [isDeleteAccountModalOpen, setIsDeleteAccountModalOpen] = useState(false);
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
+
+  // Persist availability to localStorage any time it changes, so ProviderProfile can read it in read-only mode.
+  useEffect(() => {
+    try {
+      localStorage.setItem(AVAILABILITY_STORAGE_KEY, JSON.stringify(busyHoursMap));
+    } catch (err) { /* storage unavailable — silently skip persistence */ }
+  }, [busyHoursMap, AVAILABILITY_STORAGE_KEY]);
 
     // --- Mock Data Hydration Engine ---
   useEffect(() => {
@@ -282,13 +316,37 @@ function ProviderDashboard() {
   };
 
   // --- Inline Calendar Traversal Engine ---
-  const toggleDateCalendarSchedule = (dateString, isPastDate) => {
-    if (isPastDate) return; 
-    if (busyDates.includes(dateString)) {
-      setBusyDates(busyDates.filter(d => d !== dateString));
-    } else {
-      setBusyDates([...busyDates, dateString]);
-    }
+  // A day's status is derived from how many of its business hours are marked busy.
+  const getDayAvailabilityStatus = (dateString) => {
+    const busyHoursForDay = busyHoursMap[dateString] || [];
+    if (busyHoursForDay.length === 0) return "available";
+    if (busyHoursForDay.length >= BUSINESS_HOURS.length) return "busy";
+    return "partial";
+  };
+
+  const toggleHourBusyStatus = (dateString, hour) => {
+    setBusyHoursMap((prev) => {
+      const existing = prev[dateString] || [];
+      const nextHours = existing.includes(hour)
+        ? existing.filter((h) => h !== hour)
+        : [...existing, hour].sort((a, b) => a - b);
+      const updated = { ...prev };
+      if (nextHours.length === 0) delete updated[dateString];
+      else updated[dateString] = nextHours;
+      return updated;
+    });
+  };
+
+  const markWholeDayBusy = (dateString) => {
+    setBusyHoursMap((prev) => ({ ...prev, [dateString]: [...BUSINESS_HOURS] }));
+  };
+
+  const markWholeDayAvailable = (dateString) => {
+    setBusyHoursMap((prev) => {
+      const updated = { ...prev };
+      delete updated[dateString];
+      return updated;
+    });
   };
 
   const renderCalendarDaysGrid = () => {
@@ -306,20 +364,21 @@ function ProviderDashboard() {
     for (let day = 1; day <= totalDaysInMonth; day++) {
       const currentCellDate = new Date(year, month, day);
       const dayStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-      const isBusy = busyDates.includes(dayStr);
+      const dayStatus = getDayAvailabilityStatus(dayStr);
       const isPastDate = currentCellDate < systemTodayAnchor;
       
       let cellClassName = "calendar-day actionable-day ";
       if (isPastDate) cellClassName += "day-past-completed";
-      else if (isBusy) cellClassName += "day-busy-red"; 
+      else if (dayStatus === "busy") cellClassName += "day-busy-red";
+      else if (dayStatus === "partial") cellClassName += "day-partial-orange";
       else cellClassName += "day-available-green"; 
 
       gridCells.push(
         <div 
           key={dayStr} 
-          className={cellClassName} 
-          onClick={() => toggleDateCalendarSchedule(dayStr, isPastDate)}
-          title={isPastDate ? "Completed Date (Locked)" : "Click to toggle schedule status"}
+          className={cellClassName + (selectedEditDate === dayStr ? " day-selected-active" : "")} 
+          onClick={() => { if (!isPastDate) setSelectedEditDate(selectedEditDate === dayStr ? null : dayStr); }}
+          title={isPastDate ? "Completed Date (Locked)" : "Click to view/edit hourly availability"}
         >
           {day}
         </div>
@@ -422,6 +481,7 @@ function ProviderDashboard() {
               <div className="calendar-legends-wrapper-row">
                 <div className="legend-item"><span className="legend-box label-completed"></span><span className="caption">Past</span></div>
                 <div className="legend-item"><span className="legend-box label-avail-green"></span><span className="caption">Available</span></div>
+                <div className="legend-item"><span className="legend-box label-partial-orange"></span><span className="caption">Partially Busy</span></div>
                 <div className="legend-item"><span className="legend-box label-busy-red"></span><span className="caption">Busy</span></div>
               </div>
             </div>
@@ -429,6 +489,7 @@ function ProviderDashboard() {
               {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map(day => <div key={day} className="weekday-label"><strong>{day}</strong></div>)}
             </div>
             <div className="calendar-days-matrix-grid">{renderCalendarDaysGrid()}</div>
+            <p className="calendar-hint-caption">🕐 Click any upcoming date to view and edit its hourly slots.</p>
           </section>
           {/* Customer Communications Incoming Inbox Panel */}
           <section className="dashboard-card">
@@ -672,6 +733,47 @@ function ProviderDashboard() {
                   <button type="submit" className="btn-primary">Publish Service Changes</button>
                 </div>
               </form>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* MODAL: HOURLY AVAILABILITY EDITOR POPUP FOR A SINGLE CALENDAR DAY */}
+      {selectedEditDate && (
+        <div className="modal-overlay" onClick={() => setSelectedEditDate(null)}>
+          <div className="modal-container hourly-availability-modal" onClick={(e) => e.stopPropagation()}>
+            <button type="button" className="btn-modal-close-x" onClick={() => setSelectedEditDate(null)}>✕</button>
+            <h3>
+              {new Date(selectedEditDate + "T00:00:00").toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}
+            </h3>
+            <p className="hourly-modal-subtext">Tap a time slot to mark it busy or available. Customers won't be able to book busy slots.</p>
+
+            <div className="hourly-modal-quick-actions">
+              <button type="button" className="btn-small-cancel" onClick={() => markWholeDayAvailable(selectedEditDate)}>✅ Mark Entire Day Available</button>
+              <button type="button" className="btn-small-cancel hourly-mark-busy-btn" onClick={() => markWholeDayBusy(selectedEditDate)}>⛔ Mark Entire Day Busy</button>
+            </div>
+
+            <div className="modal-scrollable-content-body">
+              <div className="hourly-slots-grid">
+                {BUSINESS_HOURS.map((hour) => {
+                  const isHourBusy = (busyHoursMap[selectedEditDate] || []).includes(hour);
+                  return (
+                    <button
+                      type="button"
+                      key={hour}
+                      className={`hourly-slot-btn ${isHourBusy ? "hourly-slot-busy" : "hourly-slot-available"}`}
+                      onClick={() => toggleHourBusyStatus(selectedEditDate, hour)}
+                    >
+                      <span className="hourly-slot-time-label">{formatHourSlotLabel(hour)}</span>
+                      <span className="hourly-slot-status-label">{isHourBusy ? "Busy" : "Available"}</span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            <div className="modal-actions-wrapper">
+              <button type="button" className="btn-primary" onClick={() => setSelectedEditDate(null)}>Done</button>
             </div>
           </div>
         </div>
