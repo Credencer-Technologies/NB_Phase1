@@ -16,8 +16,8 @@ import customer2 from "../assets/Images/customer2.jpg";
 import customer3 from "../assets/Images/customer3.jpg";
 
 
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import {
 FaSearch,
 FaMapMarkerAlt,
@@ -44,6 +44,7 @@ FaHome,
 FaPalette,
 FaEllipsisH
 } from "react-icons/fa";
+import { FaHouse } from "react-icons/fa6";
 
 const providers = [
   {
@@ -179,12 +180,20 @@ const providers = [
 
 function Explore() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const [searchTerm, setSearchTerm] = useState("");
 
 const [selectedLocation, setSelectedLocation] =useState("All");
 const [sortBy, setSortBy] =useState("topRated");
 const [viewMode, setViewMode] =useState("grid");
- const [activeCategory, setActiveCategory] = useState("All");
+const [activeCategory, setActiveCategory] = useState("All");
+useEffect(() => {
+  const category = searchParams.get("category");
+
+  if (category) {
+    setActiveCategory(category);
+  }
+}, [searchParams]);
 const [selectedCategories, setSelectedCategories] =useState([]);
 const [selectedRating, setSelectedRating] =useState(0);
 const [selectedServiceMode, setSelectedServiceMode] = useState("all");
@@ -499,11 +508,11 @@ Nizamabad
   </button>
 
   <button
-    className={`category-pill ${activeCategory === "Mehndi & Henna" ? "active" : ""}`}
-    onClick={() => setActiveCategory("Mehndi & Henna")}
+    className={`category-pill ${activeCategory === "Mehandi & Bridal" ? "active" : ""}`}
+    onClick={() => setActiveCategory("Mehandi & Bridal")}
   >
     <FaPaintBrush />
-    Mehndi & Henna
+    Mehandi & Bridal
   </button>
 
   <button
@@ -519,15 +528,15 @@ Nizamabad
     onClick={() => setActiveCategory("Food & Catering")}
   >
     <FaUtensils />
-    Home Chef
+    Food & Catering
   </button>
 
   <button
     className={`category-pill ${activeCategory === "Handicrafts" ? "active" : ""}`}
-    onClick={() => setActiveCategory("Handicrafts")}
+    onClick={() => setActiveCategory("Arts & Crafts")}
   >
     <FaPalette />
-    Handicrafts
+    Arts & crafts
   </button>
 
   <button
@@ -535,7 +544,7 @@ Nizamabad
     onClick={() => setActiveCategory("Education & Tutoring")}
   >
     <FaBook />
-    Education
+    Education & Tutoring
   </button>
 
   <button
@@ -543,7 +552,14 @@ Nizamabad
     onClick={() => setActiveCategory("Yoga & Fitness")}
   >
     <FaDumbbell />
-    Fitness
+    Yoga & Fitness
+  </button>
+  <button
+     className={`category-pill ${activeCategory === "Home Services" ? "active" : ""}`}
+    onClick={() => setActiveCategory("Home Services")}
+  >
+    <FaHouse />
+    Home Services
   </button>
 
 </section>
@@ -590,10 +606,10 @@ Nizamabad
   <input
     type="checkbox"
     onChange={() =>
-      handleCategoryChange("Mehndi & Henna")
+      handleCategoryChange("Mehandi & Bridal")
     }
   />
-  Mehndi & Henna
+  Mehandi & Henna
 </label>
 
 <label>
@@ -650,10 +666,10 @@ Nizamabad
   <input
     type="checkbox"
     onChange={() =>
-      handleCategoryChange("Handicrafts")
+      handleCategoryChange("Arts & Crafts")
     }
   />
-  Handicrafts
+  Arts & Crafts
 </label>
 </>
 )}
