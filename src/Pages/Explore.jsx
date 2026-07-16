@@ -176,7 +176,45 @@ const providers = [
   }
 ];  
 
+const getProviderBadge = (provider) => {
+  // Perfect rating with enough reviews
+  if (provider.rating === 5 && provider.reviews >= 50) {
+    return {
+      text: "Trending",
+      className: "trending",
+      icon: "🔥",
+      reason: "Perfect 5-star rating with high customer engagement",
+    };
+  }
 
+  // Excellent providers
+  if (provider.rating >= 4.5) {
+    return {
+      text: "Top Rated",
+      className: "top",
+      icon: "⭐",
+      reason: "Consistently excellent customer ratings",
+    };
+  }
+
+  // Good and reliable providers
+  if (provider.rating >= 4.0) {
+    return {
+      text: "Popular",
+      className: "popular",
+      icon: "💙",
+      reason: "Highly preferred by customers",
+    };
+  }
+
+  // New providers
+  return {
+    text: "New",
+    className: "new",
+    icon: "🌱",
+    reason: "Newly joined service provider",
+  };
+};
 
 function Explore() {
   const navigate = useNavigate();
@@ -558,8 +596,15 @@ Nizamabad
      className={`category-pill ${activeCategory === "Home Services" ? "active" : ""}`}
     onClick={() => setActiveCategory("Home Services")}
   >
-    <FaHouse />
+    <FaHome />
     Home Services
+  </button>
+  <button
+      className={`category-pill ${activeCategory === "Handicrafts" ? "active" : ""}`}
+      onClick={() => setActiveCategory("Handicrafts")}
+    >
+      <FaPalette />
+      Handicrafts
   </button>
 
 </section>
@@ -964,50 +1009,36 @@ viewMode === "list"
       : ""
   }`}
 >
-            {filteredProviders.map((provider) => (
+     {filteredProviders.map((provider) => {
+  const badge = getProviderBadge(provider);
 
-              <div className="provider-card" key={provider.id}>
+  return (
+    <div className="provider-card" key={provider.id}>
 
-                <div className="card-overlay">
+      <div className="card-overlay">
 
-  
+        <button
+          className={`wishlist-btn ${
+            wishlist.some(item => item.id === provider.id) ? "active" : ""
+          }`}
+          onClick={() => toggleWishlist(provider)}
+        >
+          {wishlist.some(item => item.id === provider.id) ? (
+            <FaHeart />
+          ) : (
+            <FaRegHeart />
+          )}
+        </button>
 
-  <button
-  className={`wishlist-btn ${
-    wishlist.some(item => item.id === provider.id) ? "active" : ""
-  }`}
-  onClick={() => toggleWishlist(provider)}
->
-  {wishlist.some(item => item.id === provider.id) ? (
-    <FaHeart />
-  ) : (
-    <FaRegHeart />
-  )}
-</button>
-
-</div>
-
-
+      </div> 
                 <img
   src={provider.image}
   alt={provider.name}
 />
 <div className="provider-status-bar">
 
-  <div
-    className={`status-left ${
-      provider.badge === "Top Rated"
-        ? "top"
-        : provider.badge === "Trending"
-        ? "trending"
-        : provider.badge === "Highly Rated"
-        ? "high"
-        : provider.badge === "Rising Star"
-        ? "rising"
-        : "new"
-    }`}
-  >
-    ⭐ {provider.badge}
+  <div className={`status-left ${badge.className}`}>
+    {badge.icon} {badge.text}
   </div>
 
   <div className="status-right">
@@ -1015,7 +1046,6 @@ viewMode === "list"
   </div>
 
 </div>
-
 <div className="card-wave">
 
 </div>
@@ -1040,9 +1070,6 @@ viewMode === "list"
   View Profile
 </button>
 </div>
-
-
-
                 <div className="card-content">
 
                   <h3>{provider.name}</h3>
@@ -1070,10 +1097,6 @@ Price Range
 ₹{provider.price}+
 </span>
 </p>
-
-
-
-
                <button
   className="profile-btn"
   onClick={() => navigate("/coming-soon")}
@@ -1087,7 +1110,8 @@ Price Range
 
               </div>
 
-            ))}
+            );
+          })}
 
           </div>
 
@@ -1170,7 +1194,6 @@ marginTop:"30px"
       </p>
       <div className="customer-info">
         <img src={customer3} alt="Kavya Sharma" />
-
         <div>
           <h4>Kavya Sharma</h4>
           <span>Hyderabad</span>

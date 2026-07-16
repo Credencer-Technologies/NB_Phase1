@@ -610,17 +610,14 @@ grid-template-columns:1fr;
   left:0;
   width:100%;
   height:220px;
-
-  
-
   opacity:0;
   transition:.4s ease;
-
   display:flex;
   justify-content:space-between;
   align-items:flex-start;
-
   padding:15px;
+  background: transparent; /* black remove */
+  pointer-events: none;
   z-index:10;
 }
 
@@ -826,12 +823,14 @@ background:#3b82f6;
     background:#ede9fe;
     color:#7c3aed;
 }
-
-.status-left.new{
-    background:#dbeafe;
-    color:#2563eb;
+.status-left.popular {
+  background: #e8f2ff;
+  color: #2563eb;
 }
-
+.status-left.new {
+  background: #e8f8ea;
+  color: #2e7d32;
+}
 .status-right{
     background:#dcfce7;
     color:#15803d;
