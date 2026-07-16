@@ -1038,22 +1038,1096 @@ body {
 }
 .infinity-marquee-scroller-viewport-mask::before { left: 0; background: linear-gradient(to right, var(--color-surface), transparent); }
 .infinity-marquee-scroller-viewport-mask::after { right: 0; background: linear-gradient(to left, var(--color-surface), transparent); }
+/* ==========================================================================
+   GLOBAL STYLE CONSTANTS & SYSTEM DESIGN TOKENS
+   ========================================================================== */
+:root {
+  --font-main: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --color-primary: #6b21a8;        /* NaariBazar Deep Purple branding */
+  --color-primary-light: #8b5cf6;  /* Soft Purple highlight tone */
+  --color-accent: #f43f5e;         /* Modern Rose Pink tint */
+  --color-accent-soft: #fff1f2;    /* Soft pink background fill */
+  --color-bg: #f8fafc;             /* Muted layout body background gray */
+  --color-surface: #ffffff;        /* Pure white crisp card canvas surfaces */
+  --color-text-primary: #1e293b;   /* Solid dark charcoal text */
+  --color-text-secondary: #64748b; /* Soft muted grey text label font */
+  --border-color: #e2e8f0;         /* Clear panel framework line separator */
+  --shadow: 0 4px 12px rgba(15, 23, 42, 0.04);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  font-family: var(--font-main);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Base Layout Framing Matrix Container */
+.layout-profile-container {
+  max-width: 90% !important; /* Locks content block area footprint to exactly 90% workspace width */
+  width: 90% !important;
+  margin: 0 auto 60px auto !important; /* Creates crisp 5% space gap on both sides */
+  padding: 0 !important;
+  box-sizing: border-box !important;
+}
+
+/* ==========================================================================
+   SECTION 1: HERO IDENTITY HEADER PROFILE SETUPS
+   ========================================================================== */
+.layout-cover-banner {
+  width: 100%;
+  height: 280px;
+  background-size: cover;
+  background-position: center;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.layout-header-card {
+  background-color: var(--color-surface);
+  border-radius: 16px;
+  margin: -60px 0 24px 0 !important; /* Touch both sides cleanly inside the 90% container wrapper */
+  padding: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  align-items: center;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow);
+  position: relative;
+  z-index: 10;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.layout-avatar {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid var(--color-surface);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.layout-header-info {
+  flex: 1;
+  min-width: 280px;
+}
+
+.layout-name-line {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.layout-name-line h1 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.layout-verified-tag {
+  background-color: #dcfce7;
+  color: #15803d;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+
+.layout-subtitle-txt {
+  margin: 4px 0;
+  font-size: 15px;
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+.layout-location-txt {
+  margin: 4px 0 12px 0;
+  font-size: 14px;
+  color: var(--color-text-secondary);
+}
+
+.layout-metrics-line {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  font-weight: 500;
+}
+
+.layout-status-tag-active {
+  color: #16a34a;
+  font-weight: 600;
+}
+
+/* Header Action Column Stack Group Layout */
+.hero-stacked-button-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: stretch;
+  min-width: 260px;
+}
+
+.top-hero-stacked-btn {
+  width: 100%;
+  background-color: var(--color-primary);
+  color: var(--color-surface);
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.top-hero-stacked-btn:hover {
+  background-color: var(--color-primary-light);
+}
+
+.hero-lower-buttons-split-row {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+}
+
+.layout-send-enq-btn {
+  flex: 1;
+  background-color: var(--color-surface);
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+  padding: 11px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.layout-send-enq-btn:hover {
+  background-color: var(--color-accent-soft);
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.whatsapp-action-cta-btn {
+  flex: 1;
+  background-color: #25d366;
+  color: var(--color-surface);
+  border: none;
+  padding: 11px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  box-shadow: 0 4px 10px rgba(37, 211, 102, 0.15);
+  transition: background-color 0.2s;
+}
+
+.whatsapp-action-cta-btn:hover {
+  background-color: #20ba5a;
+}
+
+/* ==========================================================================
+   SECTION 2: INTERACTIVE BOOKMARKING SYSTEM CTA BUTTON STYLES
+   ========================================================================== */
+.add-to-list-system-trigger-btn {
+  width: 100% !important;
+  padding: 12px 20px !important;
+  font-family: var(--font-main) !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  border-radius: 8px !important;
+  cursor: pointer !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: all 0.25s ease-in-out !important;
+  box-sizing: border-box !important;
+}
+
+/* State A: Idle Add to List button design */
+.state-idle-append {
+  background-color: transparent !important;
+  color: var(--color-primary) !important;
+  border: 1px dashed var(--color-primary) !important;
+}
+
+.state-idle-append:hover {
+  background-color: var(--color-accent-soft) !important;
+  border-color: var(--color-accent) !important;
+  color: var(--color-accent) !important;
+}
+
+/* State B: Active Saved to Dashboard list styling */
+.state-saved-active {
+  background-color: var(--color-accent-soft) !important;
+  color: var(--color-accent) !important;
+  border: 1px solid var(--color-accent) !important;
+  box-shadow: 0 4px 12px rgba(244, 63, 94, 0.12) !important;
+}
+
+.state-saved-active:hover {
+  background-color: #ffe4e6 !important;
+}
+
+/* ==========================================================================
+   SECTION 3: ABOUT CARD & IN-LINE SAME-PAGE AVAILABILITY CALENDAR
+   ========================================================================== */
+.layout-card-block {
+  background-color: var(--color-surface);
+  border-radius: 12px;
+  padding: 24px;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow);
+  box-sizing: border-box;
+}
+
+.full-width-block {
+  margin: 0 0 24px 0 !important; /* Stretches 100% inside your centered 90% canvas width */
+  width: 100% !important;
+}
+
+.layout-card-block h3 {
+  margin: 0 0 16px 0;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  letter-spacing: 0.5px;
+}
+
+.layout-body-bio {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+}
+
+/* In-Line Calendar Configurations */
+.inline-calendar-section-wrapper {
+  border-top: 4px solid var(--color-primary) !important;
+}
+
+.inline-calendar-header-row {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  border-bottom: 1px solid var(--border-color) !important;
+  padding-bottom: 14px !important;
+  margin-bottom: 20px !important;
+}
+
+.inline-calendar-close-btn {
+  background-color: var(--color-accent-soft) !important;
+  color: var(--color-accent) !important;
+  border: 1px solid #fecdd3 !important;
+  padding: 6px 14px !important;
+  border-radius: 6px !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+}
+
+.inline-calendar-close-btn:hover {
+  background-color: #ffe4e6 !important;
+  transform: translateY(-1px) !important;
+}
+
+.calendar-centering-container-box {
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+}
+
+.real-calendar-frame-box {
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.calendar-navigation-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 320px;
+  margin: 0 auto 12px auto;
+}
+
+.cal-nav-arrow-btn {
+  background: none;
+  border: 1px solid var(--border-color);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  color: var(--color-text-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+}
+
+.cal-nav-arrow-btn:hover {
+  background-color: var(--color-bg);
+}
+
+.cal-month-title-txt {
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.calendar-weekday-labels-row {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  text-align: center;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  width: 100%;
+  max-width: 450px;
+  margin: 0 auto 8px auto;
+  box-sizing: border-box;
+}
+
+.calendar-grid-cells-matrix {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 6px;
+  width: 100%;
+  max-width: 450px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.calendar-cell {
+  aspect-ratio: 1 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border-radius: 8px !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  min-width: 0 !important;
+  overflow: hidden !important;
+  padding: 2px !important;
+  box-sizing: border-box !important;
+}
+
+.day-blank {
+  background: transparent !important;
+}
+
+.day-usable {
+  cursor: pointer !important;
+  transition: transform 0.15s ease, box-shadow 0.15s ease !important;
+}
+.day-usable:hover {
+  transform: translateY(-1px) !important;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08) !important;
+}
+
+.day-usable.cell-expanded-active {
+  outline: 2px solid var(--color-primary, #6021a8) !important;
+  outline-offset: 1px !important;
+}
+
+.day-usable.status-available {
+  background-color: #f0fdf4 !important;
+  color: #16a34a !important;
+  border: 1px solid #bbf7d0 !important;
+}
+
+.day-usable.status-partial {
+  background-color: #fffbeb !important;
+  color: #b45309 !important;
+  border: 1px solid #fde68a !important;
+}
+
+.day-usable.status-busy {
+  background-color: #fef2f2 !important;
+  color: #dc2626 !important;
+  border: 1px solid #fecdd3 !important;
+}
+
+/* 🛠️ VISUAL STYLING EXTENSION FOR MUTED HISTORICAL TILES */
+.day-usable.status-past-grey {
+  background-color: #f1f5f9 !important;
+  color: #94a3b8 !important;
+  border: 1px solid #cbd5e1 !important;
+  opacity: 0.65 !important;
+}
+
+.day-usable.status-past-grey .day-number-label {
+  text-decoration: line-through !important;
+}
+
+.day-cell-disabled {
+  cursor: not-allowed !important;
+  pointer-events: none !important;
+}
+
+.calendar-legend-readonly-row {
+  display: flex !important;
+  justify-content: center !important;
+  gap: 16px !important;
+  flex-wrap: wrap !important;
+  font-size: 12px !important;
+  color: var(--color-text-secondary) !important;
+  margin: 0 auto 12px auto !important;
+  max-width: 450px !important;
+}
+
+.calendar-legend-readonly-row .legend-item {
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+}
+
+.calendar-legend-readonly-row .legend-box {
+  width: 11px !important;
+  height: 11px !important;
+  border-radius: 3px !important;
+  display: inline-block !important;
+}
+
+/* 🛠️ NEW LEGEND ANCHOR COLOR INDICATOR */
+.legend-box-past-grey {
+  background-color: #cbd5e1 !important;
+  border: 1px solid #94a3b8 !important;
+}
+
+.legend-box-avail { background-color: #16a34a !important; }
+.legend-box-partial { background-color: #f59e0b !important; }
+.legend-box-busy { background-color: #dc2626 !important; }
+
+/* 🕐 Read-only hourly availability popup (mirrors provider's dashboard settings) */
+.hourly-popup-overlay {
+  position: fixed !important;
+  top: 0 !important; left: 0 !important; right: 0 !important; bottom: 0 !important;
+  background: rgba(15, 23, 42, 0.45) !important;
+  backdrop-filter: blur(4px) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  z-index: 10500 !important;
+  padding: 16px !important;
+  box-sizing: border-box !important;
+}
+
+.hourly-popup-container {
+  background: var(--color-surface, #ffffff) !important;
+  border-radius: 16px !important;
+  padding: 28px !important;
+  width: 480px !important;
+  max-width: 100% !important;
+  max-height: 85vh !important;
+  overflow-y: auto !important;
+  position: relative !important;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.15) !important;
+  box-sizing: border-box !important;
+}
+
+.hourly-popup-close-x {
+  position: absolute !important;
+  top: 20px !important; right: 20px !important;
+  background: transparent !important;
+  border: none !important;
+  font-size: 16px !important;
+  color: #94a3b8 !important;
+  cursor: pointer !important;
+}
+
+.hourly-popup-close-x:hover { color: #475569 !important; }
+
+.hourly-popup-title {
+  margin: 0 24px 4px 0 !important;
+  font-size: 17px !important;
+  font-weight: 700 !important;
+  color: var(--color-text-primary) !important;
+}
+
+.hourly-popup-subtext {
+  margin: 0 0 16px 0 !important;
+  font-size: 12px !important;
+  color: var(--color-text-secondary) !important;
+}
+
+.readonly-hourly-slots-grid {
+  display: flex !important;
+  flex-direction: column !important;
+  border-top: 1px solid #eef0f4 !important;
+}
+
+.readonly-hourly-slot {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  gap: 12px !important;
+  padding: 14px 4px !important;
+  border-radius: 0 !important;
+  border-bottom: 1px solid #eef0f4 !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+}
+
+.readonly-hourly-slot::before {
+  content: "" !important;
+  width: 10px !important;
+  height: 10px !important;
+  border-radius: 50% !important;
+  flex-shrink: 0 !important;
+  margin-right: 4px !important;
+}
+
+.readonly-slot-available {
+  background-color: transparent !important;
+  color: #1e1b4b !important;
+}
+.readonly-slot-available::before { background-color: #16a34a !important; }
+
+.readonly-slot-busy {
+  background-color: transparent !important;
+  color: #1e1b4b !important;
+}
+.readonly-slot-busy::before { background-color: #dc2626 !important; }
+
+/* 🛠️ PAST HOURLY POPUP ROWS VISUAL MUTING LAYOUT VARIATIONS */
+.readonly-slot-past-grey {
+  background-color: transparent !important;
+  color: #94a3b8 !important;
+}
+.readonly-slot-past-grey::before {
+  background-color: #cbd5e1 !important;
+}
+
+.readonly-hourly-slot-tag {
+  text-transform: uppercase !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  padding: 4px 10px !important;
+  border-radius: 20px !important;
+}
+
+.readonly-slot-available .readonly-hourly-slot-tag {
+  color: #065f46 !important;
+  background: #f0fdf4 !important;
+}
+
+.readonly-slot-busy .readonly-hourly-slot-tag {
+  color: #991b1b !important;
+  background: #fef2f2 !important;
+}
+
+/* 🛠️ DYNAMIC BADGE OVERRIDE FOR HISTORICAL COMPLETED SEGMENTS */
+.readonly-slot-past-grey .readonly-hourly-slot-tag {
+  color: #64748b !important;
+  background: #f1f5f9 !important;
+}
+
+@media (max-width: 600px) {
+  .hourly-popup-container {
+    width: 92% !important;
+    padding: 22px 18px !important;
+  }
+}
+
+.day-number-label {
+  font-weight: 700 !important;
+}
+
+.day-status-indicator-lbl {
+  font-size: 9px !important;
+  margin-top: 2px !important;
+  text-transform: uppercase !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  max-width: 100% !important;
+}
+.animate-slide-down {
+  animation: slideDownEntrance 0.25s ease-out forwards !important;
+}
+
+@keyframes slideDownEntrance {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================================================
+   SECTION 4: MIDDLE COLUMNS ROWS (SERVICES OFFERED & PORTFOLIO SIDE-BY-SIDE)
+   ========================================================================== */
+.layout-double-columns {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 24px !important;
+  margin: 0 0 24px 0 !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.equal-column-box-cell {
+  width: 100% !important;
+}
+
+.dynamic-height-card {
+  height: auto !important;
+}
+
+/* Services Offered Sub-List Matrix */
+.layout-services-list {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 12px !important;
+}
+
+.layout-service-row {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  padding: 12px 14px !important;
+  background-color: var(--color-bg) !important;
+  border-radius: 8px !important;
+  border: 1px solid var(--border-color) !important;
+  font-size: 14px !important;
+}
+
+.layout-service-row span {
+  font-weight: 500 !important;
+}
+
+.layout-service-row strong {
+  color: var(--color-primary) !important;
+  font-weight: 700 !important;
+}
+
+/* Compact Portfolio Sidebar Gallery Layout Tokens */
+.in-column-portfolio-grid {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important; 
+  gap: 12px !important;
+}
+
+.side-portfolio-box-panel .layout-portfolio-item {
+  aspect-ratio: 1 !important;
+  border-radius: 12px !important;
+  overflow: hidden !important;
+  border: 1px solid var(--border-color) !important;
+  cursor: pointer !important;
+  transition: transform 0.2s !important;
+}
+
+.side-portfolio-box-panel .layout-portfolio-item img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+}
+
+.side-portfolio-box-panel .layout-portfolio-item:hover {
+  transform: scale(1.03) !important;
+}
+
+/* ==========================================================================
+   SECTION 5: IN-LINE REVIEW ENTRY FORM MODULES
+   ========================================================================== */
+.inline-review-entry-form-wrapper {
+  margin: 0 0 24px 0 !important;
+  width: 100% !important;
+  border-top: 4px solid var(--color-accent) !important; 
+  background-color: var(--color-surface) !important;
+  box-sizing: border-box !important;
+}
+
+.inline-embedded-review-form-matrix .complex-three-split-row {
+  display: grid !important;
+  grid-template-columns: 2fr 1fr 1fr !important; 
+  gap: 16px !important;
+  width: 100% !important;
+}
+
+.align-right-row {
+  display: flex !important;
+  justify-content: flex-end !important;
+  margin-top: 8px !important;
+}
+
+.compile-publish-cta-btn {
+  width: auto !important;
+  min-width: 180px !important;
+}
+
+.close-inline-form-action-btn {
+  padding: 10px 18px !important;
+  background-color: #f1f5f9 !important;
+  border: 1px solid var(--border-color) !important;
+  color: var(--color-text-primary) !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  border-radius: 8px !important;
+  cursor: pointer !important;
+  margin-right: 12px !important;
+}
+
+.close-inline-form-action-btn:hover {
+  background-color: #e2e8f0 !important;
+}
+
+/* ==========================================================================
+   SECTION 6: SWAPPED HORIZONTAL SLIDER REVIEWS MATRIX INTERFACE
+   ========================================================================== */
+.profile-reviews-lower-full-row {
+  margin: 0 0 24px 0 !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.reviews-section-header-flex-line {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  margin-bottom: 20px !important;
+}
+.reviews-section-header-flex-line h3 {
+  margin: 0 !important;
+}
+
+/* 🎢 Horizontal Scrolling Deck Slider Frame */
+.horizontal-reviews-scroller-track {
+  display: flex !important;
+  gap: 20px !important;
+  overflow-x: auto !important;
+  scroll-behavior: smooth !important;
+  padding: 4px 4px 16px 4px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.horizontal-reviews-scroller-track::-webkit-scrollbar {
+  height: 6px !important;
+}
+
+.horizontal-reviews-scroller-track::-webkit-scrollbar-track {
+  background: #f1f5f9 !important;
+  border-radius: 10px !important;
+}
+
+.horizontal-reviews-scroller-track::-webkit-scrollbar-thumb {
+  background-color: #cbd5e1 !important;
+  border-radius: 10px !important;
+}
+
+/* 💳 Standard Review Card overrides for horizontal scroller viewports */
+.custom-card-scroller-node {
+  flex: 0 0 320px !important; 
+  background-color: var(--color-bg) !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: 12px !important;
+  padding: 20px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.01) !important;
+  box-sizing: border-box !important;
+}
+
+.global-standard-user-avatar-node {
+  width: 36px !important;
+  height: 36px !important;
+  border-radius: 50% !important;
+  background-color: #e2e8f0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 14px !important;
+}
+
+.review-meta-author-box {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 2px !important;
+}
+
+.review-meta-author-box strong {
+  font-size: 14px !important;
+}
+
+.star-rating-badge-row {
+  margin-left: auto !important;
+  font-size: 11px !important;
+}
+
+.scroller-card-date-lbl {
+  margin-top: 12px !important;
+  color: var(--color-text-secondary) !important;
+  font-size: 11px !important;
+  text-align: right !important;
+}
+
+.review-success-popup-toast {
+  background-color: #dcfce7 !important;
+  color: #15803d !important;
+  padding: 12px !important;
+  border-radius: 8px !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  margin-bottom: 16px !important;
+  text-align: center !important;
+  z-index: 10;
+}
+
+/* ==========================================================================
+   SECTION 7: EXPANDED 100% CONTACT ENQUIRY MATRIX MODULE
+   ========================================================================== */
+.premium-contact-section {
+  max-width: 100% !important;
+  width: 100% !important;
+  margin: 32px 0 !important;
+  padding: 32px !important;
+  box-sizing: border-box !important;
+  background-color: var(--color-surface) !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: 12px !important;
+}
+
+.contact-heading-area {
+  text-align: center !important;
+  margin-bottom: 20px !important;
+}
+
+.contact-heading-area h2 {
+  margin: 0 !important;
+  font-size: 18px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.5px !important;
+}
+
+.premium-form-layout {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 16px !important;
+}
+
+.premium-contact-section .form-input-split-row {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 20px !important;
+  width: 100% !important;
+}
+
+.form-input-field-node {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 6px !important;
+}
+
+.form-input-field-node label {
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  color: var(--color-text-primary) !important;
+}
+
+.form-input-field-node input,
+.form-input-field-node textarea {
+  border: 1px solid var(--border-color) !important;
+  padding: 10px 14px !important;
+  border-radius: 8px !important;
+  font-family: var(--font-main) !important;
+  font-size: 14px !important;
+  background-color: #fafafa !important;
+  color: var(--color-text-primary) !important;
+  box-sizing: border-box !important;
+}
+
+.form-input-field-node input:focus,
+.form-input-field-node textarea:focus {
+  outline: none !important;
+  border-color: var(--color-primary) !important;
+  background-color: var(--color-surface) !important;
+}
+
+.dual-action-row {
+  display: flex !important;
+  gap: 16px !important;
+  margin-top: 8px !important;
+}
+
+.premium-form-submit-cta-btn {
+  flex: 1 !important;
+  background-color: var(--color-primary) !important;
+  color: var(--color-surface) !important;
+  border: none !important;
+  padding: 12px !important;
+  border-radius: 8px !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  transition: background-color 0.2s !important;
+}
+
+.premium-form-submit-cta-btn:hover {
+  background-color: var(--color-primary-light) !important;
+}
+
+/* ==========================================================================
+   SECTION 8: SHOWCASE LIGHTBOX SHUTTER SYSTEM SELECTORS
+   ========================================================================== */
+.layout-lightbox-dimmer-overlay {
+  position: fixed !important;
+  top: 0 !important; left: 0 !important; right: 0 !important; bottom: 0 !important;
+  background-color: rgba(15, 23, 42, 0.85) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  z-index: 11000 !important;
+}
+
+.lightbox-close-trigger-x {
+  position: absolute !important;
+  top: 24px !important; right: 24px !important;
+  background: none !important; border: none !important;
+  color: var(--color-surface) !important;
+  font-size: 36px !important; cursor: pointer !important;
+}
+
+.lightbox-nav-pointer-arrow {
+  position: absolute !important;
+  background: none !important; border: none !important;
+  color: var(--color-surface) !important;
+  font-size: 28px !important; cursor: pointer !important;
+  padding: 20px !important;
+}
+
+.arrow-left { left: 24px !important; }
+.arrow-right { right: 24px !important; }
+.lightbox-image-center-frame img {
+  max-width: 90vw !important;
+  max-height: 80vh !important;
+  border-radius: 8px !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* ==========================================================================
+   SECTION 9: SYSTEM RESPONSIVENESS FALLBACK MEDIA COMPRESSION CODES
+   ========================================================================== */
+@media (max-width: 1024px) {
+  .layout-profile-container {
+    max-width: 92% !important;
+    width: 92% !important;
+  }
+}
+
+@media (max-width: 900px) {
+  .custom-card-scroller-node {
+    flex: 0 0 280px !important;
+  }
+}
+
+@media (max-width: 850px) {
+  .layout-double-columns {
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+  }
+  .premium-contact-section .form-input-split-row {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+  .inline-embedded-review-form-matrix .complex-three-split-row {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .layout-header-card {
+    flex-direction: column !important;
+    text-align: center !important;
+    align-items: center !important;
+  }
+  .hero-stacked-button-group {
+    width: 100% !important;
+  }
+  .in-column-portfolio-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  .calendar-grid-cells-matrix,
+  .calendar-weekday-labels-row,
+  .calendar-navigation-header {
+    max-width: 100% !important;
+  }
+  .calendar-grid-cells-matrix {
+    gap: 4px !important;
+  }
+  .calendar-cell {
+    font-size: 11px !important;
+    border-radius: 6px !important;
+  }
+  .day-status-indicator-lbl {
+    font-size: 7px !important;
+  }
+}
+
+/* ==========================================================================
+   SECTION 30: ADVANCED MINI PORTFOLIO SIZING & REVIEWS INFINITE LOOPER TRACK
+   ========================================================================== */
+
+/* 1. Shrunk Compact Portfolio Cell Override Look Tokens */
+.mini-portfolio-override {
+  padding: 16px !important;
+}
+
+.mini-grid-sizing {
+  grid-template-columns: repeat(4, 1fr) !important;
+  gap: 8px !important;
+}
+
+.mini-item-card {
+  height: 90px !important;
+  border-radius: 6px !important;
+  box-shadow: none !important;
+}
+
+/* 2. Seamless Marquee Scrolling Mechanics Layer Masks */
+.infinity-marquee-scroller-viewport-mask {
+  overflow: hidden !important;
+  width: 100% !important;
+  padding: 12px 0 !important;
+  position: relative !important;
+}
+
+.infinity-marquee-scroller-viewport-mask::before,
+.infinity-marquee-scroller-viewport-mask::after {
+  content: "" !important;
+  position: absolute !important;
+  top: 0; bottom: 0; width: 40px; z-index: 5;
+  pointer-events: none !important;
+}
+.infinity-marquee-scroller-viewport-mask::before { left: 0; background: linear-gradient(to right, var(--color-surface), transparent); }
+.infinity-marquee-scroller-viewport-mask::after { right: 0; background: linear-gradient(to left, var(--color-surface), transparent); }
 
 .infinity-marquee-scroller-inner-track {
   display: flex !important;
   gap: 20px !important;
   width: max-content !important;
-  animation: scrollMarqueeLoop 25s linear infinite !important; /* Unbroken scrolling timeline track loop */
+  animation: scrollMarqueeLoop 25s linear infinite !important;
 }
 
-/* Pauses scroll ticker smoothly on cursor point hover states */
 .infinity-marquee-scroller-viewport-mask:hover .infinity-marquee-scroller-inner-track {
   animation-play-state: paused !important;
 }
 
 @keyframes scrollMarqueeLoop {
   0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); } /* Perfectly slides exactly halfway across duplicated set arrays */
+  100% { transform: translateX(-50%); }
 }
 
 .marquee-fixed-card {
@@ -1067,7 +2141,6 @@ body {
   border-top: 4px solid var(--color-accent) !important;
   margin-top: 8px !important;
 }
-
 /* ==========================================================================
    INLINE ACTION CTA CONTROLS - "+ ADD REVIEW" TRIGGER BUTTON
    ========================================================================== */

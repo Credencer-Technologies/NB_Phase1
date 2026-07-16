@@ -1,6 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import './ProviderDashboard.css';
 
+// --- 🇮🇳 IST (Indian Standard Time) helper ---
+// Returns today's date as a "YYYY-MM-DD" string computed from real IST (Asia/Kolkata),
+// independent of the device/browser's local timezone. Used to decide which calendar
+// dates are "past/completed" so it updates automatically, day by day, in real time.
+const getISTTodayDateString = () => {
+  const istNow = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata" }));
+  const y = istNow.getFullYear();
+  const m = String(istNow.getMonth() + 1).padStart(2, "0");
+  const d = String(istNow.getDate()).padStart(2, "0");
+  return `${y}-${m}-${d}`;
+};
+
 function ProviderDashboard() {
   // --- 1. Core Profile Details State Stack (Table 4.2 Schema Mapping) ---
   const [profileForm, setProfileForm] = useState({
@@ -86,9 +98,26 @@ function ProviderDashboard() {
     return seeded;
   });
   const [selectedEditDate, setSelectedEditDate] = useState(null);
-  const [currentCalendarMonth, setCurrentCalendarMonth] = useState(new Date(2026, 5, 1)); 
+  const [currentCalendarMonth, setCurrentCalendarMonth] = useState(() => {
+    const [y, m] = getISTTodayDateString().split("-");
+    return new Date(Number(y), Number(m) - 1, 1);
+  });
   const [isDeleteAccountModalOpen, setIsDeleteAccountModalOpen] = useState(false);
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
+  const [, forceIstClockTick] = useState(0); // dummy state — re-renders the calendar so "today" keeps up with real IST time even if left open overnight
+
+  // Recheck the IST date once a minute; if the day has rolled over, force a re-render so today's cell greys out automatically.
+  useEffect(() => {
+    let lastSeenISTDate = getISTTodayDateString();
+    const intervalId = setInterval(() => {
+      const nowISTDate = getISTTodayDateString();
+      if (nowISTDate !== lastSeenISTDate) {
+        lastSeenISTDate = nowISTDate;
+        forceIstClockTick((tick) => tick + 1);
+      }
+    }, 60 * 1000);
+    return () => clearInterval(intervalId);
+  }, []);
 
   // Persist availability to localStorage any time it changes, so ProviderProfile can read it in read-only mode.
   useEffect(() => {
@@ -354,7 +383,7 @@ function ProviderDashboard() {
     const month = currentCalendarMonth.getMonth();
     const firstDayIndex = new Date(year, month, 1).getDay();
     const totalDaysInMonth = new Date(year, month + 1, 0).getDate();
-    const systemTodayAnchor = new Date(2026, 5, 24); 
+    const todayISTString = getISTTodayDateString(); // recomputed on every render, so "today" always reflects real IST time
     const gridCells = [];
     
     const blankOffsets = firstDayIndex === 0 ? 6 : firstDayIndex - 1;
@@ -362,10 +391,9 @@ function ProviderDashboard() {
       gridCells.push(<div key={`blank-${i}`} className="calendar-day empty-cell"></div>);
     }
     for (let day = 1; day <= totalDaysInMonth; day++) {
-      const currentCellDate = new Date(year, month, day);
       const dayStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
       const dayStatus = getDayAvailabilityStatus(dayStr);
-      const isPastDate = currentCellDate < systemTodayAnchor;
+      const isPastDate = dayStr < todayISTString; // string comparison works since both are zero-padded "YYYY-MM-DD"
       
       let cellClassName = "calendar-day actionable-day ";
       if (isPastDate) cellClassName += "day-past-completed";

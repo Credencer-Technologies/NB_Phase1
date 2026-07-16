@@ -129,96 +129,58 @@ const ProviderProfile = () => {
     setIsAddedToList(isSaved);
   }, [providerRow.id]);
 
- useEffect(() => {
-  const dashboardServices =
-    JSON.parse(
-      localStorage.getItem("providerDashboardServices")
-    ) || [];
+  useEffect(() => {
+    const dashboardServices = JSON.parse(localStorage.getItem("providerDashboardServices")) || [];
+    const exists = dashboardServices.some((item) => item.id === providerRow.id);
+    setIsAddedToList(exists);
+  }, [providerRow.id]);
 
-  const exists = dashboardServices.some(
-    (item) => item.id === providerRow.id
-  );
+  const toggleSaveProfileToDashboardList = () => {
+    const existingList = JSON.parse(localStorage.getItem("naaribazar_saved_providers")) || [];
+    const dashboardServices = JSON.parse(localStorage.getItem("providerDashboardServices")) || [];
 
-  setIsAddedToList(exists);
-}, [providerRow.id]);
+    if (isAddedToList) {
+      // Remove from dashboard services
+      const updatedServices = dashboardServices.filter((item) => item.id !== providerRow.id);
+      localStorage.setItem("providerDashboardServices", JSON.stringify(updatedServices));
 
-const toggleSaveProfileToDashboardList = () => {
+      // Remove from saved providers
+      const updatedList = existingList.filter((item) => item.id !== providerRow.id);
+      localStorage.setItem("naaribazar_saved_providers", JSON.stringify(updatedList));
 
-  const existingList =
-    JSON.parse(
-      localStorage.getItem("naaribazar_saved_providers")
-    ) || [];
-
-  const dashboardServices =
-    JSON.parse(
-      localStorage.getItem("providerDashboardServices")
-    ) || [];
-
-  if (isAddedToList) {
-
-    // Remove from dashboard services
-    const updatedServices = dashboardServices.filter(
-      (item) => item.id !== providerRow.id
-    );
-
-    localStorage.setItem(
-      "providerDashboardServices",
-      JSON.stringify(updatedServices)
-    );
-
-    // Remove from saved providers
-    const updatedList = existingList.filter(
-      (item) => item.id !== providerRow.id
-    );
-
-    localStorage.setItem(
-      "naaribazar_saved_providers",
-      JSON.stringify(updatedList)
-    );
-
-    setIsAddedToList(false);
-
-  } else {
-
-    const profileSummary = {
-      id: providerRow.id,
-      full_name: providerRow.full_name,
-      category_name: uiExtensions.category_name,
-      city: providerRow.city,
-      avg_rating: uiExtensions.avg_rating,
-      profile_image: uiExtensions.profile_image,
-    };
-
-    // Save provider (avoid duplicates)
-    if (!existingList.some((item) => item.id === providerRow.id)) {
-      existingList.push(profileSummary);
-
-      localStorage.setItem(
-        "naaribazar_saved_providers",
-        JSON.stringify(existingList)
-      );
-    }
-
-    // Save dashboard service (avoid duplicates)
-    if (!dashboardServices.some((item) => item.id === providerRow.id)) {
-      dashboardServices.push({
+      setIsAddedToList(false);
+    } else {
+      const profileSummary = {
         id: providerRow.id,
-        title: providerRow.full_name,
-        category: uiExtensions.category_name,
+        full_name: providerRow.full_name,
+        category_name: uiExtensions.category_name,
         city: providerRow.city,
-        price: servicesList?.[0]?.price_min || 0,
-        image: uiExtensions.profile_image,
-      });
+        avg_rating: uiExtensions.avg_rating,
+        profile_image: uiExtensions.profile_image,
+      };
 
-      localStorage.setItem(
-        "providerDashboardServices",
-        JSON.stringify(dashboardServices)
-      );
+      // Save provider (avoid duplicates)
+      if (!existingList.some((item) => item.id === providerRow.id)) {
+        existingList.push(profileSummary);
+        localStorage.setItem("naaribazar_saved_providers", JSON.stringify(existingList));
+      }
+
+      // Save dashboard service (avoid duplicates)
+      if (!dashboardServices.some((item) => item.id === providerRow.id)) {
+        dashboardServices.push({
+          id: providerRow.id,
+          title: providerRow.full_name,
+          category: uiExtensions.category_name,
+          city: providerRow.city,
+          price: servicesList?.[0]?.price_min || 0,
+          image: uiExtensions.profile_image,
+        });
+        localStorage.setItem("providerDashboardServices", JSON.stringify(dashboardServices));
+      }
+
+      setIsAddedToList(true);
     }
-
-    setIsAddedToList(true);
-  }
-};
+  };
 
   const handlePrevImage = () => {
     setLightboxIndex((prev) => (prev === 0 ? portfolioList.length - 1 : prev - 1));
@@ -252,6 +214,7 @@ const toggleSaveProfileToDashboardList = () => {
     };
 
     setReviewsList([freshReviewObj, ...reviewsList]);
+    setReviewsList([freshReviewObj, ...reviewsList]);
     setReviewForm({ author: "", rating: "5", service_tag: "Bridal Mehndi", text: "" });
     setShowWriteReviewInLine(false);
     setReviewFormSuccess(true);
@@ -278,14 +241,13 @@ const toggleSaveProfileToDashboardList = () => {
   const handleNextMonth = () => setCurrentDate(new Date(year, monthIndex + 1, 1));
 
   return (
-  <div className="layout-profile-container">
-    {/* 🚀 THE FIX: A solid layout spacer replacing the cover image to push content down below the sticky nav */}
-    <div className="profile-canvas-top-neat-spacer"></div>
+    <div className="layout-profile-container">
+      {/* 🚀 THE FIX: A solid layout spacer replacing the cover image to push content down below the sticky nav */}
+      <div className="profile-canvas-top-neat-spacer"></div>
 
-    {/* HERO VENDOR DETAILS SYSTEM CARD SECTION (Section 1) */}
-    <header className="layout-header-card pristine-top-alignment-card">
-      <img src={uiExtensions.profile_image} alt={providerRow.full_name} className="layout-avatar" />
-      {/* ... keeping the rest of the child content elements inside the file exactly the same */}
+      {/* HERO VENDOR DETAILS SYSTEM CARD SECTION (Section 1) */}
+      <header className="layout-header-card pristine-top-alignment-card">
+        <img src={uiExtensions.profile_image} alt={providerRow.full_name} className="layout-avatar" />
 
         <div className="layout-header-info">
           <div className="layout-name-line">
@@ -327,6 +289,7 @@ const toggleSaveProfileToDashboardList = () => {
         <h3>ABOUT</h3>
         <p className="layout-body-bio">{providerRow.bio}</p>
       </section>
+
       {/* 📅 IN-LINE AVAILABILITY CALENDAR BLOCK */}
       {showCalendarInLine && (
         <section className="layout-card-block full-width-block inline-calendar-section-wrapper animate-slide-down">
@@ -342,6 +305,7 @@ const toggleSaveProfileToDashboardList = () => {
                 <button type="button" className="cal-nav-arrow-btn" onClick={handleNextMonth}>▶</button>
               </div>
               <div className="calendar-legend-readonly-row">
+                <div className="legend-item"><span className="legend-box legend-box-past-grey"></span><span>Past Date</span></div>
                 <div className="legend-item"><span className="legend-box legend-box-avail"></span><span>Available</span></div>
                 <div className="legend-item"><span className="legend-box legend-box-partial"></span><span>Partially Busy</span></div>
                 <div className="legend-item"><span className="legend-box legend-box-busy"></span><span>Busy</span></div>
@@ -353,13 +317,26 @@ const toggleSaveProfileToDashboardList = () => {
                 {blankCellsArray.map((_, index) => <div key={`empty-${index}`} className="calendar-cell day-blank"></div>)}
                 {calendarDaysArray.map((dayNum) => {
                   const dateStringKey = `${year}-${String(monthIndex + 1).padStart(2, "0")}-${String(dayNum).padStart(2, "0")}`;
+                  
+                  const cellDate = new Date(year, monthIndex, dayNum);
+                  const todayDate = new Date();
+                  cellDate.setHours(0, 0, 0, 0);
+                  todayDate.setHours(0, 0, 0, 0);
+                  
+                  const isPast = cellDate < todayDate;
                   const dayStatus = getDayAvailabilityStatus(dateStringKey);
-                  const statusLabel = dayStatus === "busy" ? "Busy" : dayStatus === "partial" ? "Partially Busy" : "Available";
+                  
+                  let statusLabel = dayStatus === "busy" ? "Busy" : dayStatus === "partial" ? "Partially Busy" : "Available";
+                  if (isPast) statusLabel = "Completed";
+
                   return (
                     <div
                       key={dayNum}
-                      className={`calendar-cell day-usable status-${dayStatus} ${expandedReadOnlyDate === dateStringKey ? "cell-expanded-active" : ""}`}
-                      onClick={() => setExpandedReadOnlyDate(expandedReadOnlyDate === dateStringKey ? null : dateStringKey)}
+                      className={`calendar-cell day-usable ${isPast ? "status-past-grey day-cell-disabled" : `status-${dayStatus}`} ${expandedReadOnlyDate === dateStringKey ? "cell-expanded-active" : ""}`}
+                      onClick={() => {
+                        if (isPast) return;
+                        setExpandedReadOnlyDate(expandedReadOnlyDate === dateStringKey ? null : dateStringKey);
+                      }}
                     >
                       <span className="day-number-label">{dayNum}</span>
                       <span className="day-status-indicator-lbl">{statusLabel}</span>
@@ -402,7 +379,6 @@ const toggleSaveProfileToDashboardList = () => {
           )}
         </div>
       </div>
-
       {/* 🏆 INFINITE LOOP TICKER SCROLLER CUSTOMER REVIEWS BAR ROW */}
       <section className="layout-card-block full-width-block profile-reviews-lower-full-row portfolio-swapped-reviews-container">
         <div className="reviews-section-header-flex-line">
@@ -474,6 +450,7 @@ const toggleSaveProfileToDashboardList = () => {
           </form>
         </section>
       )}
+
       {/* FULL-WIDTH CONTACT FORM */}
       <section id="contactSectionBlock" className="layout-card-block premium-contact-section">
         <div className="contact-heading-area">
@@ -523,11 +500,26 @@ const toggleSaveProfileToDashboardList = () => {
             <p className="hourly-popup-subtext">Hourly availability as set by the provider (read-only).</p>
             <div className="readonly-hourly-slots-grid">
               {BUSINESS_HOURS.map((hour) => {
+                const popupCellDate = new Date(expandedReadOnlyDate + "T00:00:00");
+                const currentTodayDate = new Date();
+                popupCellDate.setHours(0, 0, 0, 0);
+                currentTodayDate.setHours(0, 0, 0, 0);
+                
+                const isCellInPast = popupCellDate < currentTodayDate;
                 const isHourBusy = (busyHoursMap[expandedReadOnlyDate] || []).includes(hour);
+                
+                let hourlySlotClassName = isHourBusy ? "readonly-slot-busy" : "readonly-slot-available";
+                let hourlyStatusTextLabel = isHourBusy ? "Busy" : "Available";
+
+                if (isCellInPast) {
+                  hourlySlotClassName = "readonly-slot-past-grey";
+                  hourlyStatusTextLabel = "Completed";
+                }
+
                 return (
-                  <div key={hour} className={`readonly-hourly-slot ${isHourBusy ? "readonly-slot-busy" : "readonly-slot-available"}`}>
+                  <div key={hour} className={`readonly-hourly-slot ${hourlySlotClassName}`}>
                     <span>{formatHourSlotLabel(hour)}</span>
-                    <span className="readonly-hourly-slot-tag">{isHourBusy ? "Busy" : "Available"}</span>
+                    <span className="readonly-hourly-slot-tag">{hourlyStatusTextLabel}</span>
                   </div>
                 );
               })}
