@@ -1,0 +1,925 @@
+/* =========================================================
+   NARIBAZAR BRAND TOKENS
+========================================================= */
+
+:root {
+  --color-primary: #6B21A8;
+  --color-primary-light: #A855F7;
+  --color-accent: #DB2777;
+  --color-accent-soft: #FCE7F3;
+  --color-bg: #FAFAFA;
+  --color-surface: #FFFFFF;
+  --color-text-primary: #111827;
+  --color-text-secondary: #6B7280;
+  --color-success: #059669;
+  --color-warning: #D97706;
+
+  /* Extra map shades derived from the same brand family */
+  --map-purple-deep: #581C87;
+  --map-purple: #7E22CE;
+  --map-violet: #A855F7;
+  --map-fuchsia: #C026D3;
+  --map-rose: #DB2777;
+  --map-pink: #EC4899;
+}
+
+
+/* =========================================================
+   PROVIDER NETWORK SECTION
+========================================================= */
+
+.provider-network {
+  width: 100%;
+  padding: 90px 40px;
+  background: var(--color-surface);
+  overflow: hidden;
+}
+
+.provider-network__container {
+  width: min(1200px, 100%);
+  margin: auto;
+
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  align-items: center;
+  gap: 60px;
+}
+
+
+/* =========================================================
+   LEFT CONTENT
+========================================================= */
+
+.provider-network__content {
+  max-width: 500px;
+}
+
+.provider-network__eyebrow {
+  display: inline-block;
+  margin-bottom: 14px;
+
+  color: var(--color-primary-light);
+
+  font-size: 11px;
+  font-weight: 800;
+
+  letter-spacing: 0.16em;
+}
+
+.provider-network__content h2 {
+  margin: 0;
+
+  color: var(--color-text-primary);
+
+  font-size: clamp(36px, 4vw, 58px);
+  line-height: 1.08;
+
+  letter-spacing: -2px;
+}
+
+.provider-network__content h2 span {
+  background: linear-gradient(
+    90deg,
+    #6b21a8,
+    #db2777
+  );
+
+  -webkit-background-clip: text;
+  background-clip: text;
+
+  color: transparent;
+}
+
+.provider-network__content p {
+  margin-top: 22px;
+
+  max-width: 460px;
+
+  color: var(--color-text-secondary);
+
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+
+/* =========================================================
+   STATS
+========================================================= */
+
+.provider-network__stats {
+  display: flex;
+  gap: 12px;
+
+  margin-top: 32px;
+}
+
+.network-stat {
+  min-width: 100px;
+
+  padding: 14px 16px;
+
+  border: 1px solid #f3e8ff;
+  border-radius: 16px;
+
+  background: var(--color-surface);
+
+  box-shadow:
+    0 10px 30px rgba(107, 33, 168, 0.07);
+}
+
+.network-stat strong {
+  display: block;
+
+  color: var(--color-primary);
+
+  font-size: 21px;
+}
+
+.network-stat span {
+  color: var(--color-text-secondary);
+
+  font-size: 11px;
+}
+
+
+/* =========================================================
+   MAP CONTAINER
+========================================================= */
+
+.provider-network__visual {
+  width: 100%;
+}
+
+.india-map {
+  position: relative;
+
+  width: 100%;
+  height: 600px;
+
+  border-radius: 32px;
+
+  overflow: hidden;
+
+  background:
+    radial-gradient(
+      circle at 20% 20%,
+      rgba(219, 39, 119, 0.08),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 80% 80%,
+      rgba(107, 33, 168, 0.08),
+      transparent 30%
+    ),
+    var(--color-surface);
+
+  border: 1px solid #ede9fe;
+
+  box-shadow:
+    0 25px 70px rgba(80, 35, 100, 0.10);
+}
+
+
+/* =========================================================
+   REAL INDIA SVG MAP
+========================================================= */
+
+.india-svg-wrapper {
+  position: absolute;
+
+  inset: 0;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  z-index: 1;
+
+  pointer-events: none;
+}
+
+/*
+   @react-map/india does not expose className as a documented map prop.
+   Target the real SVG rendered inside our own wrappers instead.
+*/
+
+.india-svg-wrapper svg,
+.loading-map svg {
+  width: 520px !important;
+  height: 520px !important;
+
+  max-width: 95%;
+  max-height: 100%;
+
+  display: block;
+  opacity: 1;
+
+  transform: scale(1.05);
+}
+
+
+/*
+   Brand-coloured India states.
+   These selectors target the actual SVG paths created by @react-map/india.
+*/
+
+.india-svg-wrapper svg path,
+.india-svg-wrapper svg polygon,
+.loading-map svg path,
+.loading-map svg polygon {
+  stroke: rgba(255, 255, 255, 0.96) !important;
+  stroke-width: 1 !important;
+  opacity: 0.98;
+
+  transition:
+    fill 0.25s ease,
+    filter 0.25s ease,
+    opacity 0.25s ease;
+}
+
+
+/* Deep Purple */
+
+.india-svg-wrapper svg path:nth-of-type(6n + 1),
+.india-svg-wrapper svg polygon:nth-of-type(6n + 1) {
+  fill: #6B21A8 !important;
+}
+
+
+/* Violet */
+
+.india-svg-wrapper svg path:nth-of-type(6n + 2),
+.india-svg-wrapper svg polygon:nth-of-type(6n + 2) {
+  fill: #A855F7 !important;
+}
+
+
+/* Rose Pink */
+
+.india-svg-wrapper svg path:nth-of-type(6n + 3),
+.india-svg-wrapper svg polygon:nth-of-type(6n + 3) {
+  fill: #DB2777 !important;
+}
+
+
+/* Soft Purple */
+
+.india-svg-wrapper svg path:nth-of-type(6n + 4),
+.india-svg-wrapper svg polygon:nth-of-type(6n + 4) {
+  fill: #9333EA !important;
+}
+
+
+/* Pink */
+
+.india-svg-wrapper svg path:nth-of-type(6n + 5),
+.india-svg-wrapper svg polygon:nth-of-type(6n + 5) {
+  fill: #EC4899 !important;
+}
+
+
+/* Darker Purple */
+
+.india-svg-wrapper svg path:nth-of-type(6n),
+.india-svg-wrapper svg polygon:nth-of-type(6n) {
+  fill: #7E22CE !important;
+}
+
+
+/* Keep the map decorative; provider markers stay above it */
+
+.india-svg-wrapper svg g,
+.loading-map svg g {
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   IMPORTANT
+   NO NETWORK CONNECTION LINES
+========================================================= */
+
+.network-svg {
+  display: none !important;
+}
+
+
+/* =========================================================
+   COMPLETED PROVIDER
+========================================================= */
+
+.completed-provider {
+  position: absolute;
+
+  z-index: 10;
+
+  width: 42px;
+  height: 42px;
+
+  transform: translate(-50%, -50%);
+
+  pointer-events: none;
+}
+
+.completed-avatar {
+  width: 38px;
+  height: 38px;
+
+  padding: 2px;
+
+  border-radius: 50%;
+
+  background: linear-gradient(
+    135deg,
+    #6b21a8,
+    #db2777
+  );
+
+  box-shadow:
+    0 5px 18px rgba(107, 33, 168, 0.25);
+}
+
+.completed-avatar img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  border-radius: 50%;
+
+  border: 2px solid var(--color-surface);
+}
+
+
+/* =========================================================
+   COMPLETED LOCATION RIPPLE
+========================================================= */
+
+.location-ripple {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  width: 42px;
+  height: 42px;
+
+  transform: translate(-50%, -50%);
+
+  border-radius: 50%;
+
+  background: rgba(219, 39, 119, 0.13);
+
+  animation: ripple 2.3s infinite;
+}
+
+@keyframes ripple {
+  0% {
+    transform:
+      translate(-50%, -50%)
+      scale(0.8);
+
+    opacity: 0.8;
+  }
+
+  80% {
+    transform:
+      translate(-50%, -50%)
+      scale(1.5);
+
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+
+/* =========================================================
+   ACTIVE PROVIDER
+========================================================= */
+
+.active-provider {
+  position: absolute;
+
+  z-index: 30;
+
+  transform: translate(-50%, -50%);
+
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   ACTIVE LOCATION DOT
+========================================================= */
+
+.active-location {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  width: 16px;
+  height: 16px;
+
+  transform: translate(-50%, -50%);
+
+  border-radius: 50%;
+
+  background: var(--color-accent);
+
+  box-shadow:
+    0 0 0 7px rgba(219, 39, 119, 0.12),
+    0 0 0 14px rgba(219, 39, 119, 0.05);
+
+  animation: locationPulse 1.5s infinite;
+}
+
+.active-location span {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  width: 5px;
+  height: 5px;
+
+  transform: translate(-50%, -50%);
+
+  border-radius: 50%;
+
+  background: var(--color-surface);
+}
+
+@keyframes locationPulse {
+  0% {
+    box-shadow:
+      0 0 0 5px rgba(219, 39, 119, 0.16),
+      0 0 0 10px rgba(219, 39, 119, 0.06);
+  }
+
+  50% {
+    box-shadow:
+      0 0 0 9px rgba(219, 39, 119, 0.10),
+      0 0 0 18px rgba(219, 39, 119, 0.04);
+  }
+
+  100% {
+    box-shadow:
+      0 0 0 5px rgba(219, 39, 119, 0.16),
+      0 0 0 10px rgba(219, 39, 119, 0.06);
+  }
+}
+
+
+/* =========================================================
+   ACTIVE PROFILE AVATAR
+========================================================= */
+
+.active-avatar {
+  width: 48px;
+  height: 48px;
+
+  padding: 3px;
+
+  border-radius: 50%;
+
+  background: linear-gradient(
+    135deg,
+    #6b21a8,
+    #db2777
+  );
+
+  transform: translateY(-15px);
+
+  animation:
+    avatarPop
+    0.55s
+    cubic-bezier(.17, .67, .35, 1.4);
+}
+
+.active-avatar img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  border-radius: 50%;
+
+  border: 2px solid var(--color-surface);
+}
+
+@keyframes avatarPop {
+  0% {
+    opacity: 0;
+
+    transform:
+      translateY(15px)
+      scale(0.45);
+  }
+
+  70% {
+    opacity: 1;
+
+    transform:
+      translateY(-20px)
+      scale(1.08);
+  }
+
+  100% {
+    opacity: 1;
+
+    transform:
+      translateY(-15px)
+      scale(1);
+  }
+}
+
+
+/* =========================================================
+   PROVIDER POPUP CARD
+========================================================= */
+
+.provider-popup {
+  position: absolute;
+
+  left: 50%;
+  bottom: 54px;
+
+  width: 250px;
+
+  transform: translateX(-50%);
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+  padding: 12px;
+
+  border-radius: 17px;
+
+  background: rgba(
+    255,
+    255,
+    255,
+    0.97
+  );
+
+  border: 1px solid #f3e8ff;
+
+  box-shadow:
+    0 18px 45px
+      rgba(55, 26, 69, 0.17);
+
+  backdrop-filter: blur(12px);
+
+  animation:
+    cardPop
+    0.55s
+    cubic-bezier(.17, .67, .35, 1.3);
+}
+
+
+/* =========================================================
+   CARD ARROW
+========================================================= */
+
+.provider-popup::after {
+  content: "";
+
+  position: absolute;
+
+  bottom: -7px;
+  left: 50%;
+
+  width: 14px;
+  height: 14px;
+
+  transform:
+    translateX(-50%)
+    rotate(45deg);
+
+  background: var(--color-surface);
+
+  border-right: 1px solid #f3e8ff;
+  border-bottom: 1px solid #f3e8ff;
+}
+
+
+/* =========================================================
+   CARD POP ANIMATION
+========================================================= */
+
+@keyframes cardPop {
+  0% {
+    opacity: 0;
+
+    transform:
+      translateX(-50%)
+      translateY(15px)
+      scale(0.75);
+  }
+
+  70% {
+    opacity: 1;
+
+    transform:
+      translateX(-50%)
+      translateY(-3px)
+      scale(1.03);
+  }
+
+  100% {
+    opacity: 1;
+
+    transform:
+      translateX(-50%)
+      translateY(0)
+      scale(1);
+  }
+}
+
+
+/* =========================================================
+   CARD IMAGE
+========================================================= */
+
+.provider-popup__image {
+  width: 52px;
+  height: 52px;
+
+  flex-shrink: 0;
+
+  object-fit: cover;
+
+  border-radius: 13px;
+
+  border: 2px solid #fce7f3;
+}
+
+
+/* =========================================================
+   CARD TEXT
+========================================================= */
+
+.provider-popup__info {
+  min-width: 0;
+}
+
+.provider-popup__info h3 {
+  margin: 0;
+
+  color: #21132f;
+
+  font-size: 13px;
+  font-weight: 800;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.provider-popup__info p {
+  margin: 4px 0;
+
+  color: var(--color-primary-light);
+
+  font-size: 10px;
+  font-weight: 700;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.provider-popup__info span {
+  color: var(--color-text-secondary);
+
+  font-size: 9px;
+}
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.network-status {
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+
+  gap: 8px;
+
+  margin-top: 15px;
+
+  color: var(--color-text-secondary);
+
+  font-size: 11px;
+}
+
+.status-dot {
+  width: 7px;
+  height: 7px;
+
+  flex-shrink: 0;
+
+  border-radius: 50%;
+
+  background: var(--color-accent);
+
+  box-shadow:
+    0 0 0 4px
+      rgba(219, 39, 119, 0.1);
+
+  animation:
+    statusPulse
+    1.6s
+    infinite;
+}
+
+@keyframes statusPulse {
+  50% {
+    opacity: 0.35;
+  }
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 950px) {
+
+  .provider-network {
+    padding: 70px 25px;
+  }
+
+  .provider-network__container {
+    grid-template-columns: 1fr;
+
+    gap: 45px;
+  }
+
+  .provider-network__content {
+    max-width: 650px;
+
+    margin: auto;
+
+    text-align: center;
+  }
+
+  .provider-network__content p {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .provider-network__stats {
+    justify-content: center;
+  }
+
+  .provider-network__visual {
+    max-width: 700px;
+
+    margin: auto;
+  }
+
+  /* Increased tablet map */
+
+  .india-map {
+    height: 580px;
+  }
+
+  .india-svg-wrapper svg,
+  .loading-map svg {
+    width: 500px !important;
+    height: 500px !important;
+
+    max-width: 90%;
+    max-height: 95%;
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+  .provider-network {
+    padding: 55px 15px;
+  }
+
+  .provider-network__content h2 {
+    font-size: 36px;
+
+    letter-spacing: -1.5px;
+  }
+
+  .provider-network__content p {
+    font-size: 14px;
+  }
+
+  /* Increased mobile map container */
+
+  .india-map {
+    height: 430px;
+
+    border-radius: 24px;
+  }
+
+  /* Increased mobile India map */
+
+  .india-svg-wrapper svg,
+  .loading-map svg {
+    width: 360px !important;
+    height: 360px !important;
+
+    max-width: 92%;
+    max-height: 95%;
+  }
+
+  .completed-provider {
+    width: 36px;
+    height: 36px;
+  }
+
+  .completed-avatar {
+    width: 34px;
+    height: 34px;
+  }
+
+  .active-avatar {
+    width: 42px;
+    height: 42px;
+  }
+
+  .provider-popup {
+    width: 205px;
+
+    padding: 10px;
+
+    gap: 9px;
+  }
+
+  .provider-popup__image {
+    width: 44px;
+    height: 44px;
+  }
+
+  .provider-popup__info h3 {
+    font-size: 12px;
+  }
+
+  .provider-popup__info p {
+    font-size: 9px;
+  }
+
+  .provider-popup__info span {
+    font-size: 8px;
+  }
+
+  .network-status {
+    font-size: 10px;
+  }
+}
+
+
+/* =========================================================
+   VERY SMALL MOBILE
+========================================================= */
+
+@media (max-width: 400px) {
+
+  .provider-network {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .provider-network__content h2 {
+    font-size: 32px;
+  }
+
+  .india-map {
+    height: 390px;
+  }
+
+  .india-svg-wrapper svg,
+  .loading-map svg {
+    width: 330px !important;
+    height: 330px !important;
+
+    max-width: 92%;
+    max-height: 95%;
+  }
+
+  .provider-popup {
+    width: 190px;
+  }
+}

@@ -1,27 +1,49 @@
-/* ===========================
+/* ==========================================
    ABOUT SECTION
-=========================== */
-
+========================================== */
 .about-section {
   width: 100%;
-  padding: 150px 8% 100px;
-  background: linear-gradient(180deg, #ffffff 0%, #fff8fc 100%);
+  padding: 150px 0 100px;
+
+  background:
+    radial-gradient(
+      circle at 10% 15%,
+      rgba(219, 39, 119, 0.10),
+      transparent 32%
+    ),
+    radial-gradient(
+      circle at 90% 30%,
+      rgba(168, 85, 247, 0.08),
+      transparent 30%
+    ),
+    linear-gradient(
+      180deg,
+      #fff7fb 0%,
+      #fff1f7 50%,
+      #fff8fc 100%
+    );
+
   overflow-x: hidden;
+  font-family: "Poppins", sans-serif;
 }
+/* ==========================================
+   MAIN CONTAINER
+========================================== */
 
 .about-container {
-  max-width: 1300px;
+  width: 94%;
+  max-width: 1400px;
   margin: 0 auto;
 
   display: grid;
-  grid-template-columns: 1.3fr 1fr;
+  grid-template-columns: 1.25fr 1fr;
   gap: 70px;
   align-items: center;
 }
 
-/* ===========================
+/* ==========================================
    LEFT CONTENT
-=========================== */
+========================================== */
 
 .about-content {
   display: flex;
@@ -29,93 +51,202 @@
 }
 
 .about-title {
+  margin: 0 0 14px;
+
+  font-family: "Poppins", sans-serif;
   font-size: clamp(2rem, 4vw, 2.8rem);
-  font-weight: 700;
-  color: #111827;
-  margin-bottom: 16px;
+  font-weight: 800;
   line-height: 1.2;
+
+  color: #111827;
+  letter-spacing: -0.5px;
 }
 
 .about-title span {
-  color: #ff2e88;
+  color: #db2777;
 }
 
 .about-heading {
-  font-size: clamp(1.3rem, 2.5vw, 1.6rem);
+  margin: 0 0 28px;
+
+  font-family: "Poppins", sans-serif;
+  font-size: clamp(1.2rem, 2.5vw, 1.55rem);
   font-weight: 600;
-  color: #444;
-  margin-bottom: 28px;
   line-height: 1.5;
+
+  color: #374151;
 }
+
+/* ==========================================
+   ABOUT PARAGRAPHS
+========================================== */
 
 .about-content p {
+  margin: 0 0 18px;
+
+  font-family: "Poppins", sans-serif;
   font-size: 1rem;
-  color: #555;
-  line-height: 1.9;
-  margin-bottom: 18px;
+  font-weight: 400;
+  line-height: 1.85;
+
+  color: #4b5563;
+
+  /* IMPORTANT */
+  text-align: justify;
+  text-justify: inter-word;
 }
+
+/* Make bold text stronger */
+
+.about-content p strong {
+  color: #111827;
+  font-weight: 700;
+}
+
+/* ==========================================
+   HIGHLIGHT BOX
+========================================== */
 
 .about-highlight {
-  margin-top: 20px;
-  padding: 18px 22px;
-  border-left: 5px solid #ff2e88;
-  background: #ffffff;
-  border-radius: 12px;
-  font-size: 1.05rem;
-  font-weight: 600;
+  margin-top: 18px;
+  padding: 20px 24px;
+
+  border-left: 5px solid #db2777;
+  border-radius: 14px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(252, 231, 243, 0.75),
+      rgba(243, 232, 255, 0.65)
+    );
+
   color: #111827;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.7;
+
+  box-shadow:
+    0 10px 30px rgba(107, 33, 168, 0.07);
 }
 
-/* ===========================
-   RIGHT CARDS
-=========================== */
+/* ==========================================
+   RIGHT SIDE CARDS
+========================================== */
 
 .about-cards {
   display: flex;
   flex-direction: column;
-  gap: 22px;
+  gap: 20px;
 }
+
+/* ==========================================
+   CARD
+========================================== */
 
 .card {
-  background: #ffffff;
-  padding: 28px;
-  border-radius: 20px;
-  border: 1px solid #ffe0ed;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
-  transition: all 0.35s ease;
+  position: relative;
+
+  padding: 26px 28px;
+
+  background: rgba(255, 255, 255, 0.92);
+
+  border: 1px solid rgba(219, 39, 119, 0.10);
+  border-radius: 18px;
+
+  box-shadow:
+    0 10px 30px rgba(17, 24, 39, 0.06);
+
+  overflow: hidden;
+
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    border-color 0.3s ease;
 }
+
+/* Decorative accent */
+
+.card::before {
+  content: "";
+
+  position: absolute;
+
+  left: 0;
+  top: 0;
+  bottom: 0;
+
+  width: 4px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #6b21a8,
+      #db2777
+    );
+
+  border-radius: 18px 0 0 18px;
+}
+
+/* Card hover */
 
 .card:hover {
-  transform: translateY(-8px);
-  border-color: #ff2e88;
-  box-shadow: 0 18px 40px rgba(255, 46, 136, 0.18);
+  transform: translateY(-5px);
+
+  border-color: rgba(219, 39, 119, 0.25);
+
+  box-shadow:
+    0 18px 40px rgba(107, 33, 168, 0.11);
 }
+
+/* ==========================================
+   CARD TITLE
+========================================== */
 
 .card h3 {
-  font-size: 1.4rem;
-  font-weight: 600;
+  margin: 0 0 9px;
+
+  font-family: "Poppins", sans-serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  line-height: 1.35;
+
   color: #111827;
-  margin-bottom: 12px;
 }
+
+/* ==========================================
+   CARD TEXT
+========================================== */
 
 .card p {
+  margin: 0;
+
+  font-family: "Poppins", sans-serif;
   font-size: 0.95rem;
+  font-weight: 400;
+  line-height: 1.75;
+
   color: #6b7280;
-  line-height: 1.8;
+
+  text-align: justify;
+  text-justify: inter-word;
 }
 
-/* ===========================
+/* ==========================================
    LARGE TABLETS
-=========================== */
+========================================== */
 
 @media (max-width: 1024px) {
 
   .about-section {
-    padding: 90px 6%;
+    padding: 110px 0 80px;
   }
 
   .about-container {
+    width: 94%;
+
     grid-template-columns: 1fr;
     gap: 50px;
   }
@@ -131,138 +262,229 @@
   }
 }
 
-/* ===========================
+/* ==========================================
    TABLETS
-=========================== */
+========================================== */
 
 @media (max-width: 768px) {
 
   .about-section {
-    padding: 70px 6%;
+    width: 100%;
+    padding: 105px 0 60px;
   }
 
   .about-container {
-    gap: 40px;
+    width: calc(100% - 32px);
+    max-width: none;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 38px;
+  }
+
+  /* ------------------------------------------
+     LEFT CONTENT
+  ------------------------------------------ */
+
+  .about-content {
+    width: 100%;
   }
 
   .about-title {
+    width: 100%;
+
+    margin-bottom: 12px;
+
+    font-size: clamp(1.8rem, 8vw, 2.3rem);
+    line-height: 1.2;
+
     text-align: center;
   }
 
   .about-heading {
+    width: 100%;
+
+    margin-bottom: 24px;
+
+    font-size: 1.12rem;
+    line-height: 1.55;
+
     text-align: center;
   }
 
   .about-content p {
+    width: 100%;
+
+    margin-bottom: 16px;
+
+    font-size: 0.94rem;
+    line-height: 1.8;
+
     text-align: justify;
-    font-size: 0.96rem;
   }
+
+  /* ------------------------------------------
+     HIGHLIGHT
+  ------------------------------------------ */
 
   .about-highlight {
-    font-size: 1rem;
-    padding: 16px 20px;
+    width: 100%;
+    box-sizing: border-box;
+
+    margin-top: 20px;
+
+    padding: 17px 18px;
+
+    font-size: 0.94rem;
+    line-height: 1.65;
   }
 
+  /* ------------------------------------------
+     CARDS
+  ------------------------------------------ */
+
   .about-cards {
-    grid-template-columns: 1fr;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 16px;
   }
 
   .card {
-    padding: 22px;
+    width: 100%;
+    box-sizing: border-box;
+
+    padding: 21px;
+
+    border-radius: 16px;
+  }
+
+  .card:hover {
+    transform: none;
   }
 
   .card h3 {
-    font-size: 1.25rem;
+    font-size: 1.15rem;
   }
 
   .card p {
-    font-size: 0.94rem;
+    font-size: 0.91rem;
+    line-height: 1.7;
+
+    text-align: justify;
   }
 }
 
-/* ===========================
-   MOBILE
-=========================== */
+/* ==========================================
+   SMALL MOBILE
+========================================== */
 
 @media (max-width: 480px) {
 
   .about-section {
-    padding: 60px 20px;
+    padding: 95px 0 50px;
+  }
+
+  .about-container {
+    width: calc(100% - 24px);
   }
 
   .about-title {
-    font-size: 2rem;
-    text-align: center;
+    font-size: 1.85rem;
   }
 
   .about-heading {
-    font-size: 1.15rem;
-    text-align: center;
-    margin-bottom: 22px;
+    font-size: 1.05rem;
+    line-height: 1.5;
   }
 
   .about-content p {
-    font-size: 0.92rem;
+    font-size: 0.9rem;
     line-height: 1.8;
-    text-align: left;
+
+    text-align: justify;
   }
 
   .about-highlight {
-    padding: 15px 18px;
-    font-size: 0.95rem;
+    padding: 15px 16px;
+
+    font-size: 0.9rem;
+    line-height: 1.65;
   }
 
   .card {
-    padding: 20px;
-    border-radius: 16px;
+    padding: 19px;
+    border-radius: 15px;
   }
 
   .card h3 {
-    font-size: 1.15rem;
+    font-size: 1.08rem;
   }
 
   .card p {
-    font-size: 0.9rem;
+    font-size: 0.87rem;
     line-height: 1.7;
+
+    text-align: justify;
   }
 }
 
-/* ===========================
-   SMALL DEVICES
-=========================== */
+/* ==========================================
+   VERY SMALL DEVICES
+========================================== */
 
 @media (max-width: 360px) {
 
   .about-section {
-    padding: 50px 16px;
+    padding: 90px 0 45px;
+  }
+
+  .about-container {
+    width: calc(100% - 18px);
   }
 
   .about-title {
-    font-size: 1.8rem;
+    font-size: 1.7rem;
   }
 
   .about-heading {
-    font-size: 1rem;
+    font-size: 0.98rem;
   }
 
   .about-content p {
-    font-size: 0.88rem;
+    font-size: 0.86rem;
+    line-height: 1.75;
   }
 
   .about-highlight {
-    font-size: 0.9rem;
-    padding: 14px 16px;
+    padding: 14px 15px;
+    font-size: 0.86rem;
   }
 
   .card {
-    padding: 18px;
+    padding: 16px;
   }
 
   .card h3 {
-    font-size: 1.05rem;
+    font-size: 1.04rem;
   }
 
   .card p {
-    font-size: 0.88rem;
+    font-size: 0.84rem;
+    line-height: 1.65;
+  }
+}
+
+/* ==========================================
+   ACCESSIBILITY
+========================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .card {
+    transition: none;
   }
 }

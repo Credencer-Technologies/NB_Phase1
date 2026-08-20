@@ -1,9 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700&display=swap");
 
 :root {
-  --color-primary: #7B2CBF;
+  --color-primary: #7b2cbf;
   --color-primary-light: #a855f7;
-  --color-accent: #E6398A;
+  --color-accent: #e6398a;
   --color-accent-soft: #fce7f3;
 
   --color-bg: #fafafa;
@@ -31,158 +31,233 @@
 }
 
 .user-dashboard {
-  min-height: 100vh;
   width: 100%;
-  background: var(--color-bg);
+  min-height: 100vh;
   padding: 32px;
+  background: var(--color-bg);
   font-family: "Inter", sans-serif;
 }
 
-.dashboard-wrapper{
-    width:95%;
-    margin:0 auto;
-    padding-top:100px;   /* 110-130px adjust chesukovachu */
+.dashboard-wrapper {
+  width: 95%;
+  max-width: 1500px;
+  margin: 0 auto;
+  padding-top: 100px;
 }
-/* ========================
-   HERO SECTION
-======================== */
-.dashboard-banner {
-  background: linear-gradient(135deg, var(--color-primary),
-    var(--color-accent));
 
-  color: white;
-  border-radius: 24px;
+/* =====================================================
+   WELCOME BANNER
+===================================================== */
+
+.dashboard-banner {
+  width: 100%;
+  min-height: 220px;
+  margin: 0 0 18px;
   padding: 42px 48px;
+
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin-bottom: 30px;
+  justify-content: space-between;
+  gap: 30px;
+
+  border-radius: 24px;
+
+  background: linear-gradient(
+    135deg,
+    var(--color-primary),
+    var(--color-accent)
+  );
+
+  color: #ffffff;
 
   box-shadow: 0 12px 30px rgba(123, 44, 191, 0.28);
 }
 
-.dashboard-banner h1{
-    font-family: "Poppins", sans-serif;
-    font-size: 3rem;
-    font-weight:700;
-    margin-bottom:10px;
+.dashboard-banner h1 {
+  margin-bottom: 10px;
+
+  font-family: "Poppins", sans-serif;
+  font-size: 3rem;
+  font-weight: 700;
+  line-height: 1.15;
 }
 
 .dashboard-banner p {
-    font-size: 1.08rem;
-    color: #ffffff;
-    opacity: 0.95;
-    font-weight: 500;
+  color: #ffffff;
+
+  font-size: 1.08rem;
+  font-weight: 500;
+  line-height: 1.5;
+
+  opacity: 0.95;
 }
 
-.avatar{
-    width:110px;
-    height:110px;
-    border-radius:50%;
-    background:#fff;
-    color:#6B21A8;
+.avatar {
+  width: 110px;
+  height: 110px;
+  min-width: 110px;
 
-    display:flex;
-    justify-content:center;
-    align-items:center;
+  border-radius: 50%;
 
-    font-size:2.6rem;
-    font-weight:700;
+  background: #ffffff;
+  color: #6b21a8;
 
-    box-shadow:0 10px 30px rgba(0,0,0,.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 2.6rem;
+  font-weight: 700;
+
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
 }
 
-/* ========================
-   STATS CARDS
-======================== */
+/* =====================================================
+   FULL-WIDTH STATUS CARDS
+===================================================== */
 
 .stats-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
+  width: 100%;
+  margin: 0 0 30px;
+  padding: 0;
 
-  margin-bottom: 30px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+
+  align-items: stretch;
+  justify-content: stretch;
 }
 
-.stat-card {
-  background: var(--color-surface);
+.stats-grid > .stat-card {
+  width: 100% !important;
+  max-width: none !important;
+  min-width: 0 !important;
 
-  padding: 28px;
+  height: 145px !important;
+  min-height: 145px !important;
 
-  border-radius: var(--radius-md);
+  margin: 0 !important;
+  padding: 26px 28px !important;
 
-  box-shadow: var(--shadow-sm);
+  border: 1px solid #eadde4 !important;
+  border-top: 3px solid #d94f8a !important;
+  border-radius: 10px !important;
 
-  transition: 0.3s ease;
+  background: #ffffff !important;
+
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.06) !important;
+
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: flex-start !important;
+
+  aspect-ratio: auto !important;
+  overflow: hidden;
 }
 
 .stat-card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.1) !important;
 }
 
-.stat-card h3 {
-  font-family: "Poppins", sans-serif;
-  font-size: 1rem;
-
-  color: var(--color-text-secondary);
-
-  margin-bottom: 12px;
+.stat-card::before,
+.stat-card::after {
+  display: none !important;
 }
 
-.stat-card p {
-  font-size: 1.7rem;
-  font-weight: 700;
-  color: var(--color-text-primary);
+.stat-card-top-line {
+  display: none;
 }
 
-.verified {
-  color: var(--color-success);
+.stat-card-heading {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.stat-card-heading svg {
+  flex-shrink: 0;
+  color: #d94f8a;
+  font-size: 16px;
+}
+
+.stat-card-heading h3 {
+  min-height: auto !important;
+  margin: 0 !important;
+
+  color: #5f6673;
+
+  font-family: "Inter", sans-serif;
+  font-size: 15px;
   font-weight: 600;
-  font-size: 1rem;
+  line-height: 1.35;
+
+  display: block !important;
 }
 
-/* ========================
-   PERSONAL DETAILS CARD
-======================== */
+.stat-card-value {
+  margin: 18px 0 0 !important;
+
+  color: #202633;
+
+  font-family: "Poppins", sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.last-updated-value {
+  font-size: 18px;
+}
+
+/* =====================================================
+   PERSONAL DETAILS
+===================================================== */
 
 .details-card {
-  background: var(--color-surface);
-
+  width: 100%;
   padding: 40px;
 
   border-radius: var(--radius-lg);
+
+  background: var(--color-surface);
 
   box-shadow: var(--shadow-md);
 }
 
 .card-header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
 
   margin-bottom: 35px;
 }
 
 .card-header h2 {
+  color: var(--color-text-primary);
+
   font-family: "Poppins", sans-serif;
   font-size: 2rem;
-  color: var(--color-text-primary);
 }
 
 .edit-warning {
+  padding: 10px 18px;
+
+  border-radius: 999px;
+
   background: #fff7ed;
   color: var(--color-warning);
-
-  padding: 10px 18px;
-  border-radius: 999px;
 
   font-size: 14px;
   font-weight: 600;
 }
 
-/* ========================
-   FORM
-======================== */
+/* =====================================================
+   PERSONAL DETAILS FORM
+===================================================== */
 
 .form-group {
   margin-bottom: 24px;
@@ -191,13 +266,13 @@
 .form-group label {
   display: block;
 
-  font-family: "Poppins", sans-serif;
-  font-size: 15px;
-  font-weight: 600;
+  margin-bottom: 10px;
 
   color: var(--color-text-primary);
 
-  margin-bottom: 10px;
+  font-family: "Poppins", sans-serif;
+  font-size: 15px;
+  font-weight: 600;
 }
 
 .form-group input {
@@ -208,12 +283,15 @@
   border: 2px solid #e5e7eb;
   border-radius: var(--radius-sm);
 
-  background: white;
-
-  font-size: 15px;
+  background: #ffffff;
   color: var(--color-text-primary);
 
-  transition: 0.3s ease;
+  font-family: "Inter", sans-serif;
+  font-size: 15px;
+
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .form-group input:focus {
@@ -224,43 +302,40 @@
   box-shadow: 0 0 0 4px rgba(168, 85, 247, 0.15);
 }
 
-.form-group input:disabled {
+.form-group input:disabled,
+.form-group input.readonly-field {
   background: #f3f4f6;
   color: var(--color-text-secondary);
-  cursor: not-allowed;
+  cursor: default;
 }
 
 .form-group small {
   display: block;
+
   margin-top: 8px;
 
   color: var(--color-text-secondary);
+
   font-size: 13px;
+  line-height: 1.5;
 }
 
-/* ========================
+/* =====================================================
    BUTTONS
-======================== */
+===================================================== */
 
 .button-group {
   display: flex;
   gap: 15px;
+
   margin-top: 25px;
 }
 
-.save-btn {
-  border: none;
-
-  background: linear-gradient(
-    135deg,
-    var(--color-primary),
-    var(--color-accent)
-  );
-
-  color: white;
-
+.save-btn,
+.reset-btn {
   padding: 15px 28px;
 
+  border: none;
   border-radius: var(--radius-sm);
 
   font-family: "Poppins", sans-serif;
@@ -268,8 +343,18 @@
   font-weight: 600;
 
   cursor: pointer;
+}
 
-  transition: 0.3s ease;
+.save-btn {
+  background: linear-gradient(
+    135deg,
+    var(--color-primary),
+    var(--color-accent)
+  );
+
+  color: #ffffff;
+
+  transition: transform 0.3s ease;
 }
 
 .save-btn:hover {
@@ -277,58 +362,657 @@
 }
 
 .reset-btn {
-  border: none;
-
   background: var(--color-accent-soft);
   color: var(--color-accent);
-
-  padding: 15px 28px;
-
-  border-radius: var(--radius-sm);
-
-  font-family: "Poppins", sans-serif;
-  font-size: 15px;
-  font-weight: 600;
-
-  cursor: pointer;
 }
 
 .reset-btn:hover {
   opacity: 0.9;
 }
 
-/* ========================
-   SUCCESS MESSAGE
-======================== */
-
 .success-message {
   margin-top: 24px;
+  padding: 16px;
+
+  border-left: 4px solid var(--color-success);
+  border-radius: 12px;
 
   background: rgba(5, 150, 105, 0.12);
   color: var(--color-success);
 
-  border-left: 4px solid var(--color-success);
+  font-weight: 600;
+}
 
-  padding: 16px;
+/* =====================================================
+   DYNAMIC SERVICE LISTINGS
+===================================================== */
 
-  border-radius: 12px;
+.services-section {
+  width: 100%;
+  margin-top: 35px;
+}
+
+.services-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 20px;
+}
+
+.services-header h2 {
+  color: #111827;
+
+  font-family: "Poppins", sans-serif;
+}
+
+.services-header span {
+  padding: 8px 14px;
+
+  border-radius: 999px;
+
+  background: #fce7f3;
+  color: #db2777;
 
   font-weight: 600;
 }
 
-/* ========================
-   MOBILE
-======================== */
+.services-empty {
+  width: 100%;
+  padding: 55px 25px;
+
+  border: 1px dashed #efb9d1;
+  border-radius: 18px;
+
+  background: #ffffff;
+
+  text-align: center;
+}
+
+.services-empty h3 {
+  margin-bottom: 8px;
+
+  color: #222936;
+
+  font-family: "Poppins", sans-serif;
+}
+
+.services-empty p {
+  color: #6b7280;
+
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.services-grid {
+  display: grid;
+
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(240px, 280px)
+  );
+
+  gap: 22px;
+
+  justify-content: start;
+}
+
+.service-card {
+  width: 100%;
+  max-width: 280px;
+  min-height: 0;
+
+  overflow: hidden;
+
+  border: none;
+  border-radius: 22px;
+
+  background: #ffffff;
+
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+
+  transition: transform 0.3s ease;
+}
+
+.service-card:hover {
+  transform: translateY(-6px);
+
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Shown when the provider behind a dashboard service card has been
+   rejected by the admin after being verified. Styled like an
+   "out of stock" product card — greyed out and non-clickable — until
+   the provider is verified again. */
+.service-card--locked {
+  cursor: not-allowed;
+
+  background: #fafafa;
+
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
+
+  border: 1px solid #eeeeee;
+}
+
+.service-card--locked:hover {
+  transform: none;
+
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
+}
+
+.service-card--locked .service-image {
+  opacity: 0.45;
+}
+
+.service-card--locked .service-content p,
+.service-card--locked .service-location,
+.service-card--locked .service-price {
+  color: #b0b0b0;
+}
+
+.service-unavailable-badge {
+  width: fit-content;
+
+  margin-bottom: 12px;
+
+  color: #cc0c39;
+
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.1px;
+}
+
+.service-image {
+  display: block;
+
+  width: 100%;
+  height: 180px;
+
+  object-fit: cover;
+  object-position: center;
+}
+
+.service-content {
+  min-height: 0;
+  padding: 16px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.service-rating {
+  display: inline-block;
+  align-self: flex-start;
+
+  margin-bottom: 10px;
+  padding: 6px 12px;
+
+  border-radius: 30px;
+
+  background: #fff4d6;
+  color: #e67e22;
+
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* Same title style as My Favourite cards. */
+.service-content h3 {
+  width: auto !important;
+  margin: 0 0 8px !important;
+  padding: 0 !important;
+
+  border-radius: 0 !important;
+
+  background: transparent !important;
+  color: #111827 !important;
+
+  font-size: 22px !important;
+  font-weight: 700 !important;
+  line-height: 1.25;
+}
+
+.service-card--locked .service-content h3 {
+  color: #8a8a8a !important;
+}
+
+.service-content p {
+  margin-bottom: 10px;
+
+  color: #666666;
+}
+
+.service-name {
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.service-location {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  margin-bottom: 15px;
+
+  color: #0f766e;
+
+  font-size: 14px;
+}
+
+.service-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 12px;
+
+  margin-top: auto;
+  padding-top: 0;
+}
+
+.service-price {
+  color: #111827;
+
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.delete-service {
+  width: 40px;
+  height: 40px;
+  flex: 0 0 40px;
+
+  border: none;
+  border-radius: 10px;
+
+  background: var(--color-accent);
+  color: #ffffff;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+
+  transition: background 0.3s ease;
+}
+
+.delete-service:hover {
+  background: #c92f78;
+}
+
+.service-card--locked .delete-service {
+  background: #e5e7eb;
+  color: #6b6b6b;
+}
+
+.service-card--locked .delete-service:hover {
+  background: #d1d5db;
+}
+
+/* =====================================================
+   WISHLIST
+===================================================== */
+
+.wishlist-dashboard-section {
+  width: 100%;
+  margin-top: 40px;
+  padding: 30px;
+
+  border-radius: 22px;
+
+  background: #ffffff;
+
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+}
+
+.wishlist-dashboard-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 25px;
+}
+
+.wishlist-dashboard-header h2 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  font-size: 26px;
+}
+
+.wishlist-dashboard-header svg {
+  color: #ef476f;
+}
+
+.wishlist-dashboard-header span {
+  padding: 8px 16px;
+
+  border-radius: 40px;
+
+  background: #ffe5ec;
+  color: #ef476f;
+
+  font-weight: 600;
+}
+
+.wishlist-dashboard-grid {
+  display: grid;
+
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(220px, 250px)
+  );
+
+  gap: 18px;
+
+  justify-content: start;
+}
+
+.wishlist-dashboard-card {
+  width: 100%;
+  max-width: 250px;
+
+  overflow: hidden;
+
+  border-radius: 22px;
+
+  background: #ffffff;
+
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+
+  transition: transform 0.3s ease;
+}
+
+.wishlist-dashboard-card:hover {
+  transform: translateY(-6px);
+}
+
+.wishlist-dashboard-card img {
+  display: block;
+
+  width: 100%;
+  height: 155px;
+
+  object-fit: cover;
+}
+
+/* Shown when the provider behind a saved service card has been rejected
+   by the admin after being verified. The card becomes a locked,
+   non-clickable placeholder — styled like an "out of stock" product card —
+   until the provider is verified again. */
+.wishlist-dashboard-card--locked {
+  cursor: not-allowed;
+
+  background: #fafafa;
+
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
+
+  border: 1px solid #eeeeee;
+}
+
+.wishlist-dashboard-card--locked:hover {
+  transform: none;
+}
+
+.wishlist-dashboard-card--locked img {
+  opacity: 0.45;
+}
+
+.wishlist-dashboard-card--locked h3 {
+  color: #8a8a8a;
+}
+
+.wishlist-dashboard-card--locked
+  .wishlist-dashboard-content
+  p,
+.wishlist-dashboard-card--locked
+  .wishlist-dashboard-location,
+.wishlist-dashboard-card--locked
+  .wishlist-dashboard-bottom {
+  color: #b0b0b0;
+}
+
+.wishlist-dashboard-card--locked
+  .wishlist-remove-btn {
+  background: #e5e7eb;
+  color: #6b6b6b;
+}
+
+.wishlist-dashboard-card--locked
+  .wishlist-remove-btn:hover {
+  background: #d1d5db;
+}
+
+.wishlist-dashboard-unavailable-badge {
+  width: fit-content;
+
+  margin-top: 8px;
+  margin-bottom: 12px;
+
+  color: #cc0c39;
+
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.1px;
+}
+
+.wishlist-dashboard-content {
+  padding: 14px;
+}
+
+.wishlist-dashboard-content h3 {
+  margin-bottom: 7px;
+
+  font-size: 19px;
+  font-weight: 700;
+}
+
+.wishlist-dashboard-content p {
+  margin-bottom: 10px;
+
+  color: #666666;
+}
+
+.wishlist-dashboard-location {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  margin-bottom: 12px;
+
+  color: #0f766e;
+}
+
+.wishlist-dashboard-bottom {
+  display: flex;
+  justify-content: space-between;
+
+  margin-bottom: 14px;
+
+  font-weight: 600;
+}
+
+.wishlist-remove-btn {
+  width: 100%;
+  height: 42px;
+
+  border: none;
+  border-radius: 10px;
+
+  background: var(--color-accent);
+  color: #ffffff;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: background 0.3s ease;
+}
+
+.wishlist-remove-btn:hover {
+  background: #c92f78;
+}
+
+.wishlist-empty {
+  padding: 60px;
+
+  color: #777777;
+
+  font-size: 20px;
+  text-align: center;
+}
+
+/* =====================================================
+   QUICK ACTIONS
+===================================================== */
+
+.quick-actions {
+  margin-top: 30px;
+}
+
+.action-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-top: 20px;
+}
+
+.action-btn {
+  padding: 14px 22px;
+
+  border: none;
+  border-radius: 12px;
+
+  background: #6b21a8;
+  color: #ffffff;
+
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.action-btn:hover {
+  background: #a855f7;
+}
+
+/* =====================================================
+   SUPPORT MODAL
+===================================================== */
+
+.support-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+
+  padding-top: 120px;
+
+  background: rgba(0, 0, 0, 0.45);
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.support-card {
+  position: relative;
+
+  width: 520px;
+  max-width: 90%;
+  max-height: 80vh;
+
+  padding: 40px 35px;
+
+  overflow-y: auto;
+
+  border-radius: 20px;
+
+  background: #ffffff;
+}
+
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  z-index: 10000;
+
+  width: 40px;
+  height: 40px;
+
+  border: none;
+  border-radius: 50%;
+
+  background: #f3f4f6;
+  color: #000000;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 20px;
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+.close-btn:hover {
+  background: #e5e7eb;
+}
+
+.support-card h2 {
+  margin-top: 10px;
+  margin-bottom: 8px;
+
+  color: #6b21a8;
+
+  font-family: "Poppins", sans-serif;
+}
+
+.support-card p {
+  margin-bottom: 25px;
+
+  color: #6b7280;
+}
+
+.support-item {
+  margin-bottom: 18px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.support-item strong {
+  margin-bottom: 5px;
+
+  color: #111827;
+}
+
+.support-item span {
+  color: #6b7280;
+
+  line-height: 1.8;
+}
+
+/* =====================================================
+   TABLET
+===================================================== */
 
 @media (max-width: 992px) {
   .stats-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .stat-card {
+    min-height: 140px;
+    padding: 24px 20px;
   }
 
   .dashboard-banner {
     flex-direction: column;
     text-align: center;
-    gap: 25px;
   }
 
   .dashboard-banner h1 {
@@ -337,12 +1021,61 @@
 
   .card-header {
     flex-direction: column;
-    gap: 15px;
     align-items: flex-start;
+    gap: 15px;
   }
 
   .button-group {
     flex-direction: column;
+  }
+}
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 768px) {
+  .user-dashboard {
+    padding: 18px;
+  }
+
+  .dashboard-wrapper {
+    width: 100%;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .stat-card {
+    min-height: 125px;
+  }
+
+  .wishlist-dashboard-section {
+    margin-top: 24px;
+    padding: 18px;
+
+    border-radius: 18px;
+  }
+
+  .wishlist-dashboard-header {
+    flex-direction: column;
+    align-items: flex-start;
+
+    gap: 10px;
+  }
+
+  .wishlist-dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .wishlist-dashboard-card {
+    max-width: 100%;
+  }
+
+  .wishlist-dashboard-card img {
+    height: 200px;
   }
 }
 
@@ -351,421 +1084,337 @@
     padding: 16px;
   }
 
+  .dashboard-wrapper {
+    padding-top: 90px;
+  }
+
   .dashboard-banner {
+    min-height: auto;
     padding: 28px;
+  }
+
+  .dashboard-banner h1 {
+    font-size: 1.8rem;
+  }
+
+  .avatar {
+    width: 85px;
+    height: 85px;
+    min-width: 85px;
+
+    font-size: 2rem;
   }
 
   .details-card {
     padding: 24px;
   }
 
-  .dashboard-banner h1 {
-    font-size: 1.8rem;
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .service-card {
+    max-width: 100%;
+  }
+
+  .wishlist-empty {
+    padding: 40px 15px;
+
+    font-size: 17px;
   }
 }
 
-/* SERVICES SECTION */
+@media (max-width: 480px) {
+  .wishlist-dashboard-section {
+    padding: 14px;
+  }
 
-.services-section {
-  margin-top: 35px;
+  .wishlist-dashboard-header h2 {
+    font-size: 20px;
+  }
+
+  .wishlist-dashboard-card img {
+    height: 180px;
+  }
+
+  .wishlist-dashboard-content {
+    padding: 14px;
+  }
+
+  .wishlist-dashboard-content h3 {
+    font-size: 17px;
+  }
+
+  .wishlist-dashboard-content p,
+  .wishlist-dashboard-location {
+    font-size: 13px;
+  }
+
+  .wishlist-dashboard-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+
+    gap: 6px;
+  }
+
+  .wishlist-remove-btn {
+    height: 44px;
+
+    font-size: 14px;
+  }
+}
+/* =====================================================
+   FINAL OVERRIDE: STATUS CARDS MUST FILL THE ENTIRE ROW
+   Only affects the three cards directly below the banner.
+===================================================== */
+
+.user-dashboard .dashboard-wrapper > .stats-grid {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  grid-auto-columns: minmax(0, 1fr) !important;
+
+  column-gap: 22px !important;
+  row-gap: 22px !important;
+
+  margin: 0 0 30px !important;
+  padding: 0 !important;
+
+  justify-content: stretch !important;
+  justify-items: stretch !important;
+  align-items: stretch !important;
 }
 
-.services-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
+.user-dashboard .dashboard-wrapper > .stats-grid > .stat-card {
+  width: 100% !important;
+  max-width: none !important;
+  min-width: 0 !important;
+
+  height: 145px !important;
+  min-height: 145px !important;
+
+  margin: 0 !important;
+  box-sizing: border-box !important;
+  justify-self: stretch !important;
+  align-self: stretch !important;
+  flex: none !important;
 }
 
-.services-header h2 {
-  font-family: "Poppins", sans-serif;
-  color: #111827;
+@media (max-width: 768px) {
+  .user-dashboard .dashboard-wrapper > .stats-grid {
+    grid-template-columns: 1fr !important;
+  }
 }
 
-.services-header span {
-  background: #fce7f3;
-  color: #db2777;
-  padding: 8px 14px;
-  border-radius: 999px;
-  font-weight: 600;
+/* =====================================================
+   FINAL USER DASHBOARD LAYOUT FIX
+   - Aligns dashboard content with the website header
+   - Restores the full-width profile progress card styling
+   ===================================================== */
+
+/* Keep the dashboard content aligned with the header edges. */
+.user-dashboard {
+  width: 100% !important;
+  min-height: 100vh !important;
+  padding: 0 64px 40px !important;
+  background: var(--color-bg) !important;
 }
 
-.services-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 24px;
+.user-dashboard .dashboard-wrapper {
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 auto !important;
+  padding-top: 110px !important;
 }
 
-.service-card {
-  background: white;
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: 0 10px 25px rgba(0,0,0,.08);
-  transition: .3s;
+/* Welcome banner stays exactly within the dashboard/header width. */
+.user-dashboard .dashboard-banner {
+  width: 100% !important;
+  margin: 0 0 22px !important;
 }
 
-.service-card:hover {
-  transform: translateY(-5px);
-}
+/* =====================================================
+   PROFILE COMPLETION CARD
+   ===================================================== */
 
-.service-image {
+.profile-progress-card {
   width: 100%;
-  aspect-ratio: 16/10;
-  object-fit: cover;
-  object-position: center;
-}
+  margin: 0 0 28px;
+  padding: 24px 28px;
 
-.service-content {
-  padding: 20px;
-}
+  border: 1px solid #eadde4;
+  border-top: 3px solid var(--color-accent);
+  border-radius: 16px;
 
-.service-content h3 {
-  margin-bottom: 8px;
-  color: #111827;
-}
+  background: #ffffff;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.07);
 
-.service-content p {
-  color: #6b7280;
-  margin-bottom: 10px;
-}
-
-.service-location {
   display: flex;
-  gap: 8px;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.profile-progress-heading {
+  display: flex;
   align-items: center;
-  color: #6b21a8;
-  margin-bottom: 12px;
+  gap: 12px;
 }
 
-.service-price {
-  font-size: 1.2rem;
+.profile-progress-heading > svg {
+  flex-shrink: 0;
+  color: var(--color-accent);
+  font-size: 20px;
+}
+
+.profile-progress-heading h3 {
+  margin: 0;
+  color: var(--color-text-primary);
+  font-family: "Poppins", sans-serif;
+  font-size: 19px;
   font-weight: 700;
-  color: #db2777;
+  line-height: 1.3;
 }
 
-.service-actions {
-  display: flex;
-  gap: 10px;
-  margin-top: 15px;
-}
-
-.edit-service,
-.delete-service {
-  border: none;
-  width: 42px;
-  height: 42px;
-  border-radius: 10px;
-  cursor: pointer;
-}
-
-.delete-service {
-  background: #db2777;
-  color: white;
-}
-
-.quick-actions {
-  margin-top: 30px;
-  background: white;
-  padding: 30px;
-  border-radius: 24px;
-  box-shadow: 0 5px 20px rgba(0,0,0,.05);
-}
-
-.quick-actions h2 {
-  margin-bottom: 20px;
-}
-
-.action-buttons {
-  display: flex;
-  gap: 15px;
-  flex-wrap: wrap;
-}
-
-.action-btn {
-  border: none;
-  background: #6B21A8;
-  color: white;
-  padding: 14px 22px;
-  border-radius: 12px;
-  cursor: pointer;
+.profile-progress-heading p {
+  margin: 4px 0 0;
+  color: var(--color-text-secondary);
+  font-size: 14px;
   font-weight: 600;
 }
 
-.action-btn:hover {
-  background: #A855F7;
+/* Thin and clean progress bar. */
+.profile-progress-track {
+  width: 100%;
+  height: 9px;
+  overflow: hidden;
+
+  border-radius: 999px;
+  background: #f1e8f7;
 }
 
-.secondary-btn{
-    background:#FCE7F3;
-    color:#DB2777;
+.profile-progress-fill {
+  display: block;
+  height: 100%;
+  min-width: 0;
+
+  border-radius: inherit;
+  background: linear-gradient(
+    90deg,
+    var(--color-primary),
+    var(--color-accent)
+  );
+
+  transition: width 0.35s ease;
 }
 
-.support-modal{
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,.45);
-
-    display:flex;
-    justify-content:center;
-    align-items:center;
-
-    z-index:1000;
+.profile-progress-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
 }
 
-.support-card{
+.profile-last-updated {
+  margin: 0;
 
-    width:550px;
-    max-width:92%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 
-    background:#fff;
-    border-radius:24px;
-
-    padding:35px;
-
-    position:relative;
-
-    animation:popup .3s ease;
+  color: var(--color-text-secondary);
+  font-size: 14px;
+  font-weight: 500;
 }
 
-@keyframes popup{
-
-from{
-transform:scale(.9);
-opacity:0;
+.profile-last-updated svg {
+  color: var(--color-accent);
+  flex-shrink: 0;
 }
 
-to{
-transform:scale(1);
-opacity:1;
+.complete-profile-btn {
+  flex-shrink: 0;
+  padding: 11px 20px;
+
+  border: none;
+  border-radius: 999px;
+
+  background: linear-gradient(
+    135deg,
+    var(--color-primary),
+    var(--color-accent)
+  );
+  color: #ffffff;
+
+  font-family: "Poppins", sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
+.complete-profile-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(123, 44, 191, 0.22);
 }
 
-.close-btn{
-position:absolute;
-right:20px;
-top:20px;
-border:none;
-background:none;
-font-size:28px;
-cursor:pointer;
-color:#6B7280;
+/* Keep the next card visually separated from the progress card. */
+.profile-progress-card + .details-card {
+  margin-top: 0;
 }
 
-.support-card h2{
-font-family:Poppins,sans-serif;
-margin-bottom:8px;
-color:#6B21A8;
+/* Tablet */
+@media (max-width: 992px) {
+  .user-dashboard {
+    padding: 0 32px 36px !important;
+  }
+
+  .user-dashboard .dashboard-wrapper {
+    padding-top: 105px !important;
+  }
 }
 
-.support-card p{
-color:#6B7280;
-margin-bottom:25px;
+/* Mobile */
+@media (max-width: 768px) {
+  .user-dashboard {
+    padding: 0 18px 30px !important;
+  }
+
+  .user-dashboard .dashboard-wrapper {
+    padding-top: 95px !important;
+  }
+
+  .profile-progress-card {
+    padding: 20px;
+    gap: 16px;
+  }
+
+  .profile-progress-footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .complete-profile-btn {
+    width: 100%;
+    text-align: center;
+  }
 }
 
-.support-item{
-margin-bottom:18px;
-display:flex;
-flex-direction:column;
+@media (max-width: 480px) {
+  .user-dashboard {
+    padding: 0 14px 24px !important;
+  }
+
+  .profile-progress-card {
+    padding: 18px 16px;
+  }
+
+  .profile-progress-heading h3 {
+    font-size: 17px;
+  }
 }
-
-.support-item strong{
-color:#111827;
-margin-bottom:5px;
-}
-
-.support-item span{
-color:#6B7280;
-line-height:1.8;
-}
-
-/* ===========================
-   WISHLIST
-===========================*/
-
-.wishlist-dashboard-section{
-
-margin-top:40px;
-
-background:#fff;
-
-padding:30px;
-
-border-radius:22px;
-
-box-shadow:0 10px 30px rgba(0,0,0,.06);
-
-}
-
-.wishlist-dashboard-header{
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-
-margin-bottom:25px;
-
-}
-
-.wishlist-dashboard-header h2{
-
-display:flex;
-
-align-items:center;
-
-gap:10px;
-
-font-size:26px;
-
-}
-
-.wishlist-dashboard-header svg{
-
-color:#ef476f;
-
-}
-
-.wishlist-dashboard-header span{
-
-background:#ffe5ec;
-
-padding:8px 16px;
-
-border-radius:40px;
-
-font-weight:600;
-
-color:#ef476f;
-
-}
-
-.wishlist-dashboard-grid{
-
-display:grid;
-
-grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
-
-gap:25px;
-
-}
-
-.wishlist-dashboard-card{
-
-background:#fff;
-
-border-radius:18px;
-
-overflow:hidden;
-
-box-shadow:0 10px 25px rgba(0,0,0,.08);
-
-transition:.3s;
-
-}
-
-.wishlist-dashboard-card:hover{
-
-transform:translateY(-6px);
-
-}
-
-.wishlist-dashboard-card img{
-
-width:100%;
-
-height:220px;
-
-object-fit:cover;
-
-}
-
-.wishlist-dashboard-content{
-
-padding:20px;
-
-}
-
-.wishlist-dashboard-content h3{
-
-font-size:22px;
-
-margin-bottom:8px;
-
-}
-
-.wishlist-dashboard-content p{
-
-color:#666;
-
-margin-bottom:10px;
-
-}
-
-.wishlist-dashboard-location{
-
-display:flex;
-
-align-items:center;
-
-gap:8px;
-
-color:#0f766e;
-
-margin-bottom:15px;
-
-}
-
-.wishlist-dashboard-bottom{
-
-display:flex;
-
-justify-content:space-between;
-
-margin-bottom:18px;
-
-font-weight:600;
-
-}
-
-.wishlist-remove-btn{
-
-width:100%;
-
-height:48px;
-
-border:none;
-
-border-radius:10px;
-
-background:#ef476f;
-
-color:#fff;
-
-font-weight:600;
-
-cursor:pointer;
-
-transition:.3s;
-
-}
-
-.wishlist-remove-btn:hover{
-
-background:#d90429;
-
-}
-
-.wishlist-empty{
-
-text-align:center;
-
-padding:60px;
-
-font-size:20px;
-
-color:#777;
-
-}
-

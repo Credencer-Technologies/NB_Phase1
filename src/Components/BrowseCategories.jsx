@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import "./BrowseCategories.css";
 
 const baseCategories = [
@@ -29,10 +28,12 @@ const baseCategories = [
 ];
 
 export default function BrowseCategories() {
+  // Duplicate cards so the horizontal animation looks continuous
   const categories = [...baseCategories, ...baseCategories];
 
   return (
     <section className="browse-categories">
+      {/* HEADER */}
       <div className="browse-header">
         <span className="section-tag">EXPLORE</span>
 
@@ -41,10 +42,14 @@ export default function BrowseCategories() {
         <p>Discover premium services</p>
       </div>
 
+      {/* AUTO SCROLL */}
       <div className="scroll-wrapper">
         <div className="auto-scroll-track">
           {categories.map((item, index) => (
-            <div key={index} className="category-card">
+            <article
+              className="category-card"
+              key={`${item.title}-${index}`}
+            >
               <img
                 src={item.image}
                 alt={item.title}
@@ -56,7 +61,7 @@ export default function BrowseCategories() {
               <div className="category-content">
                 <h3>{item.title}</h3>
               </div>
-            </div>
+            </article>
           ))}
         </div>
       </div>

@@ -1,66 +1,85 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./HowItWorks.css";
 
 const steps = [
   {
-    id: "01",
+    number: "01",
     title: "Discover",
-    desc: "Explore curated, verified service providers across categories tailored to your needs.",
+    description:
+      "Explore curated, verified service providers across categories tailored to your needs.",
   },
   {
-    id: "02",
+    number: "02",
     title: "Compare",
-    desc: "Check ratings, reviews, portfolios, and trust scores to make confident decisions.",
+    description:
+      "Review provider profiles, client ratings, and detailed service offerings side-by-side.",
   },
   {
-    id: "03",
+    number: "03",
     title: "Connect",
-    desc: "Send requests or chat directly with selected providers instantly.",
+    description:
+      "Directly message and communicate with potential providers.",
   },
   {
-    id: "04",
+    number: "04",
     title: "Experience",
-    desc: "Enjoy seamless, premium service delivery with reliability and trust.",
+    description:
+      "Receive quality services and share your feedback.",
   },
 ];
 
-export default function HowItWorks() {
-  const [active, setActive] = useState(null);
+const HowItWorks = () => {
+  const [activeStep, setActiveStep] = useState(0);
 
-  const toggle = (id) => {
-    setActive(active === id ? null : id);
-  };
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveStep((prev) => (prev + 1) % steps.length);
+    }, 1600);
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <section className="how-wrapper">
+
       <div className="how-header">
         <h2>How It Works</h2>
-        <p>Simple steps to find trusted providers</p>
+        <p>Simple steps to find trusted, verified providers.</p>
       </div>
 
-      <div className="how-grid">
-        {steps.map((step) => (
+      <div className="how-process">
+
+        <div className="how-connection">
+          <span
+            className="how-connection-progress"
+            style={{
+              width: `${(activeStep / (steps.length - 1)) * 100}%`,
+            }}
+          />
+        </div>
+
+        {steps.map((step, index) => (
           <div
-            key={step.id}
-            className={`how-card ${active === step.id ? "active" : ""}`}
-            onClick={() => toggle(step.id)}
+            key={step.number}
+            className={`how-step ${
+              activeStep === index ? "is-active" : ""
+            }`}
           >
-            <div className="card-top">
-              <span className="step-id">{step.id}</span>
-              <h3>{step.title}</h3>
-              <span className="toggle-icon">
-                {active === step.id ? "−" : "+"}
-              </span>
+            <div className="how-number">
+              {step.number}
             </div>
 
-            <div
-              className={`desc ${active === step.id ? "open" : ""}`}
-            >
-              <p>{step.desc}</p>
+            <div className="how-info">
+              <h3>{step.title}</h3>
+
+              <p>{step.description}</p>
             </div>
           </div>
         ))}
+
       </div>
     </section>
   );
-}
+};
+
+export default HowItWorks;

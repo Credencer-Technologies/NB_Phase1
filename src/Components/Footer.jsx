@@ -5,9 +5,7 @@ import { Link } from "react-router-dom";
 import { FiPlus, FiMinus } from "react-icons/fi";
 
 import {
-  FaInstagram,
-  FaLinkedinIn,
-  FaFacebookF,
+
   FaWhatsapp,
   FaPhoneAlt,
   FaMapMarkerAlt,
@@ -21,108 +19,108 @@ function Footer() {
   const [showAll, setShowAll] = useState(false);
 
   const faqs = [
-  {
-    question: "What is Nari Bazar?",
-    answer:
-      "Nari Bazar is a trusted digital marketplace connecting customers with verified women entrepreneurs offering services across multiple categories.",
-  },
-  {
-    question: "Do I need to create an account?",
-    answer:
-      "You can browse providers without registering. However, you'll need an account to save favourites, send enquiries, and manage bookings.",
-  },
-  {
-    question: "Are all service providers verified?",
-    answer:
-      "Yes. Every service provider is verified before being listed on the platform.",
-  },
-  {
-    question: "How do I contact a service provider?",
-    answer:
-      "Visit the provider's profile and click the enquiry button to connect directly.",
-  },
-  {
-    question: "How can I become a service provider?",
-    answer:
-      "Register as a service provider, complete your profile, upload the required documents, and submit them for verification.",
-  },
+    {
+      question: "What is Nari Bazar?",
+      answer:
+        "Nari Bazar is a trusted digital marketplace connecting customers with verified women entrepreneurs offering services across multiple categories.",
+    },
+    {
+      question: "Do I need to create an account?",
+      answer:
+        "You can browse providers without registering. However, you'll need an account to save favourites, send enquiries, and manage bookings.",
+    },
+    {
+      question: "Are all service providers verified?",
+      answer:
+        "Yes. Every service provider is verified before being listed on the platform.",
+    },
+    {
+      question: "How do I contact a service provider?",
+      answer:
+        "Visit the provider's profile and click the enquiry button to connect directly.",
+    },
+    {
+      question: "How can I become a service provider?",
+      answer:
+        "Register as a service provider, complete your profile, upload the required documents, and submit them for verification.",
+    },
 
-  {
-    question: "Is Nari Bazar free to use?",
-    answer:
-      "Yes. Customers can browse and explore services without any registration fee.",
-  },
-  {
-    question: "Can I update my profile later?",
-    answer:
-      "Yes. You can edit your profile details anytime after logging into your account.",
-  },
-  {
-    question: "How do I search for services?",
-    answer:
-      "Use the search bar or browse categories to quickly find the services you need.",
-  },
-  {
-    question: "Can I save my favourite service providers?",
-    answer:
-      "Yes. Logged-in users can bookmark providers and access them later from their profile.",
-  },
-  {
-    question: "How long does verification take?",
-    answer:
-      "Verification usually takes 24–48 working hours after all required documents are submitted.",
-  },
-  {
-    question: "Can I contact multiple providers?",
-    answer:
-      "Yes. You may send enquiries to multiple verified providers before making a decision.",
-  },
-  {
-    question: "How do I reset my password?",
-    answer:
-      "Click the 'Forgot Password' option on the login page and follow the instructions sent to your email.",
-  },
-  {
-    question: "Can I delete my account?",
-    answer:
-      "Yes. You can request account deletion through your profile settings or by contacting support.",
-  },
-  {
-    question: "Is my personal information secure?",
-    answer:
-      "Yes. Your information is protected using secure authentication and privacy measures.",
-  },
-  {
-    question: "Can service providers edit their listings?",
-    answer:
-      "Yes. Providers can update their services, pricing, and availability anytime.",
-  },
-  {
-    question: "How will I know if my enquiry is received?",
-    answer:
-      "You will receive a confirmation once your enquiry has been successfully submitted.",
-  },
-  {
-    question: "Can I report inappropriate content?",
-    answer:
-      "Yes. Users can report suspicious or inappropriate listings through the report option.",
-  },
-  {
-    question: "What categories are available on Nari Bazar?",
-    answer:
-      "The platform offers services across beauty, tailoring, food, education, home services, and many more.",
-  },
-  {
-    question: "Does Nari Bazar provide customer support?",
-    answer:
-      "Yes. Our support team is available to assist users with platform-related queries.",
-  },
-  {
-    question: "Can I access Nari Bazar on mobile devices?",
-    answer:
-      "Yes. Nari Bazar is fully responsive and works smoothly on desktops, tablets, and mobile devices.",
-  },
-];
+    {
+      question: "Is Nari Bazar free to use?",
+      answer:
+        "Yes. Customers can browse and explore services without any registration fee.",
+    },
+    {
+      question: "Can I update my profile later?",
+      answer:
+        "Yes. You can edit your profile details anytime after logging into your account.",
+    },
+    {
+      question: "How do I search for services?",
+      answer:
+        "Use the search bar or browse categories to quickly find the services you need.",
+    },
+    {
+      question: "Can I save my favourite service providers?",
+      answer:
+        "Yes. Logged-in users can bookmark providers and access them later from their profile.",
+    },
+    {
+      question: "How long does verification take?",
+      answer:
+        "Verification usually takes 24–48 working hours after all required documents are submitted.",
+    },
+    {
+      question: "Can I contact multiple providers?",
+      answer:
+        "Yes. You may send enquiries to multiple verified providers before making a decision.",
+    },
+    {
+      question: "How do I reset my password?",
+      answer:
+        "Click the 'Forgot Password' option on the login page and follow the instructions sent to your email.",
+    },
+    {
+      question: "Can I delete my account?",
+      answer:
+        "Yes. You can request account deletion through your profile settings or by contacting support.",
+    },
+    {
+      question: "Is my personal information secure?",
+      answer:
+        "Yes. Your information is protected using secure authentication and privacy measures.",
+    },
+    {
+      question: "Can service providers edit their listings?",
+      answer:
+        "Yes. Providers can update their services, pricing, and availability anytime.",
+    },
+    {
+      question: "How will I know if my enquiry is received?",
+      answer:
+        "You will receive a confirmation once your enquiry has been successfully submitted.",
+    },
+    {
+      question: "Can I report inappropriate content?",
+      answer:
+        "Yes. Users can report suspicious or inappropriate listings through the report option.",
+    },
+    {
+      question: "What categories are available on Nari Bazar?",
+      answer:
+        "The platform offers services across beauty, tailoring, food, education, home services, and many more.",
+    },
+    {
+      question: "Does Nari Bazar provide customer support?",
+      answer:
+        "Yes. Our support team is available to assist users with platform-related queries.",
+    },
+    {
+      question: "Can I access Nari Bazar on mobile devices?",
+      answer:
+        "Yes. Nari Bazar is fully responsive and works smoothly on desktops, tablets, and mobile devices.",
+    },
+  ];
 
   const toggleFAQ = (index) => {
     setOpenIndex(openIndex === index ? null : index);
@@ -132,54 +130,53 @@ function Footer() {
     <footer className="footer">
       {/* ================= FAQ SECTION ================= */}
 
-<section className="footer-faq">
+      <section className="footer-faq">
 
-  <div className="faq-container">
+        <div className="faq-container">
 
-    <h2>Frequently Asked Questions</h2>
+          <h2>Frequently Asked Questions</h2>
 
-    <p className="faq-subtitle">
-      Everything you need to know about using Nari Bazar.
-    </p>
+          <p className="faq-subtitle">
+            Everything you need to know about using Nari Bazar.
+          </p>
 
-    {(showAll ? faqs : faqs.slice(0, 5)).map((faq, index) => (
-      <div
-        key={index}
-        className={`faq-item ${openIndex === index ? "active" : ""}`}
-      >
-        <button
-          className="faq-question"
-          onClick={() => toggleFAQ(index)}
-        >
-          <span>{faq.question}</span>
+          {(showAll ? faqs : faqs.slice(0, 5)).map((faq, index) => (
+            <div
+              key={index}
+              className={`faq-item ${openIndex === index ? "active" : ""}`}
+            >
+              <button
+                className="faq-question"
+                onClick={() => toggleFAQ(index)}
+              >
+                <span>{faq.question}</span>
 
-          {openIndex === index ? <FiMinus /> : <FiPlus />}
-        </button>
+                {openIndex === index ? <FiMinus /> : <FiPlus />}
+              </button>
 
-        <div
-          className={`faq-answer ${
-            openIndex === index ? "show" : ""
-          }`}
-        >
-          <p>{faq.answer}</p>
+              <div
+                className={`faq-answer ${openIndex === index ? "show" : ""
+                  }`}
+              >
+                <p>{faq.answer}</p>
+              </div>
+            </div>
+          ))}
+
+          <div className="view-all-container">
+
+            <button
+              className="view-all-faqs"
+              onClick={() => setShowAll(!showAll)}
+            >
+              {showAll ? "Show Less FAQs" : "View All FAQs"}
+            </button>
+          </div>
+
+
         </div>
-      </div>
-    ))}
 
-    <div className="view-all-container">
-  
-  <button
-    className="view-all-faqs"
-    onClick={() => setShowAll(!showAll)}
-  >
-    {showAll ? "Show Less FAQs" : "View All FAQs"}
-  </button>
-</div>
-
-
-  </div>
-
-</section>
+      </section>
 
       <div className="footer-container">
 
@@ -197,17 +194,18 @@ function Footer() {
               </h2>
 
               <p className="footer-tagline">
-                Empowering Women Entrepreneurs
+                Empowering Women Entrepreneurs.              
+              </p>
+              <p className="footer-subtagline">
+                Discover • Connect • Thrive
               </p>
             </div>
           </div>
-
           <p className="footer-description">
-            NariBazar is a trusted women-centric marketplace connecting skilled
-            women entrepreneurs and professionals with customers across India.
-            Discover services, grow businesses, and empower communities through
-            one digital platform.
-          </p>
+  NariBazar connects skilled women entrepreneurs with customers across
+  India, helping them showcase their services, grow their businesses,
+  and build a brighter future.
+</p>
 
         </div>
 
@@ -265,40 +263,57 @@ function Footer() {
             Arts & Crafts
           </Link>
 
+          <Link to="/explore?category=hospitality">
+            Hospitality
+          </Link>
+
+          <Link to="/explore?category=others">
+            Others
+          </Link>
+
         </div>
 
         {/* ================= CONTACT ================= */}
 
         <div className="footer-column">
-
           <h3>Contact</h3>
 
           <div className="footer-contact">
 
+            {/* Phone */}
             <div className="contact-row">
               <FaPhoneAlt />
-              <span>+91 9490594867</span>
+              <a href="tel:+919490594867" className="contact-link">
+                +91 9490594867
+              </a>
             </div>
 
+            {/* Email */}
             <div className="contact-row">
               <MdEmail />
-              <span>info@naribazar.in</span>
+              <a href="mailto:info@naribazar.in" className="contact-link">
+                info@naribazar.in
+              </a>
             </div>
 
+            {/* Location */}
             <div className="contact-row">
               <FaMapMarkerAlt />
-              <span>
+              <a
+                href="https://www.google.com/maps/place/Credencer+Technologies/@17.4366455,78.3642267,17z/data=!3m2!4b1!5s0x3bcb93ca67b0a531:0x5e9995f09d025bda!4m6!3m5!1s0x3bcb97c1def849f9:0xc19cbff77a08d69b!8m2!3d17.4366404!4d78.3668016!16s%2Fg%2F11flf5lpzz?entry=ttu&g_ep=EgoyMDI2MDcxMy4wIKXMDSoASAFQAw%3D%3D"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="contact-link"
+              >
                 Gachibowli,
                 <br />
                 Hyderabad,
                 Telangana
-              </span>
+              </a>
             </div>
 
           </div>
-
         </div>
-
       </div>
 
       {/* ================= DIVIDER ================= */}
@@ -346,36 +361,11 @@ function Footer() {
           >
             <FaWhatsapp />
           </a>
-
-          <a
-            href="https://instagram.com"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <FaInstagram />
-          </a>
-
-          <a
-            href="https://linkedin.com"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <FaLinkedinIn />
-          </a>
-
-          <a
-            href="https://facebook.com"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <FaFacebookF />
-          </a>
-
         </div>
 
       </div>
 
-         </footer>
+    </footer>
   );
 }
 export default Footer;

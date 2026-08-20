@@ -124,6 +124,18 @@ body {
   font-weight: 600;
 }
 
+/* Provider's master availability toggle is off - nothing on this profile is bookable. */
+.layout-status-tag-offline {
+  color: #dc2626;
+  font-weight: 600;
+}
+
+/* Provider is available overall, but the currently viewed service is paused. */
+.layout-status-tag-paused {
+  color: #d97706;
+  font-weight: 600;
+}
+
 /* Header Action Column Stack Group Layout */
 .hero-stacked-button-group {
   display: flex;
@@ -633,6 +645,42 @@ body {
 .layout-service-row strong {
   color: var(--color-primary) !important;
   font-weight: 700 !important;
+}
+
+/* Sub-Offer Packages nested under each service row, e.g.
+   "Minimal / Finger Design: ₹100 – ₹200" */
+.layout-service-group-block {
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.layout-service-suboffers-list {
+  list-style: none !important;
+  margin: 6px 0 0 !important;
+  padding: 4px 14px 2px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 6px !important;
+}
+
+.layout-service-suboffer-row {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  font-size: 13px !important;
+  padding-left: 10px !important;
+  border-left: 2px solid var(--border-color) !important;
+  color: var(--text-secondary, #555) !important;
+}
+
+.suboffer-name {
+  font-weight: 500 !important;
+}
+
+.suboffer-price {
+  color: var(--color-primary) !important;
+  font-weight: 600 !important;
+  white-space: nowrap !important;
 }
 
 /* Compact Portfolio Sidebar Gallery Layout Tokens */
@@ -1161,6 +1209,18 @@ body {
 
 .layout-status-tag-active {
   color: #16a34a;
+  font-weight: 600;
+}
+
+/* Provider's master availability toggle is off - nothing on this profile is bookable. */
+.layout-status-tag-offline {
+  color: #dc2626;
+  font-weight: 600;
+}
+
+/* Provider is available overall, but the currently viewed service is paused. */
+.layout-status-tag-paused {
+  color: #d97706;
   font-weight: 600;
 }
 
@@ -1712,6 +1772,42 @@ body {
   font-weight: 700 !important;
 }
 
+/* Sub-Offer Packages nested under each service row, e.g.
+   "Minimal / Finger Design: ₹100 – ₹200" */
+.layout-service-group-block {
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.layout-service-suboffers-list {
+  list-style: none !important;
+  margin: 6px 0 0 !important;
+  padding: 4px 14px 2px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 6px !important;
+}
+
+.layout-service-suboffer-row {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  font-size: 13px !important;
+  padding-left: 10px !important;
+  border-left: 2px solid var(--border-color) !important;
+  color: var(--text-secondary, #555) !important;
+}
+
+.suboffer-name {
+  font-weight: 500 !important;
+}
+
+.suboffer-price {
+  color: var(--color-primary) !important;
+  font-weight: 600 !important;
+  white-space: nowrap !important;
+}
+
 /* Compact Portfolio Sidebar Gallery Layout Tokens */
 .in-column-portfolio-grid {
   display: grid !important;
@@ -2118,12 +2214,21 @@ body {
   display: flex !important;
   gap: 20px !important;
   width: max-content !important;
-  animation: scrollMarqueeLoop 25s linear infinite !important;
+  animation: scrollMarqueeLoop var(--marquee-duration, 25s) linear infinite !important;
 }
 
 .infinity-marquee-scroller-viewport-mask:hover .infinity-marquee-scroller-inner-track {
   animation-play-state: paused !important;
 }
+
+/* Fewer than 4 reviews: shown once, static, centered - no scrolling. */
+.infinity-marquee-scroller-inner-track.marquee-static-no-loop {
+  animation: none !important;
+  transform: none !important;
+  justify-content: center !important;
+  width: 100% !important;
+}
+
 
 @keyframes scrollMarqueeLoop {
   0% { transform: translateX(0); }
@@ -2215,9 +2320,10 @@ body {
 
 .infinity-marquee-scroller-inner-track {
   display: flex !important; gap: 20px !important; width: max-content !important;
-  animation: scrollMarqueeLoop 25s linear infinite !important;
+  animation: scrollMarqueeLoop var(--marquee-duration, 25s) linear infinite !important;
 }
 .infinity-marquee-scroller-viewport-mask:hover .infinity-marquee-scroller-inner-track { animation-play-state: paused !important; }
+.infinity-marquee-scroller-inner-track.marquee-static-no-loop { animation: none !important; transform: none !important; justify-content: center !important; width: 100% !important; }
 
 @keyframes scrollMarqueeLoop {
   0% { transform: translateX(0); }
@@ -2247,4 +2353,90 @@ body {
   box-shadow: var(--shadow) !important;
   position: relative !important;
   top: 0 !important;               /* Stops card from sliding up into header tabs */
+}
+
+/* ==========================================================================
+   SECTION 31: PORTFOLIO GRID GAP FIX
+   --------------------------------------------------------------------------
+   Root cause of the huge visible gaps between portfolio thumbnails: the
+   grid columns were `repeat(4, 1fr)` (each column ~1/4 of the wide
+   container), but each tile was pinned to a fixed 90x90px box
+   (`.mini-item-card` height + `.layout-portfolio-item` aspect-ratio: 1).
+   So a 90px image sat inside a much wider ~200px column, leaving a big
+   empty strip next to every photo even though the CSS `gap` was only 8px.
+   Fix: size the grid columns to match the tile size itself (auto-fill),
+   so columns only take up as much room as the photos actually need and
+   thumbnails pack tightly next to each other with just the intended gap.
+   This rule is deliberately placed last and uses a 3-class selector so it
+   reliably wins over the earlier conflicting `repeat(4, 1fr)` declarations.
+   ========================================================================== */
+.side-portfolio-box-panel .layout-portfolio-grid.in-column-portfolio-grid.mini-grid-sizing {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, 90px) !important;
+  gap: 10px !important;
+  justify-content: flex-start !important;
+}
+
+.side-portfolio-box-panel .layout-portfolio-item.mini-item-card {
+  width: 90px !important;
+  height: 90px !important;
+}
+
+/* ==========================================================================
+   PROVIDER PROFILE LIVE STATUS — TARGETED ADDITION
+   Matches the current ProviderProfile.jsx without changing existing layout.
+   ========================================================================== */
+
+.nbp-booking-state {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 7px !important;
+  width: fit-content !important;
+  padding: 6px 11px !important;
+  border-radius: 999px !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  line-height: 1.2 !important;
+}
+
+/* Verified/approved and bookable */
+.nbp-booking-state.is-available {
+  color: #15803d !important;
+  background: #f0fdf4 !important;
+  border: 1px solid #bbf7d0 !important;
+}
+
+/* Provider-level pause OR individual service pause */
+.nbp-booking-state.is-paused {
+  color: #b45309 !important;
+  background: #fffbeb !important;
+  border: 1px solid #fde68a !important;
+}
+
+/* Admin rejected a previously verified provider */
+.nbp-booking-state.is-unavailable {
+  color: #b91c1c !important;
+  background: #fef2f2 !important;
+  border: 1px solid #fecaca !important;
+}
+
+.nbp-booking-state .nbp-state-dot {
+  width: 7px !important;
+  height: 7px !important;
+  flex: 0 0 7px !important;
+  border-radius: 50% !important;
+  background: currentColor !important;
+}
+
+/* Also supports the status class returned by providerStatusDisplay. */
+.layout-status-tag-unavailable {
+  color: #b91c1c !important;
+  font-weight: 700 !important;
+}
+
+@media (max-width: 600px) {
+  .nbp-booking-state {
+    padding: 5px 9px !important;
+    font-size: 11px !important;
+  }
 }

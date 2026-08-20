@@ -49,7 +49,7 @@ const Hero = () => {
             onMouseMove={secondary.handleMove}
             onMouseLeave={secondary.handleLeave}
             className="btn-glass secondary"
-            onClick={() => navigate("/register")}
+            onClick={() => navigate("/register?role=provider")}
           >
             Join as a Provider
           </button>

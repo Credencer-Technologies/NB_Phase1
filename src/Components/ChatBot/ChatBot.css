@@ -1,0 +1,544 @@
+:root{
+  --primary:#6B21A8;
+  --primary-light:#A855F7;
+  --accent:#DB2777;
+  --accent-soft:#FCE7F3;
+  --background:#FAFAFA;
+  --surface:#FFFFFF;
+  --text:#111827;
+  --text-light:#6B7280;
+  --success:#059669;
+}
+
+*{
+margin:0;padding:0;box-sizing:border-box;font-family:Poppins,sans-serif;}
+
+.nb-chat-button {position: fixed;bottom: 30px;right: 13px;   width: 70px;height: 70px;border-radius: 50%;border: none;cursor: pointer;display: flex;justify-content: center;align-items: center;overflow: hidden;z-index: 9999;}
+.nb-chat-icon {width: 100%;height: 100%;object-fit: cover;border-radius: 50%;}
+.nb-chat-button:hover{transform:scale(1.08);box-shadow:0 10px 25px rgba(168,85,247,.4);}
+
+.nb-chat-window{
+position:fixed;right:20px;top:110px;bottom:auto;width:340px;height:520px;background:#fff;border-radius:18px;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 15px 40px rgba(0,0,0,.25);z-index:9999;}
+.nb-chat-header{position: relative;height: 68px;padding: 0 14px;display: flex;align-items: center;justify-content: space-between;
+    background: linear-gradient(
+        135deg,
+        #5B21B6 0%,
+        #7E22CE 40%,
+        #C026D3 75%,
+        #EC4899 100%
+    );color: #fff;overflow: visible;}
+.header-actions button{color:#831843;}
+.bot-info{
+display:flex;align-items:center;gap:12px;}
+.bot-info h3{color:#fff;font-size:21px;font-weight:700;margin:0;}
+.bot-info span{color:#fff;opacity:.95;font-size:13px;display:flex;align-items:center;gap:6px;}
+.chat-header-left{ display:flex;align-items:center;gap:12px;}
+.chatbot-logo{
+width:52px;height:52px;border-radius:50%;object-fit:cover;background:#fff;padding:2px;box-shadow:0 5px 15px rgba(219,39,119,.15);}
+/* Close Button */
+.close-btn{
+    width:40px;
+    height:40px;
+    border:none;
+    position: absolute;
+  top: 12px;
+  right: 14px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    background:rgba(255,255,255,.22);
+    backdrop-filter:blur(10px);
+    color:#f1eeef;
+    font-size:24px;
+    font-weight:700;
+    transition:.3s;
+}
+
+.close-btn:hover{
+    transform:rotate(90deg);
+    background:rgba(255,255,255,.32);
+}
+.online-dot{
+width:8px;
+height:8px;
+border-radius:50%;
+background:#22C55E;
+box-shadow:0 0 8px #22C55E;
+}
+.nb-chat-body{
+flex:1;
+padding:14px 14px;
+overflow-y:auto;
+background:#FAFAFA;
+}
+.message-wrapper{
+display:flex;
+margin-bottom:10px;
+}
+.user{
+justify-content:flex-end;
+padding-left: 20%;
+}
+.bot{
+justify-content:flex-start;
+padding-right: 0%;
+}
+.message-bubble{
+  max-width:92%;
+  padding:10px 13px;
+  border-radius:18px;
+  word-break:break-word;
+}
+.user-message{
+background:linear-gradient(
+135deg,
+#6B21A8,
+#A855F7
+);
+color:white;}
+.user-message p{
+color:white;
+}
+.bot-message{
+  background:#FFFFFF;
+  border:1px solid #F3E8FF;
+  color:#111827;
+  box-shadow:0 8px 20px rgba(107,33,168,.08);
+  white-space: pre-line;
+  line-height:1.7;
+  word-break:break-word;
+}
+.bot-message p {
+  margin: 0;
+  line-height: 1.35;
+}
+.message-time{
+display:block;
+font-size:11px;
+color:#0d0c00;
+margin-top:5px;
+opacity:.8;
+text-align:right;
+}
+.message-actions{
+display:flex;
+justify-content:flex-end;
+margin-top:8px;
+}
+.speaker-btn{
+width:30px;
+height:30px;
+border:none;
+border-radius:50%;
+background:#FCE7F3;
+color:#DB2777;
+display:flex;
+align-items:center;
+justify-content:center;
+cursor:pointer;
+transition:.3s;
+font-size:14px;
+}
+.speaker-btn:hover{
+background:#DB2777;
+color:white;
+transform:scale(1.08);
+}
+.typing-indicator{
+background:white;
+padding:12px 16px;
+border-radius:18px;
+border:1px solid #F3E8FF;
+display:flex;
+gap:6px;
+}
+.typing-indicator span{
+width:8px;
+height:8px;
+border-radius:50%;
+background:#A855F7;
+animation:blink 1.2s infinite;
+}
+.typing-indicator span:nth-child(2){
+animation-delay:.2s;
+}
+.typing-indicator span:nth-child(3){
+animation-delay:.4s;
+}
+@keyframes blink{
+0%,100%{
+opacity:.3;
+}
+50%{
+opacity:1;
+}
+}
+.nb-chat-footer{
+  display:flex;
+  align-items:center;
+  gap:4px;
+  padding:8px 10px;
+  width:100%;
+  box-sizing:border-box;
+  overflow:hidden;
+}
+.nb-chat-footer input{
+  flex:1 1 auto;
+  width:100%;
+  min-width:0;
+  height:38px;
+  padding:0 12px;
+  border:1px solid #E9D5FF;
+  border-radius:30px;
+  outline:none;
+  font-size:14px;
+  box-sizing:border-box;
+}
+.nb-chat-footer input:focus{
+  border-color:#A855F7;
+  box-shadow:
+  0 0 0 4px rgba(168,85,247,.12);
+}
+.nb-chat-footer input::placeholder{
+  color:#6B7280;
+}
+.footer-icon,
+.footer-speaker,
+.footer-send {
+  width:38px;
+  min-width:38px;
+  max-width:38px;
+  height:38px;
+  min-height:38px;
+  max-height:38px;
+  flex:0 0 38px;
+  border:none;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  transition:.3s;
+  font-size:16px;
+  padding:0;
+}
+.footer-icon{
+  background:#6B21A8;
+  color:#fff;
+}
+.footer-icon:hover{
+  background:#A855F7;
+  transform:scale(1.08);
+}
+.footer-speaker{
+  background:#DB2777;
+  color:#fff;
+}
+.footer-speaker:hover{
+  background:#c61f6b;
+  transform:scale(1.08);
+}
+.footer-speaker.off{
+  background:#6B7280;
+}
+.footer-send{
+  background:linear-gradient(
+      135deg,
+      #6B21A8,
+      #A855F7,
+      #DB2777
+  );color:#fff;
+}
+.footer-send:hover{
+  transform:scale(1.08);
+}
+.nb-chat-footer button{
+width:45px;
+height:45px;
+border:none;
+border-radius:50%;
+background:linear-gradient(
+135deg,
+#DB2777,
+#A855F7
+);color:white;
+cursor:pointer;
+}
+.suggestions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 10px;
+}
+.suggestion-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  border: 1px solid #F9A8D4;
+  border-radius: 25px;
+  background: #FCE7F3;
+  color: #DB2777;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 14px;
+}
+.suggestion-btn:hover {
+  background: #6B21A8;
+  color: #fff;
+}
+.btn-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
+@media(max-width:480px){
+.nb-chat-window{
+width:95%;
+right:2.5%;
+height:80vh;
+bottom:85px;
+}
+}
+.listening {
+  background: #ef4444;
+  color: white;
+  animation: pulse 1s infinite;
+}
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.08);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+/* =========================================
+   FLOATING NARISAKHI LAUNCHER
+========================================= */
+
+.ask-narisakhi-launcher {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+
+  width: 72px;
+  height: 72px;
+
+  padding: 4px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+  outline: none;
+
+  /* Default icon-only state = circle */
+  border-radius: 50%;
+
+  /* NariBazar Primary */
+  background: #6B21A8;
+
+  cursor: pointer;
+  z-index: 999999;
+
+  box-shadow:
+    0 6px 20px rgba(107, 33, 168, 0.30);
+
+  overflow: hidden;
+
+  transition:
+    width 0.35s ease,
+    height 0.35s ease,
+    border-radius 0.35s ease,
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+
+/* =========================================
+   ASK NARISAKHI AI - RECTANGLE
+========================================= */
+
+.ask-narisakhi-launcher.launcher-expanded {
+  width: 260px;
+  height: 72px;
+
+  /* IMPORTANT:
+     Oval/pill kakunda rectangle */
+  border-radius: 14px;
+
+  justify-content: flex-start;
+
+  background: #6B21A8;
+
+  box-shadow:
+    0 8px 24px rgba(107, 33, 168, 0.35);
+}
+
+
+/* =========================================
+   ICON ONLY
+========================================= */
+
+.ask-narisakhi-launcher.launcher-icon-only {
+  width: 72px;
+  height: 72px;
+
+  border-radius: 50%;
+
+  justify-content: center;
+
+  background: #6B21A8;
+}
+
+
+/* =========================================
+   NARISAKHI ICON
+========================================= */
+
+.ask-narisakhi-logo {
+  width: 60px;
+  height: 60px;
+
+  min-width: 60px;
+  min-height: 60px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+  overflow: hidden;
+
+  background: #ffffff;
+
+  border: 2px solid #ffffff;
+
+  flex-shrink: 0;
+}
+
+.ask-narisakhi-logo img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  display: block;
+
+  border-radius: 50%;
+}
+
+
+/* =========================================
+   ASK NARISAKHI TEXT
+========================================= */
+
+.ask-narisakhi-label {
+  margin-left: 12px;
+
+  color: #ffffff;
+
+  font-family: Poppins, sans-serif;
+
+  font-size: 16px;
+  font-weight: 600;
+
+  white-space: nowrap;
+
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease,
+    width 0.3s ease,
+    margin 0.3s ease;
+}
+
+.label-visible {
+  opacity: 1;
+  width: auto;
+
+  transform: translateX(0);
+}
+
+
+/* =========================================
+   HOVER
+========================================= */
+
+.ask-narisakhi-launcher:hover {
+  transform: translateY(-3px);
+
+  box-shadow:
+    0 12px 30px rgba(107, 33, 168, 0.40);
+}
+
+
+/* =========================================
+   CLICK
+========================================= */
+
+.ask-narisakhi-launcher:active {
+  transform: scale(0.96);
+}
+@media (max-width: 768px) {
+
+  .ask-narisakhi-launcher {
+    right: 16px;
+    bottom: 20px;
+
+    width: 64px;
+    height: 64px;
+
+    min-width: 64px;
+
+    border-radius: 50%;
+  }
+
+  .ask-narisakhi-launcher.launcher-expanded {
+    width: 230px;
+    height: 64px;
+
+    /* Rectangle on mobile also */
+    border-radius: 12px;
+
+    justify-content: flex-start;
+  }
+
+  .ask-narisakhi-launcher.launcher-icon-only {
+    width: 64px;
+    height: 64px;
+
+    border-radius: 50%;
+  }
+
+  .ask-narisakhi-logo {
+    width: 54px;
+    height: 54px;
+
+    min-width: 54px;
+    min-height: 54px;
+  }
+
+  .ask-narisakhi-label {
+    font-size: 15px;
+    margin-left: 10px;
+  }
+
+  .nb-chat-window.chatbot-open-top {
+    top: 90px;
+    right: 12px;
+
+    width: calc(100% - 24px);
+
+    height: calc(100vh - 105px);
+
+    border-radius: 18px;
+  }
+}

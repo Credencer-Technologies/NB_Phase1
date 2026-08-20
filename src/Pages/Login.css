@@ -1,17 +1,34 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600&display=swap');
+
+:root {
+  --color-primary: #7E22CE;
+  --color-primary-light: #C026D3;
+  --color-accent: #EC4899;
+  --color-gold: #FFD166;
+  --color-gold-light: #FFE7A3;
+  --color-bg: #0F0717;
+  --color-surface: rgba(255,255,255,0.12);
+  --color-text-primary: #FFFFFF;
+  --color-text-secondary: rgba(255,255,255,0.75);
+  --color-success: #10B981;
+  --color-error: #FF4D6D;
+
+  --font-heading: 'Poppins', sans-serif;
+  --font-body: 'Inter', sans-serif;
+}
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
+    font-family: var(--font-body);
 }
 
 body {
     margin: 0;
     padding: 0;
     overflow-x: hidden;
-    background: #12031f;
+    background: var(--color-bg);
 }
 
 /* ==========================================================================
@@ -22,11 +39,8 @@ body {
     min-height: 100vh;
     display: flex;
     align-items: center;
-    padding-left: 32%; /* Positions card on the left side overlaying your banner graphic */
-    background: url("/image/backdrop.jpeg");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    padding-left: 32%;
+    background: url("/image/backdrop.jpeg") center center/cover no-repeat;
     position: relative;
     overflow: hidden;
 }
@@ -35,49 +49,35 @@ body {
     content: "";
     position: absolute;
     inset: 0;
-    background: 
-        radial-gradient(circle at top left, rgba(168, 85, 247, 0.30), transparent 38%),
+    background:
+        radial-gradient(circle at top left, rgba(126, 34, 206, 0.30), transparent 38%),
         radial-gradient(circle at bottom right, rgba(236, 72, 153, 0.20), transparent 42%);
-    backdrop-filter: blur(1px);
 }
 
 /* ==========================================================================
-   MAIN GLASS CARD
+   MAIN GLASS CARD (matches .register-card styling)
    ========================================================================== */
 .login-form-card {
     position: relative;
     z-index: 10;
-    width: 350px;
+    width: 400px;
     max-width: 100%;
-    padding: 45px 16px 14px;
-    border-radius: 24px;
-    background: rgba(255, 255, 255, 0.06);
+    padding: 45px 30px 25px;
+    border-radius: 28px;
+    background: linear-gradient(
+        180deg,
+        rgba(133, 98, 153, 0.45),
+        rgba(58, 36, 73, 0.55)
+    );
     backdrop-filter: blur(25px);
     -webkit-backdrop-filter: blur(25px);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    box-shadow: 
-        0 8px 25px rgba(0, 0, 0, 0.28),
-        inset 0 1px 1px rgba(255, 255, 255, .18);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow:
+        0 12px 40px rgba(0, 0, 0, .30),
+        inset 0 1px 0 rgba(255, 255, 255, .08);
     overflow: visible;
     min-height: 180px;
-}
-
-.login-form-card::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: 24px;
-    background: linear-gradient(135deg, rgba(255, 255, 255, .08), rgba(255, 255, 255, .01));
-    pointer-events: none;
-}
-
-.login-form-card::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: 24px;
-    background: linear-gradient(135deg, rgba(255, 255, 255, .12), transparent 35%);
-    pointer-events: none;
+    transition: .35s;
 }
 
 /* ==========================================================================
@@ -92,7 +92,7 @@ body {
     height: 82px;
     border-radius: 50%;
     overflow: hidden;
-    background: rgba(255, 255, 255, 0.06);
+    background: var(--color-surface);
     backdrop-filter: blur(15px);
     border: 2px solid rgba(255, 255, 255, 0.25);
     box-shadow: 0 6px 20px rgba(0, 0, 0, .35);
@@ -113,76 +113,112 @@ body {
 }
 
 .login-header h2 {
-    color: #fff;
-    font-size: 19px;
+    font-family: var(--font-heading);
+    color: #FFFFFF !important;
+    font-size: 2rem;
     font-weight: 700;
-    margin-bottom: 6px;
+    margin-bottom: 8px;
 }
 
 .login-header p {
-    color: rgba(255, 255, 255, .75);
-    font-size: 11px;
-    line-height: 1.6;
+    color: rgba(255, 255, 255, .8) !important;
+    font-size: 13px;
+    line-height: 1.7;
 }
 
 .field-label {
-    color: #fff;
-    font-size: 11px;
-    margin-bottom: 6px;
+    font-family: var(--font-heading);
+    color: #F3E8FF !important;
+    font-size: .95rem;
+    margin-bottom: 5px;
     display: block;
-    font-weight: 500;
+    font-weight: 600;
 }
 
 /* ==========================================================================
-   FORM INPUTS (FORCES OVERRIDES ON GLOBAL TEXT INPUT RULES)
+   FORM INPUTS (matches .register-card input styling)
    ========================================================================== */
 .input-box {
     position: relative;
-    margin-bottom: 11px;
+    margin-bottom: 8px;
 }
 
 .input-box i {
     position: absolute;
-    left: 14px;
+    left: 16px;
     top: 50%;
     transform: translateY(-50%);
-    color: #c084fc;
+    color: var(--color-gold);
     z-index: 2;
-    font-size: 13px;
+    font-size: 14px;
 }
 
-/* Reinforced Specificity selectors to safely counter-act index.css properties */
 .login-form-card .input-box input,
 .login-form-card .input-box input[type="text"],
 .login-form-card .input-box input[type="tel"] {
     width: 100%;
-    height: 42px;
-    border-radius: 12px;
-    background: rgba(255, 255, 255, .05) !important;
-    backdrop-filter: blur(12px) !important;
-    -webkit-backdrop-filter: blur(12px) !important;
-    border: 1px solid rgba(255, 255, 255, .10) !important;
+    height: 50px;
+    border-radius: 14px;
+    background: transparent !important;
+    -webkit-appearance: none;
+    appearance: none;
+    border: 2px solid rgba(255, 255, 255, .3) !important;
     outline: none !important;
-    padding-left: 40px;
-    padding-right: 12px;
-    color: #fff !important;
-    font-size: 12px;
+    padding-left: 42px;
+    padding-right: 14px;
+    color: #FFFFFF !important;
+    -webkit-text-fill-color: #FFFFFF !important;
+    font-family: var(--font-body);
+    font-size: 15px;
     transition: .3s;
 }
 
+/* Prevent Chrome autofill from forcing black text/background */
+.login-form-card .input-box input:-webkit-autofill,
+.login-form-card .input-box input:-webkit-autofill:hover,
+.login-form-card .input-box input:-webkit-autofill:focus,
+.login-form-card .input-box input:-webkit-autofill:active {
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: #FFFFFF !important;
+    transition: background-color 5000s ease-in-out 0s !important;
+    caret-color: #FFFFFF;
+}
+
 .login-form-card .input-box input::placeholder {
-    color: rgba(255, 255, 255, .45) !important;
+    color: rgba(255, 255, 255, .55) !important;
 }
 
 .login-form-card .input-box input:focus {
-    border-color: #a855f7 !important;
-    box-shadow: 0 0 0 3px rgba(168, 85, 247, .15) !important;
+    border: 2px solid #D946EF !important;
+    box-shadow: 0 0 0 3px rgba(217, 70, 239, .25), 0 0 15px rgba(217, 70, 239, .3) !important;
+    background: rgba(217, 70, 239, .1) !important;
+}
+
+/* ==========================================================================
+   VALIDATION / MANDATORY FIELD STYLES
+   ========================================================================== */
+.input-error {
+    border: 2px solid var(--color-error) !important;
+    box-shadow: 0 0 0 3px rgba(255, 77, 109, .25), 0 0 12px rgba(255, 77, 109, .35) !important;
+}
+
+.field-error {
+    margin: -6px 0 12px 4px;
+    color: var(--color-error);
+    font-size: .8rem;
+    font-weight: 600;
+    animation: blinkError 1.1s ease-in-out infinite;
+}
+
+@keyframes blinkError {
+    0%, 100% { opacity: 1; }
+    50% { opacity: .35; }
 }
 
 .login-options {
-    color: #fff;
+    color: var(--color-text-secondary);
     margin: 10px 0 14px;
-    font-size: 12px;
+    font-size: 13px;
 }
 
 .login-options label {
@@ -192,45 +228,45 @@ body {
 }
 
 /* ==========================================================================
-   BUTTONS
+   BUTTONS (matches .otp-btn / .register-btn gradient styling)
    ========================================================================== */
 .otp-btn,
 .main-btn {
     width: 100%;
-    height: 42px;
+    height: 54px;
     outline: none;
-    border-radius: 12px;
-    font-size: 13px;
-    font-weight: 600;
+    border-radius: 14px;
+    font-family: var(--font-heading);
+    font-size: 16px;
+    font-weight: 700;
     cursor: pointer;
     transition: .3s;
+    border: none;
 }
 
-/* Styled Send OTP as an elegant secondary glass outline button */
+/* Send OTP — same gradient family as register/resend buttons */
 .otp-btn {
     margin-bottom: 14px;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: linear-gradient(90deg, #8B3DFF, #E63E8C);
     color: #fff;
+    box-shadow: 0 8px 25px rgba(230, 62, 140, .25);
 }
 
 .otp-btn:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 0.4);
-    transform: translateY(-2px);
+    transform: translateY(-3px);
+    filter: brightness(1.08);
 }
 
-/* Primary Action Login Button */
+/* Primary Verify & Login button */
 .main-btn {
-    border: none;
-    background: linear-gradient(90deg, #7c3aed, #ec4899);
+    background: linear-gradient(90deg, var(--color-primary), var(--color-primary-light), var(--color-accent));
     color: #fff;
-    box-shadow: 0 8px 20px rgba(236, 72, 153, .30);
+    box-shadow: 0 8px 25px rgba(230, 62, 140, .25);
 }
 
 .main-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 24px rgba(236, 72, 153, .40);
+    transform: translateY(-3px);
+    filter: brightness(1.08);
 }
 
 /* ==========================================================================
@@ -252,19 +288,19 @@ body {
 
 .divider span {
     margin: 0 12px;
-    color: #fff;
-    font-size: 11px;
+    color: var(--color-text-secondary);
+    font-size: 12px;
 }
 
 .switch-link {
     text-align: center;
-    color: #fff;
-    font-size: 12px;
+    color: var(--color-text-secondary);
+    font-size: 13px;
 }
 
 .switch-link span {
-    color: #f9a8d4;
-    font-weight: 600;
+    color: var(--color-gold);
+    font-weight: 700;
     cursor: pointer;
 }
 
@@ -279,35 +315,44 @@ body {
     margin-top: 16px;
 }
 
+/* Register option cards — matches .service-config-package hover treatment */
 .register-option-card {
-    height: 65px;
+    height: 80px;
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 12px;
-    background: rgba(255, 255, 255, .05);
-    backdrop-filter: blur(18px);
-    border: 1px solid rgba(255, 255, 255, .10);
-    border-radius: 14px;
+    justify-content: flex-start;
+    gap: 16px;
+    padding: 0 20px;
+    background: rgba(255, 209, 102, .08);
+    border: 1px solid rgba(255, 255, 255, .15);
+    border-radius: 16px;
     cursor: pointer;
-    transition: .3s;
+    transition: .35s;
 }
 
+.register-option-card svg {
+    width: 24px;
+    height: 24px;
+    color: var(--color-gold);
+    flex-shrink: 0;
+}
+
+.register-option-card h4 {
+    margin: 0;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 600;
+}
 .register-option-card:hover {
     transform: translateY(-2px);
-    background: linear-gradient(135deg, rgba(139, 92, 246, .30), rgba(236, 72, 153, .22));
-    box-shadow: 0 8px 18px rgba(236, 72, 153, .12);
+    border-color: rgba(255, 209, 102, .40);
+    background: linear-gradient(135deg, rgba(126, 34, 206, .30), rgba(236, 72, 153, .22));
+    box-shadow: 0 10px 25px rgba(0, 0, 0, .20);
 }
 
 .register-option-card i {
     font-size: 18px;
-    color: #f9a8d4;
-}
-
-.register-option-card h4 {
-    color: #fff;
-    font-size: 14px;
-    margin: 0;
+    color: var(--color-gold);
 }
 
 /* ==========================================================================
@@ -322,8 +367,8 @@ body {
 
     .login-form-card {
         width: 100%;
-        max-width: 350px;
-        padding: 50px 20px 20px;
+        max-width: 400px;
+        padding: 50px 22px 22px;
     }
 
     .login-avatar {
@@ -333,18 +378,18 @@ body {
     }
 
     .login-header h2 {
-        font-size: 22px;
+        font-size: 1.8rem;
     }
 
     .login-header p {
-        font-size: 12px;
+        font-size: 13px;
     }
 
     .login-form-card .input-box input,
     .otp-btn,
     .main-btn {
-        height: 44px;
-        font-size: 13px;
+        height: 50px;
+        font-size: 14px;
     }
 
     .register-option-card {
@@ -359,21 +404,52 @@ body {
 
     .login-form-card {
         max-width: 100%;
-        border-radius: 20px;
-        padding: 60px 25px 25px;
+        border-radius: 22px;
+        padding: 55px 20px 20px;
     }
 
     .login-header h2 {
-        font-size: 26px;
+        font-size: 1.7rem;
     }
 
     .login-header p {
-        font-size: 14px;
+        font-size: 13px;
     }
 
     .field-label,
     .switch-link,
     .login-options {
-        font-size: 14px;
+        font-size: 13px;
     }
+}
+
+/* ===== Login professional icons + OTP spacing ===== */
+.input-box .login-field-icon {
+  position: absolute; left: 16px; top: 50%; transform: translateY(-50%);
+  width: 20px; height: 20px; color: rgba(255,255,255,.78); z-index: 2;
+  pointer-events: none;
+}
+.input-box .login-field-icon svg { width: 100%; height: 100%; display: block; }
+.login-form-card .input-box input { padding-left: 50px !important; }
+.login-form-card .input-box input.login-otp-input {
+  padding-left: 18px !important; padding-right: 18px !important;
+  text-align: center !important; letter-spacing: .55em !important;
+  font-family: var(--font-body) !important; font-size: 16px !important; font-weight: 400 !important;
+}
+.login-form-card .input-box input.login-otp-input::placeholder {
+  letter-spacing: normal !important; font-family: var(--font-body) !important;
+  font-size: 15px !important; font-weight: 400 !important;
+}
+.login-form-card .email-entry-box { margin-bottom: 10px; }
+.login-form-card .otp-entry-box { margin-top: 2px; margin-bottom: 10px; }
+.input-box:focus-within .login-field-icon {
+  color: #FFD166; filter: drop-shadow(0 0 5px rgba(255,209,102,.28));
+}
+@media (max-width: 768px) {
+  .input-box .login-field-icon { width: 18px; height: 18px; left: 15px; }
+  .login-form-card .input-box input { padding-left: 46px !important; }
+  .login-form-card .input-box input.login-otp-input {
+    padding-left: 14px !important; padding-right: 14px !important;
+    letter-spacing: .45em !important; font-size: 16px !important;
+  }
 }

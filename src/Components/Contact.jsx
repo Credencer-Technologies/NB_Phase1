@@ -135,24 +135,6 @@ ${form.message}`;
                 <FaWhatsapp />
               </a>
 
-              <a
-                href="https://instagram.com"
-                target="_blank"
-                rel="noreferrer"
-                className="icon instagram"
-              >
-                <FaInstagram />
-              </a>
-
-              <a
-                href="https://facebook.com"
-                target="_blank"
-                rel="noreferrer"
-                className="icon facebook"
-              >
-                <FaFacebookF />
-              </a>
-
             </div>
           </div>
 
