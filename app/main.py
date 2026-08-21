@@ -4,12 +4,16 @@ from pathlib import Path
 from uuid import uuid4
 import shutil
 
+import cloudinary
+import cloudinary.uploader
+
 from fastapi import FastAPI, UploadFile, File, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from sqlalchemy import inspect, text
 
 from app.database import Base, SessionLocal, engine
+from app.config import CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET
 
 # Import models so SQLAlchemy knows about every table.
 from app.models.provider import Provider
@@ -36,7 +40,12 @@ from app.routes.offers import router as offer_router
 from app.routes.favorite import router as favorite_router
 
 
-Base.metadata.create_all(bind=engine)
+# ---------------------------------------------------------
+# TEMPORARILY DISABLED — MySQL is not set up on this machine yet.
+# Re-enable these three lines once MySQL/XAMPP is running.
+# ---------------------------------------------------------
+
+# Base.metadata.create_all(bind=engine)
 
 
 def ensure_provider_deletion_columns():
@@ -76,7 +85,7 @@ def ensure_provider_deletion_columns():
 
 # create_all() does not ALTER an existing table, so add the two columns once
 # for databases that were created before this feature existed.
-ensure_provider_deletion_columns()
+# ensure_provider_deletion_columns()
 
 
 def ensure_enquiry_service_column():
@@ -104,7 +113,7 @@ def ensure_enquiry_service_column():
         )
 
 
-ensure_enquiry_service_column()
+# ensure_enquiry_service_column()
 
 
 app = FastAPI(
@@ -124,6 +133,17 @@ app.add_middleware(
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
+)
+
+
+# ---------------------------------------------------------
+# Cloudinary configuration (used for video uploads)
+# ---------------------------------------------------------
+
+cloudinary.config(
+    cloud_name=CLOUDINARY_CLOUD_NAME,
+    api_key=CLOUDINARY_API_KEY,
+    api_secret=CLOUDINARY_API_SECRET,
 )
 
 
@@ -205,20 +225,29 @@ ALLOWED_DOCUMENT_TYPES = {
     "application/pdf",
 }
 
-MAX_FILE_SIZE = 10 * 1024 * 1024  # 10 MB
+ALLOWED_VIDEO_TYPES = {
+    "video/mp4",
+    "video/quicktime",
+    "video/webm",
+}
+
+MAX_FILE_SIZE = 10 * 1024 * 1024        # 10 MB — images/PDFs
+MAX_VIDEO_SIZE = 100 * 1024 * 1024      # 100 MB — videos
 
 
 @app.post("/api/v1/upload", tags=["Upload"])
 async def upload_file(file: UploadFile = File(...)):
     """
-    Upload provider profile images, portfolio images and ID documents.
+    Upload provider profile images, portfolio images, ID documents,
+    and videos.
 
     Frontend sends multipart/form-data using field name: file
 
-    Response:
-    {
-        "url": "http://127.0.0.1:8000/static/uploads/example.jpg"
-    }
+    - Images (JPG/PNG/WEBP) and PDFs -> saved locally, response:
+      { "url": "http://127.0.0.1:8000/static/uploads/example.jpg" }
+
+    - Videos (MP4/MOV/WEBM) -> uploaded to Cloudinary, response:
+      { "url": "https://res.cloudinary.com/.../example.mp4" }
     """
 
     if not file.filename:
@@ -227,6 +256,36 @@ async def upload_file(file: UploadFile = File(...)):
             detail="No file was selected.",
         )
 
+    # ---------------- VIDEO: send to Cloudinary ----------------
+    if file.content_type in ALLOWED_VIDEO_TYPES:
+        file_bytes = await file.read()
+
+        if len(file_bytes) > MAX_VIDEO_SIZE:
+            raise HTTPException(
+                status_code=400,
+                detail="Video size must not exceed 100 MB.",
+            )
+
+        try:
+            result = cloudinary.uploader.upload(
+                file_bytes,
+                resource_type="video",
+                folder="nari_bazar/videos",
+            )
+        except Exception as error:
+            raise HTTPException(
+                status_code=500,
+                detail=f"Cloudinary upload failed: {str(error)}",
+            ) from error
+
+        return {
+            "message": "File uploaded successfully",
+            "filename": file.filename,
+            "url": result["secure_url"],
+            "public_id": result["public_id"],
+        }
+
+    # ---------------- IMAGE / PDF: keep existing local storage logic ----------------
     allowed_types = ALLOWED_IMAGE_TYPES | ALLOWED_DOCUMENT_TYPES
 
     if file.content_type not in allowed_types:
@@ -234,7 +293,7 @@ async def upload_file(file: UploadFile = File(...)):
             status_code=400,
             detail=(
                 "Unsupported file type. "
-                "Only JPG, JPEG, PNG, WEBP and PDF files are allowed."
+                "Only JPG, JPEG, PNG, WEBP, PDF and MP4/MOV/WEBM files are allowed."
             ),
         )
 

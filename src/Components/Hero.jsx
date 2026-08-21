@@ -3,6 +3,9 @@ import { useMagnetic } from "../hooks/useMagnetic";
 import ScrollRevealText from "../Components/ScrollRevealText";
 import { useNavigate } from "react-router-dom";
 
+const HERO_VIDEO_URL =
+  "https://res.cloudinary.com/fe8fxptx/video/upload/v1787310185/nari_bazar/videos/xejgg4pkleueniloytkr.mp4";
+
 const Hero = () => {
   const primary = useMagnetic();
   const secondary = useMagnetic();
@@ -12,7 +15,7 @@ const Hero = () => {
     <section className="hero">
       {/* BACKGROUND VIDEO */}
       <video autoPlay muted loop playsInline className="hero-video">
-        <source src="/video/hero.mp4" type="video/mp4" />
+        <source src={HERO_VIDEO_URL} type="video/mp4" />
       </video>
 
       {/* Dark Overlay */}
