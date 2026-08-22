@@ -3,7 +3,9 @@ import { useMagnetic } from "../hooks/useMagnetic";
 import ScrollRevealText from "../Components/ScrollRevealText";
 import { useNavigate } from "react-router-dom";
 
-const HERO_VIDEO_URL =
+// 👉 Cloudinary video URL ikkada paste cheyandi
+// Cloudinary dashboard -> Media Library -> your video -> Copy URL
+const CLOUDINARY_VIDEO_URL =
   "https://res.cloudinary.com/fe8fxptx/video/upload/v1787310185/nari_bazar/videos/xejgg4pkleueniloytkr.mp4";
 
 const Hero = () => {
@@ -15,7 +17,7 @@ const Hero = () => {
     <section className="hero">
       {/* BACKGROUND VIDEO */}
       <video autoPlay muted loop playsInline className="hero-video">
-        <source src={HERO_VIDEO_URL} type="video/mp4" />
+        <source src={CLOUDINARY_VIDEO_URL} type="video/mp4" />
       </video>
 
       {/* Dark Overlay */}

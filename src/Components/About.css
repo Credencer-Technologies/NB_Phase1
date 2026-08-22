@@ -488,3 +488,137 @@
     transition: none;
   }
 }
+
+/* ==========================================
+   FAQ SECTION
+========================================== */
+
+.footer-faq {
+  width: 90%;
+  max-width: 900px;
+  margin: 60px auto 0;
+}
+
+.faq-container h2 {
+  text-align: center;
+  font-size: 32px;
+  font-weight: 600;
+  font-family: "Poppins", sans-serif;
+  color: #111827;
+}
+
+.faq-subtitle {
+  text-align: center;
+  margin: 12px 0 40px;
+  font-size: 16px;
+  color: #6B7280;
+  font-family: "Inter", sans-serif;
+}
+
+.faq-item {
+  background: #fff;
+  border: 1px solid #FCE7F3;
+  border-radius: 14px;
+  margin-bottom: 16px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 18px rgba(17, 24, 39, 0.05);
+}
+
+.faq-item:hover {
+  border-color: #DB2777;
+  box-shadow: 0 12px 30px rgba(219, 39, 119, 0.12);
+}
+
+.faq-question {
+  width: 100%;
+  border: none;
+  background: #fff;
+  cursor: pointer;
+  padding: 20px 24px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  font-family: "Poppins", sans-serif;
+  font-size: 17px;
+  font-weight: 500;
+  color: #111827;
+}
+
+.faq-question svg {
+  color: #DB2777;
+  font-size: 20px;
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease;
+}
+
+.faq-answer.show {
+  max-height: 200px;
+}
+
+.faq-answer p {
+  padding: 0 24px 20px;
+  font-size: 15px;
+  line-height: 1.8;
+  color: #6B7280;
+  font-family: "Inter", sans-serif;
+}
+
+.view-all-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 35px;
+}
+
+.view-all-faqs {
+  background: linear-gradient(135deg, #6B21A8, #DB2777);
+  color: #fff;
+  border: none;
+  outline: none;
+  padding: 14px 30px;
+  border-radius: 10px;
+  cursor: pointer;
+
+  font-family: "Poppins", sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+
+  transition: all 0.3s ease;
+
+  box-shadow: 0 8px 20px rgba(107, 33, 168, 0.25);
+}
+
+.view-all-faqs:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(219, 39, 119, 0.35);
+  background: linear-gradient(135deg, #7C3AED, #EC4899);
+}
+
+.view-all-faqs:active {
+  transform: scale(0.98);
+}
+
+@media (max-width: 768px) {
+  .footer-faq {
+    width: 92%;
+  }
+
+  .faq-container h2 {
+    font-size: 28px;
+  }
+
+  .faq-question {
+    font-size: 16px;
+    padding: 18px;
+  }
+
+  .faq-answer p {
+    padding: 0 18px 18px;
+  }
+}
