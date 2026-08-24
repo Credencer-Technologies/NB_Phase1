@@ -35,3 +35,5 @@ dist/
 *.egg-info/
 
 node_modules/
+# Local uploaded files (images/PDFs saved by backend)
+static/uploads/

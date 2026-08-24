@@ -41,11 +41,10 @@ from app.routes.favorite import router as favorite_router
 
 
 # ---------------------------------------------------------
-# TEMPORARILY DISABLED — MySQL is not set up on this machine yet.
-# Re-enable these three lines once MySQL/XAMPP is running.
+# MySQL / XAMPP must be running for these to work.
 # ---------------------------------------------------------
 
-# Base.metadata.create_all(bind=engine)
+Base.metadata.create_all(bind=engine)
 
 
 def ensure_provider_deletion_columns():
@@ -85,7 +84,7 @@ def ensure_provider_deletion_columns():
 
 # create_all() does not ALTER an existing table, so add the two columns once
 # for databases that were created before this feature existed.
-# ensure_provider_deletion_columns()
+ensure_provider_deletion_columns()
 
 
 def ensure_enquiry_service_column():
@@ -113,7 +112,7 @@ def ensure_enquiry_service_column():
         )
 
 
-# ensure_enquiry_service_column()
+ensure_enquiry_service_column()
 
 
 app = FastAPI(
